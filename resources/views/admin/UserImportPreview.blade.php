@@ -42,7 +42,7 @@
             <form action="/admin/users/import" method="post" enctype="multipart/form-data">
               @csrf
               <div class="form-group">
-                  <input hidden type="file" value="{{ $param['location'] }}" name="file">
+                  <input hidden type="text" value="{{ $param['location'] }}" name="file">
               </div>
             <div class="row">
               <div class="col-12">

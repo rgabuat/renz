@@ -42,11 +42,12 @@ Route::group(['prefix' => 'admin'],function(){
     Route::get('/dashboard/register', [AdminController::class, 'index'])->name('admin/dashboard/register');
 
     //imports
-    Route::get('/users/import', [UsersImportController::class,'show'])->name('admin/users/import');
-    Route::post('/users/parse_import', [UsersImportController::class,'parse'])->name('admin/users/parse_import');
-    Route::post('/users/import', [UsersImportController::class,'store'])->name('admin/users/import');
+    Route::group(['prefix' => 'users'],function(){
+        Route::get('/import', [UsersImportController::class,'show'])->name('admin/users/import');
+        Route::post('/parse_import', [UsersImportController::class,'parse'])->name('admin/users/parse_import');
+        Route::post('/import', [UsersImportController::class,'store'])->name('admin/users/import');
+    });
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin/dashboard');
-
 });
 

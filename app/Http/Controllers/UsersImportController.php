@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Imports\UserImport;
 use App\Imports\UserCollection;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class UsersImportController extends Controller
 {
@@ -21,16 +22,17 @@ class UsersImportController extends Controller
         if($request->hasFile('file')){
             $data =  Excel::toArray(new UserCollection, $location);
             $heading = Excel::toArray([], $location);
-            $result = array(
-                'data'           =>$data,
-                'page_header'    =>'Review Uploaded file',
-                'location'       =>$location,  
-          );
 
+            $destinationPath = 'public/excels/uploads';
+            $file = $request->file('file');
+            $file_name = $file->getClientOriginalName();
+            $path = $request->file('file')->storeAs($destinationPath,$file_name);
+            // $destinationFQN = "$destinationPath/$destinationName";
+          
             $param = [
                 'users' => $data[0],
                 'heading' => $heading[0][0],
-                'location' => $rpath
+                'location' => $file_name
             ];
            
         }
@@ -39,9 +41,12 @@ class UsersImportController extends Controller
 
     public function store(Request $request)
     {
-       $file = $request->file('file');
-       Excel::import(new UserImport,$file);
+        $filename = $request->file;
+        $destinationPath = storage_path() .'/app/public/excels/uploads';
+        $file = $destinationPath.'/'.$filename;
+        Excel::import(new UserImport,$file);
 
-       return back()->with('status','Excel File Imported Successfully');
+        Storage::delete('/storage/app/public/excels/uploads'.$filename);
+        return redirect('./admin/users/import')->with('status','Excel File Imported Successfully');
     }
 }
