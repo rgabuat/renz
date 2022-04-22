@@ -12,7 +12,7 @@ class UsersImportController extends Controller
 {
     public function show()
     {
-        return view('admin.UserImport');
+        return view('admin.users.UserImport');
     }
 
 
@@ -36,7 +36,7 @@ class UsersImportController extends Controller
             ];
            
         }
-        return view('admin.UserImportPreview', compact('param'));
+        return view('admin.users.UserImportPreview', compact('param'));
     }
 
     public function store(Request $request)

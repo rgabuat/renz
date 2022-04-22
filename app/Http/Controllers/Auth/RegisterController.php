@@ -34,20 +34,30 @@ class RegisterController extends Controller
             'password' => 'required|confirmed',
         ]);
 
-                $user = User::create([
-                    'company' => $request->company,
-                    'first_name' => $request->firstname,
-                    'last_name' => $request->lastname,
-                    'address' => $request->address,
-                    'reg_number' => $request->reg_number,
-                    'phone_number' => $request->phone_number,
-                    'username' => $request->username,
-                    'email' => $request->email,
-                    'password' => Hash::make($request->password),
-                    'role' => 'editor',
-                ]);
+            $req = $request->has('role');
+            
+            if($req)
+            {
+                $role = $request->role;
+            }
+            else 
+            {
+                $role = 'user';
+            }
 
-        $user->assignRole('admin');
+            $user = User::create([
+                'company' => $request->company,
+                'first_name' => $request->firstname,
+                'last_name' => $request->lastname,
+                'address' => $request->address,
+                'reg_number' => $request->reg_number,
+                'phone_number' => $request->phone_number,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => $role,
+            ]);
+            $user->assignRole($role);
         
         return back()->with('status', 'Account Registration Success');
     }

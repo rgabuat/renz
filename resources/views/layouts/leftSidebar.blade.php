@@ -35,58 +35,53 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                  Dashboard
+              </p>
+            </a>
+          </li>
+          @role('admin')
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                 Users Management
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Active Page</p>
+                <a href="{{ route(auth()->user()->role.'/users/create') }}" class="nav-link">
+                  <i class="pl-3 nav-icon fas fa-user-plus"></i>
+                  <p class="pl-3">
+                    Add User
+                  </p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inactive Page</p>
+                <a href="{{ route(auth()->user()->role.'/users/list') }}" class="nav-link">
+                  <i class="pl-3 nav-icon fas fa-eye"></i>
+                  <p class="pl-3">
+                    View Users
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route(auth()->user()->role.'/users/import') }}" class="nav-link">
+                  <i class="pl-3 nav-icon fas fa-file-import"></i>
+                  <p class="pl-3">
+                    Import Users
+                  </p>
                 </a>
               </li>
             </ul>
           </li>
-          <!-- <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li> -->
-          @role('admin')
-          <li class="nav-item">
-            <a href="{{ route('admin/dashboard/register') }}" class="nav-link">
-              <i class="nav-icon fas fa-user-plus"></i>
-              <p>
-                Create Account
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('admin/users/import') }}" class="nav-link">
-              <i class="nav-icon fas fa-file-import"></i>
-              <p>
-                Import Users
-              </p>
-            </a>
-          </li>
           @endrole
           <li class="nav-item">
-            <a href="{{ route('admin/dashboard/register') }}" class="nav-link">
+            <a href="{{route(auth()->user()->role.'/view-profile')}}" class="nav-link">
               <i class="nav-icon fas fa-eye"></i>
               <p>
                 Profile
@@ -94,8 +89,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin/dashboard/register') }}" class="nav-link">
-              <i class="nav-icon fas fa-unlock-alt"></i>
+            <a href="{{ route(auth()->user()->role.'/change-password') }}" class="nav-link">
+              <i class="nav-icon fas fa-key"></i>
               <p>
                 Change Password
               </p>
