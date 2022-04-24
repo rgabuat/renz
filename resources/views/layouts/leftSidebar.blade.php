@@ -61,23 +61,23 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{ route(auth()->user()->role.'/users/list') }}" class="nav-link">
-                  <i class="pl-3 nav-icon fas fa-eye"></i>
-                  <p class="pl-3">
-                    View Users
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route(auth()->user()->role.'/users/import') }}" class="nav-link">
-                  <i class="pl-3 nav-icon fas fa-file-import"></i>
-                  <p class="pl-3">
-                    Import Users
-                  </p>
-                </a>
-              </li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route(auth()->user()->role.'/users/import') }}" class="nav-link">
+              <i class="pl-3 nav-icon fas fa-file-import"></i>
+              <p class="pl-3">
+                Import Data
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route(auth()->user()->role.'/users/list') }}" class="nav-link">
+              <i class="pl-3 nav-icon fas fa-eye"></i>
+              <p class="pl-3">
+                View Data
+              </p>
+            </a>
           </li>
           @endrole
           <li class="nav-item">

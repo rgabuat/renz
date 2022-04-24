@@ -6,7 +6,7 @@
   <div class="container">
     <div class="col-lg-8 m-auto">
       <div class="login-logo">
-        <a href="../../index2.html"><b>Admin</b>LTE</a>
+        <a href="../../index2.html"><b>LOGIN SYSTEM</b></a>
       </div>
       <!-- /.login-logo -->
       <div class="card">
