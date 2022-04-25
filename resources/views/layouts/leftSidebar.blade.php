@@ -65,19 +65,38 @@
           </li>
           <li class="nav-item">
             <a href="{{ route(auth()->user()->role.'/users/import') }}" class="nav-link">
-              <i class="pl-3 nav-icon fas fa-file-import"></i>
-              <p class="pl-3">
+              <i class="nav-icon fas fa-file-import"></i>
+              <p class="pl-1">
                 Import Data
               </p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{ route(auth()->user()->role.'/users/list') }}" class="nav-link">
-              <i class="pl-3 nav-icon fas fa-eye"></i>
-              <p class="pl-3">
+              <i class="nav-icon fas fa-eye"></i>
+              <p class="pl-1">
                 View Data
               </p>
             </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-building"></i>
+              <p>
+                 Company
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route(auth()->user()->role.'/users/create') }}" class="nav-link">
+                  <i class="pl-3 nav-icon fas fa-eye"></i>
+                  <p class="pl-3">
+                    View All Company
+                  </p>
+                </a>
+              </li>
+            </ul>
           </li>
           @endrole
           <li class="nav-item">

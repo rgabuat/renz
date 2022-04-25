@@ -42,7 +42,7 @@ class RegisterController extends Controller
             }
             else 
             {
-                $role = 'user';
+                $role = 'system-user';
             }
 
             $user = User::create([
