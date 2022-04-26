@@ -71,24 +71,24 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="{{ route('users/import') }}" class="nav-link">
-              <i class="nav-icon fas fa-file-import"></i>
-              <p class="pl-1">
-                Import Data
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('users/list') }}" class="nav-link">
-              <i class="nav-icon fas fa-eye"></i>
-              <p class="pl-1">
-                View Data
-              </p>
-            </a>
-          </li>
           @endrole
           @role('system-admin|system-editor|company-admin')
+            <li class="nav-item">
+              <a href="{{ route('users/import') }}" class="nav-link">
+                <i class="nav-icon fas fa-file-import"></i>
+                <p class="pl-1">
+                  Import Data
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('users/list') }}" class="nav-link">
+                <i class="nav-icon fas fa-eye"></i>
+                <p class="pl-1">
+                  View Data
+                </p>
+              </a>
+            </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-building"></i>
