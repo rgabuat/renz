@@ -38,11 +38,10 @@
                 <span class="fas fa-align-right"></span>
                 </button>
                 <div class="dropdown-menu" role="menu" style="">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
+                    @role('system-admin')
+                    <a class="dropdown-item" href="#">Edit User</a>
+                    <a class="dropdown-item" href="#">Deactivate User</a>
+                    @endrole
                 </div>
             </div>
             </td>

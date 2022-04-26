@@ -43,7 +43,7 @@
               </p>
             </a>
           </li>
-          @role('admin')
+          @role('system-admin|system-editor')
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
@@ -54,7 +54,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route(auth()->user()->role.'/users/create') }}" class="nav-link">
+                <a href="{{ route('users/list') }}" class="nav-link">
+                  <i class="pl-3 nav-icon fas fa-eye"></i>
+                  <p class="pl-3">
+                    View All Users
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('users/create') }}" class="nav-link">
                   <i class="pl-3 nav-icon fas fa-user-plus"></i>
                   <p class="pl-3">
                     Add User
@@ -64,7 +72,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="{{ route(auth()->user()->role.'/users/import') }}" class="nav-link">
+            <a href="{{ route('users/import') }}" class="nav-link">
               <i class="nav-icon fas fa-file-import"></i>
               <p class="pl-1">
                 Import Data
@@ -72,35 +80,45 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route(auth()->user()->role.'/users/list') }}" class="nav-link">
+            <a href="{{ route('users/list') }}" class="nav-link">
               <i class="nav-icon fas fa-eye"></i>
               <p class="pl-1">
                 View Data
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-building"></i>
-              <p>
-                 Company
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route(auth()->user()->role.'/users/create') }}" class="nav-link">
-                  <i class="pl-3 nav-icon fas fa-eye"></i>
-                  <p class="pl-3">
-                    View All Company
-                  </p>
-                </a>
-              </li>
-            </ul>
-          </li>
           @endrole
+          @role('system-admin|system-editor|company-admin')
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-building"></i>
+                <p>
+                  Company
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('company/list') }}" class="nav-link">
+                    <i class="pl-3 nav-icon fas fa-eye"></i>
+                    <p class="pl-3">
+                      View All Company
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('company/create') }}" class="nav-link">
+                    <i class="pl-3 nav-icon fas fa-plus"></i>
+                    <p class="pl-3">
+                      Add Company
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            @endrole
           <li class="nav-item">
-            <a href="{{route(auth()->user()->role.'/view-profile')}}" class="nav-link">
+            <a href="{{route('view-profile')}}" class="nav-link">
               <i class="nav-icon fas fa-eye"></i>
               <p>
                 Profile
@@ -108,7 +126,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route(auth()->user()->role.'/change-password') }}" class="nav-link">
+            <a href="{{ route('change-password') }}" class="nav-link">
               <i class="nav-icon fas fa-key"></i>
               <p>
                 Change Password

@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\UsersImportController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,21 +42,26 @@ Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);
 
 
-Route::group(['prefix' => 'admin'],function(){
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin/dashboard');
-    Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordGet'])->name('admin/change-password');
-    Route::get('/view-profile', [ProfileController::class, 'index'])->name('admin/view-profile');
+Route::group(['middleware' => 'auth'],function(){
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordGet'])->name('change-password');
+    Route::get('/view-profile', [ProfileController::class, 'index'])->name('view-profile');
 
     //imports
     Route::group(['prefix' => 'users'],function(){
-        Route::get('/import', [UsersImportController::class,'show'])->name('admin/users/import');
-        Route::post('/parse_import', [UsersImportController::class,'parse'])->name('admin/users/parse_import');
-        Route::post('/import', [UsersImportController::class,'store'])->name('admin/users/import');
-        Route::get('/list', [UsersController::class,'index'])->name('admin/users/list');
-        Route::get('/create', [UsersController::class, 'create'])->name('admin/users/create');
+        Route::get('/import', [UsersImportController::class,'show'])->name('users/import');
+        Route::post('/parse_import', [UsersImportController::class,'parse'])->name('users/parse_import');
+        Route::post('/import', [UsersImportController::class,'store'])->name('users/import');
+        Route::get('/list', [UsersController::class,'index'])->name('users/list');
+        Route::get('/create', [UsersController::class, 'create'])->name('users/create');
     });
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin/dashboard');
+    Route::group(['prefix' => 'company'],function(){
+        Route::get('/list', [CompanyController::class,'index'])->name('company/list');
+        Route::get('/create', [CompanyController::class, 'create'])->name('company/create');
+    });
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 });
 

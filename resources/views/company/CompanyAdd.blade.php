@@ -7,7 +7,7 @@
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <p class="login-box-msg h2 text-left px-0">Create Account</p>
+          <p class="login-box-msg h2 text-left px-0">Create Company</p>
                 @if (session('status'))
                     <div class="bg-danger text-center text-white mb-3">
                         {{ session('status') }}
@@ -54,7 +54,17 @@
                 </div>
               </div>
             </div>
-            
+            <div class="input-group mb-3">
+              <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" placeholder="Address">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-map-marker-alt"></span>
+                </div>
+              </div>
+                @error('address')
+                    <span class="error invalid-feedback"> {{ $message }}</span>
+                @enderror
+            </div>
             <div class="row">
               <div class="col-lg-6">
                 <div class="input-group mb-3">
@@ -71,13 +81,13 @@
               </div>
               <div class="col-lg-6">
                 <div class="input-group mb-3">
-                  <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" placeholder="Address">
+                  <input type="tel" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror" placeholder="Registered Number">
                   <div class="input-group-append">
                     <div class="input-group-text">
-                      <span class="fas fa-map-marker-alt"></span>
+                      <span class="fas fa-circle"></span>
                     </div>
                   </div>
-                    @error('address')
+                    @error('reg_number')
                         <span class="error invalid-feedback"> {{ $message }}</span>
                     @enderror
                 </div>
