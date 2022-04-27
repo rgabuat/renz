@@ -12,9 +12,13 @@
       <div class="card">
         <div class="card-body ">
           <p class="login-box-msg">Register Now</p>
-                @if (session('status'))
-                    <div class="bg-danger text-center text-white mb-3">
-                        {{ session('status') }}
+                @if (session('error'))
+                    <div class="bg-danger text-center text-white py-2 mb-3">
+                        {{ session('error') }}
+                    </div>
+                @elseif(session('success'))
+                  <div class="bg-success text-center text-white py-2 mb-3">
+                        {{ session('success') }}
                     </div>
                 @endif
           <form action="{{ route('register') }}" method="post">
@@ -33,7 +37,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="input-group mb-3">
-                  <input type="text" name="firstname" class="form-control @error('firstname') is-invalid @enderror" placeholder="Firstname">
+                  <input type="text" name="firstname" class="form-control @error('firstname') is-invalid @enderror" value="{{ old('firstname') }}" placeholder="Firstname">
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-user"></span>
@@ -46,7 +50,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="input-group mb-3">
-                  <input type="text" name="lastname" class="form-control @error('lastname') is-invalid @enderror" placeholder="Lastname">
+                  <input type="text" name="lastname" class="form-control @error('lastname') is-invalid @enderror" value="{{ old('lastname') }}" placeholder="Lastname">
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-user"></span>
@@ -59,7 +63,7 @@
               </div>
             </div>
             <div class="input-group mb-3">
-              <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" placeholder="Address">
+              <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Address">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-map-marker-alt"></span>
@@ -72,7 +76,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="input-group mb-3">
-                  <input type="tel" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror" placeholder="Registered Number">
+                  <input type="tel" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror" value="{{ old('reg_number') }}" placeholder="Registered Number">
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-mobile-alt"></span>
@@ -146,6 +150,28 @@
                     @enderror
                 </div>
               </div>
+            </div>
+            <div>
+              <label for="captcha">Answer this question</label>
+              @php
+                  $randNum1 = mt_rand(1,20);
+                  $randNum2 = mt_rand(1, 20);
+                  $sum = $randNum1 - $randNum2;
+              @endphp
+                <input type="hidden" name="captchaResult" value="{{ md5($sum) }}">
+              <div class="row">
+                <div class="col-lg-3">
+                  <h5> Answer : {{ $randNum1 }} - {{ $randNum2 }} =</h5>
+                </div>
+                <div class="col-lg-9">
+                  <div class="form-group">
+                    <input type="tel" name="captcha" class="form-control @error('captcha') is-invalid @enderror" value="" size="2"> 
+                  </div>
+                </div>
+              </div>
+                @error('captcha')
+                    <span class="error invalid-feedback"> {{ $message }}</span>
+                @enderror
             </div>
             <div class="row">
               <!-- /.col -->

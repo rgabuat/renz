@@ -53,7 +53,7 @@ class UsersController extends Controller
     public function edit($uid)
     {
         $user = User::where('id',$uid)->with('roles')->first();
-        $roles = Role::all();
+        $roles = Role::whereNotIn('name', ['company admin','company user'])->get();
         return view('admin.users.UserEdit', compact('user','roles'));
     }
 
@@ -93,7 +93,7 @@ class UsersController extends Controller
 
     public function create()
     {
-        $roles = Role::all();
+        $roles = Role::whereNotIn('name', ['company admin','company user'])->get();
         return view('admin.users.UserAdd',compact('roles'));
     }
 
