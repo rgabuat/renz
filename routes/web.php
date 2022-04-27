@@ -40,12 +40,14 @@ Route::get('/logout', [LogoutController::class, 'store'])->name('logout');
 
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);
+Route::post('/changePassword', [ChangePasswordController::class, 'changePasswordPost'])->name('changePassword');
 
 
 Route::group(['middleware' => 'auth'],function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordGet'])->name('change-password');
     Route::get('/view-profile', [ProfileController::class, 'index'])->name('view-profile');
+    Route::post('/update-profile/{uid}', [ProfileController::class, 'update'])->name('update-profile/{uid}');
 
     //imports
     Route::group(['prefix' => 'users'],function(){
@@ -83,4 +85,4 @@ Route::group(['prefix' => 'user'],function(){
 });
 
 
-Route::post('/changePassword', [ChangePasswordController::class, 'changePasswordPost'])->name('changePassword');
+

@@ -9,11 +9,11 @@
         <div class="card-body ">
           <p class="login-box-msg h2 text-left px-0">My Profile</p>
                 @if (session('status'))
-                    <div class="bg-danger text-center text-white mb-3">
+                    <div class="bg-success text-center text-white py-2 mb-3">
                         {{ session('status') }}
                     </div>
                 @endif
-          <form action="#" method="post">
+          <form action="{{ url('update-profile/'.auth()->user()->id) }}" method="post" enctype="multipart/form-data">
               @csrf
             <div class="input-group mb-3">
               <input type="text" name="company" class="form-control @error('company') is-invalid @enderror" value="{{ auth()->user()->company }}" placeholder="Company">
@@ -121,11 +121,18 @@
                 <select class="custom-select" name="role" id="role">
                   <option value="">Select Role</option>
                   @foreach($roles as $role)
-                    <option value="{{$role['name']}}" {{ (auth()->user()->role == $role['name']) ? 'selected' : '' }}>{{$role['name']}}</option>
+                    <option value="{{$role['name']}}" {{ (auth()->user()->roles[0]->name == $role['name']) ? 'selected' : '' }}>{{$role['name']}}</option>
                   @endforeach
                 </select>
               </div>
             @endrole
+            <div class="form-group">
+                    <label for="image">Profile Image</label>
+                    <input type="file" name="image" class="form-control" placeholder="Choose image" id="image">
+                    @error('image')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+            </div>
             <div class="row">
               <div class="col-12">
                 <button type="submit" class="btn btn-primary btn-block mb-3">UPDATE PROFILE</button>

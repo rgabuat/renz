@@ -10,12 +10,14 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{ asset('vendors/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">@auth {{ auth()->user()->first_name }} @endauth</a>
-        </div>
+        <a href="{{ route('view-profile') }}">
+          <div class="image">
+            <img src="{{ asset('storage/'.auth()->user()->profile_image) }}" alt="{{ auth()->user()->profile_image }}">
+          </div>
+          <div class="info">
+            <a href="{{ route('view-profile') }}" class="d-block">@auth {{ auth()->user()->first_name }} {{ auth()->user()->last_name }} @endauth</a>
+          </div>
+        </a>
       </div>
 
       <!-- SidebarSearch Form -->
