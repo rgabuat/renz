@@ -43,7 +43,7 @@
               </p>
             </a>
           </li>
-          @role('system-admin|system-editor')
+          @role('system admin|system editor')
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
@@ -72,7 +72,7 @@
             </ul>
           </li>
           @endrole
-          @role('system-admin|system-editor|company-admin')
+          @role('system admin|system editor|company admin')
             <li class="nav-item">
               <a href="{{ route('users/import') }}" class="nav-link">
                 <i class="nav-icon fas fa-file-import"></i>

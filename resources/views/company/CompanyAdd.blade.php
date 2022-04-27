@@ -9,11 +9,11 @@
         <div class="card-body ">
           <p class="login-box-msg h2 text-left px-0">Create Company</p>
                 @if (session('status'))
-                    <div class="bg-danger text-center text-white mb-3">
+                    <div class="bg-success text-center text-white py-2 mb-3">
                         {{ session('status') }}
                     </div>
                 @endif
-          <form action="#" method="post">
+          <form action="{{ route('company/store') }}" method="post">
               @csrf
             <div class="input-group mb-3">
               <input type="text" name="company" class="form-control @error('company') is-invalid @enderror" value="{{ old('company') }}" placeholder="Company">
@@ -134,7 +134,7 @@
                   <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="******">
                   <div class="input-group-append">
                     <div class="input-group-text">
-                      <span class="fas fa-lock"></span>
+                      <span class="fas fa-key"></span>
                     </div>
                   </div>
                     @error('password_confirmation')

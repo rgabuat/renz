@@ -54,11 +54,21 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/import', [UsersImportController::class,'store'])->name('users/import');
         Route::get('/list', [UsersController::class,'index'])->name('users/list');
         Route::get('/create', [UsersController::class, 'create'])->name('users/create');
+        Route::post('/store', [UsersController::class, 'store'])->name('users/store');
+        Route::get('/edit/{uid}', [UsersController::class, 'edit'])->name('users/edit/{uid}');
+        Route::post('/update/{uid}', [UsersController::class, 'update'])->name('users/update/{uid}');
+        Route::post('/deactivate/{uid}', [UsersController::class, 'deactivateUser'])->name('users/deactivate/{uid}');
+        Route::post('/activate/{uid}', [UsersController::class, 'activateUser'])->name('users/activate/{uid}');
     });
 
     Route::group(['prefix' => 'company'],function(){
         Route::get('/list', [CompanyController::class,'index'])->name('company/list');
         Route::get('/create', [CompanyController::class, 'create'])->name('company/create');
+        Route::post('/store', [CompanyController::class, 'store'])->name('company/store');
+        Route::get('/edit/{uid}', [CompanyController::class, 'edit'])->name('company/edit/{uid}');
+        Route::post('/update/{uid}', [CompanyController::class, 'update'])->name('company/update/{uid}');
+        Route::post('/deactivate/{uid}', [CompanyController::class, 'deactivateUser'])->name('company/deactivate/{uid}');
+        Route::post('/activate/{uid}', [CompanyController::class, 'activateUser'])->name('company/activate/{uid}');
     });
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
