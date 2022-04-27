@@ -12,7 +12,7 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <a href="{{ route('view-profile') }}">
           <div class="image">
-            <img src="{{ asset('storage/'.auth()->user()->profile_image) }}" alt="{{ auth()->user()->profile_image }}">
+            <img src="{{ asset('storage/'.auth()->user()->profile_image) }}" alt="avatar">
           </div>
           <div class="info">
             <a href="{{ route('view-profile') }}" class="d-block">@auth {{ auth()->user()->first_name }} {{ auth()->user()->last_name }} @endauth</a>
