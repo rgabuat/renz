@@ -43,7 +43,7 @@
               </p>
             </a>
           </li>
-          @role('system admin|system editor')
+          @role('system admin|system editor|company admin')
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
