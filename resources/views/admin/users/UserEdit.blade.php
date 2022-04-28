@@ -54,57 +54,48 @@
                 </div>
               </div>
             </div>
-            <div class="input-group mb-3">
-              <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" value="{{ $user->address }}" placeholder="Address">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-map-marker-alt"></span>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" value="{{ $user->address }}" placeholder="Address">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-map-marker-alt"></span>
+                      </div>
+                    </div>
+                      @error('address')
+                          <span class="error invalid-feedback"> {{ $message }}</span>
+                      @enderror
+                  </div>
                 </div>
-              </div>
-                @error('address')
-                    <span class="error invalid-feedback"> {{ $message }}</span>
-                @enderror
+                <div class="col-lg-6">
+                  <div class="input-group mb-3">
+                    <input type="tel" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ $user->phone_number }}" placeholder="Phone Number">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-phone-alt"></span>
+                      </div>
+                    </div>
+                      @error('phone_number')
+                          <span class="error invalid-feedback"> {{ $message }}</span>
+                      @enderror
+                  </div>
+                </div>
             </div>
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-md-6">
                 <div class="input-group mb-3">
-                  <input type="tel" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror" value="{{ $user->reg_number }}" placeholder="Registered Number">
+                  <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ $user->username }}" placeholder="Username">
                   <div class="input-group-append">
                     <div class="input-group-text">
-                      <span class="fas fa-mobile-alt"></span>
+                      <span class="fas fa-user-tie"></span>
                     </div>
                   </div>
-                    @error('reg_number')
+                    @error('username')
                         <span class="error invalid-feedback"> {{ $message }}</span>
                     @enderror
                 </div>
               </div>
-              <div class="col-lg-6">
-                <div class="input-group mb-3">
-                  <input type="tel" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ $user->phone_number }}" placeholder="Phone Number">
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <span class="fas fa-phone-alt"></span>
-                    </div>
-                  </div>
-                    @error('phone_number')
-                        <span class="error invalid-feedback"> {{ $message }}</span>
-                    @enderror
-                </div>
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ $user->username }}" placeholder="Username">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-user-tie"></span>
-                </div>
-              </div>
-                @error('username')
-                    <span class="error invalid-feedback"> {{ $message }}</span>
-                @enderror
-            </div>
-            <div class="row">
                 <div class="col-md-6">
                     <div class="input-group mb-3">
                     <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $user->email }}" placeholder="Email">
@@ -114,19 +105,6 @@
                         </div>
                     </div>
                         @error('email')
-                            <span class="error invalid-feedback"> {{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="input-group mb-3">
-                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" value="" placeholder="********">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                        <span class="fas fa-key"></span>
-                        </div>
-                    </div>
-                        @error('password')
                             <span class="error invalid-feedback"> {{ $message }}</span>
                         @enderror
                     </div>

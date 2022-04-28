@@ -93,18 +93,20 @@
                 </div>
               </div>
             </div>
-            <div class="input-group mb-3">
-              <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ $company->username }}" placeholder="username">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-user-tie"></span>
-                </div>
-              </div>
-                @error('username')
-                    <span class="error invalid-feedback"> {{ $message }}</span>
-                @enderror
-            </div>
             <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ $company->username }}" placeholder="username">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                        <span class="fas fa-user-tie"></span>
+                        </div>
+                    </div>
+                        @error('username')
+                            <span class="error invalid-feedback"> {{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
                 <div class="col-md-6">
                     <div class="input-group mb-3">
                     <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $company->email }}" placeholder="Email">
@@ -114,19 +116,6 @@
                         </div>
                     </div>
                         @error('email')
-                            <span class="error invalid-feedback"> {{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="input-group mb-3">
-                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" value="" placeholder="********">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                        <span class="fas fa-key"></span>
-                        </div>
-                    </div>
-                        @error('password')
                             <span class="error invalid-feedback"> {{ $message }}</span>
                         @enderror
                     </div>

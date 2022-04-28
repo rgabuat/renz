@@ -22,6 +22,14 @@ class ProfileController extends Controller
         return view('admin.profile.ViewProfile', compact('roles'));
     }
 
+    public function edit()
+    {
+
+        $roles = Role::all();
+        return view('admin.profile.EditProfile', compact('roles'));
+    }
+
+
 
     public function update(Request $request,$uid)
     {

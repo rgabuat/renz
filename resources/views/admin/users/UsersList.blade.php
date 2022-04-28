@@ -5,11 +5,9 @@
     <thead>
         <tr>
             <th>S/N</th>
-            <th>Company</th>
             <th>Firstname</th>
             <th>Lastname</th>
             <th>Address</th>
-            <th>Reg No.</th>
             <th>Phone</th>
             <th>Email</th>
             <th>Username</th>
@@ -21,11 +19,9 @@
         @foreach($users as $user)
         <tr>
             <td>{{ $user['id']}}</td>
-            <td>{{ $user['company']}}</td>
             <td>{{ $user['first_name']}}</td>
             <td>{{ $user['last_name']}}</td>
             <td>{{ $user['address']}}</td>
-            <td>{{ $user['reg_number']}}</td>
             <td>{{ $user['phone_number']}}</td>
             <td>{{ $user['email']}}</td>
             <td>{{ $user['username']}}</td>
@@ -36,7 +32,6 @@
                 <span class="fas fa-align-right"></span>
                 </button>
                 <div class="dropdown-menu" role="menu" style="">
-                   
                     @role('system admin|system editor')
                     <a class="dropdown-item" href="{{ url('users/edit/'.$user['id'])}}"><span class="fas fa-pen mr-2"></span>Edit User</a>
                     @endrole

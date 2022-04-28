@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordGet'])->name('change-password');
     Route::get('/view-profile', [ProfileController::class, 'index'])->name('view-profile');
+    Route::get('/edit-profile', [ProfileController::class, 'edit'])->name('edit-profile');
     Route::post('/update-profile/{uid}', [ProfileController::class, 'update'])->name('update-profile/{uid}');
 
     //imports

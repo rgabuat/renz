@@ -29,14 +29,14 @@ class CompanyController extends Controller
     public function create()
     {
         $user = auth()->user();
-        if($user->hasRole(['system admin','system editor']))
-        {
-            $roles = Role::all();
-        }
-        else 
-        {
+        // if($user->hasRole(['system admin','system editor']))
+        // {
+        //     $roles = Role::all();
+        // }
+        // else 
+        // {
             $roles = Role::whereNotIn('name', ['system admin', 'system editor','system user'])->get();
-        }
+        // }
         return view('company.CompanyAdd',compact('roles'));
     }
 
@@ -75,7 +75,7 @@ class CompanyController extends Controller
     public function edit($uid)
     {
         $company = Company::where('id',$uid)->with('roles')->first();
-        $roles = Role::all();
+        $roles = Role::whereNotIn('name', ['system admin', 'system editor','system user'])->get();
         return view('company.CompanyEdit', compact('company','roles'));
     }
 
