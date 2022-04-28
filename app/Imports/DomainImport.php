@@ -11,10 +11,12 @@ use Illuminate\Support\Facades\Hash;
 
 class DomainImport implements ToModel,WithHeadingRow
 {
-    /**
-    * @param Collection $collection
+     /**
+    * @param array $row
+    *
+    * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function collection(Collection $collection)
+    public function model(array $row)
     {
         return new Domain([
             'domain' => $row['domain'],

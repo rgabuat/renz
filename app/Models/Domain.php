@@ -10,4 +10,15 @@ class Domain extends Model
     use HasFactory;
 
     protected $table = 'domain_data';
+    protected $fillable = [
+        'domain',
+        'country' ,
+        'domain_rating',
+        'traffic',
+        'ref_domain',
+        'token_cost',
+        'remarks',
+        'last_updated',
+    ];
+  
 }

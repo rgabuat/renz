@@ -7,13 +7,13 @@
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <p class="login-box-msg h2 text-left px-0">Import Accounts</p>
+          <p class="login-box-msg h2 text-left px-0">Import Domain Data</p>
                 @if (session('status'))
                     <div class="bg-success text-center text-white mb-3 py-2">
                         {{ session('status') }}
                     </div>
                 @endif
-          <form action="/admin/users/parse_import" method="post" enctype="multipart/form-data">
+          <form action="/data/parse_import" method="post" enctype="multipart/form-data">
               @csrf
               <div class="form-group">
                   <input type="file" name="file">

@@ -23,6 +23,7 @@ class CreateDomainDataTable extends Migration
             $table->string('token_cost');
             $table->string('remarks');
             $table->string('last_updated');
+            $table->timestamps();
         });
     }
 

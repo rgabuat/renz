@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Imports\UserImport;
+use App\Imports\DomainImport;
 use App\Imports\UserCollection;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
-class UsersImportController extends Controller
+class DataImportController extends Controller
 {
     public function show()
     {
-        return view('admin.users.UserImport');
+        return view('admin.import.DataImport');
     }
 
 
@@ -36,7 +37,7 @@ class UsersImportController extends Controller
             ];
            
         }
-        return view('admin.users.UserImportPreview', compact('param'));
+        return view('admin.import.DataImportPreview', compact('param'));
     }
 
     public function store(Request $request)
@@ -44,7 +45,7 @@ class UsersImportController extends Controller
         $filename = $request->file;
         $destinationPath = storage_path() .'/app/public/excels/uploads';
         $file = $destinationPath.'/'.$filename;
-        Excel::import(new UserImport,$file);
+        Excel::import(new DomainImport,$file);
 
         Storage::delete('/storage/app/public/excels/uploads'.$filename);
         return redirect('./admin/users/import')->with('status','Excel File Imported Successfully');

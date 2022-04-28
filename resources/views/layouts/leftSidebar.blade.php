@@ -76,20 +76,31 @@
           @endrole
           @role('system admin|system editor|company admin')
             <li class="nav-item">
-              <a href="{{ route('users/import') }}" class="nav-link">
-                <i class="nav-icon fas fa-file-import"></i>
-                <p class="pl-1">
-                  Import Data
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-database"></i>
+                <p>
+                  Data Management
+                  <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ route('users/list') }}" class="nav-link">
-                <i class="nav-icon fas fa-eye"></i>
-                <p class="pl-1">
-                  View Data
-                </p>
-              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('company/list') }}" class="nav-link">
+                    <i class="pl-3 nav-icon fas fa-eye"></i>
+                    <p class="pl-3">
+                      View All Data
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('data/import') }}" class="nav-link">
+                    <i class="pl-3 nav-icon fas fa-plus"></i>
+                    <p class="pl-3">
+                      Import Data
+                    </p>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">

@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\admin\AdminController;
-use App\Http\Controllers\UsersImportController;
+use App\Http\Controllers\DataImportController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CompanyController;
@@ -51,9 +51,7 @@ Route::group(['middleware' => 'auth'],function(){
 
     //imports
     Route::group(['prefix' => 'users'],function(){
-        Route::get('/import', [UsersImportController::class,'show'])->name('users/import');
-        Route::post('/parse_import', [UsersImportController::class,'parse'])->name('users/parse_import');
-        Route::post('/import', [UsersImportController::class,'store'])->name('users/import');
+        
         Route::get('/list', [UsersController::class,'index'])->name('users/list');
         Route::get('/create', [UsersController::class, 'create'])->name('users/create');
         Route::post('/store', [UsersController::class, 'store'])->name('users/store');
@@ -61,6 +59,12 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/update/{uid}', [UsersController::class, 'update'])->name('users/update/{uid}');
         Route::post('/deactivate/{uid}', [UsersController::class, 'deactivateUser'])->name('users/deactivate/{uid}');
         Route::post('/activate/{uid}', [UsersController::class, 'activateUser'])->name('users/activate/{uid}');
+    });
+
+    Route::group(['prefix' => 'data'],function(){
+        Route::get('/import', [DataImportController::class,'show'])->name('data/import');
+        Route::post('/parse_import', [DataImportController::class,'parse'])->name('data/parse_import');
+        Route::post('/import', [DataImportController::class,'store'])->name('data/import');
     });
 
     Route::group(['prefix' => 'company'],function(){

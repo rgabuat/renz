@@ -33,13 +33,11 @@
                     <td>{{ $user[5] }}</td>
                     <td>{{ $user[6] }}</td>
                     <td>{{ $user[7] }}</td>
-                    <td>{{ $user[8] }}</td>
-                    <td>{{ $user[9] }}</td>
                     </tr>
                   @endforeach
               </tbody>
             </table>
-            <form action="/admin/users/import" method="post" enctype="multipart/form-data">
+            <form action="/data/import" method="post" enctype="multipart/form-data">
               @csrf
               <div class="form-group">
                   <input hidden type="text" value="{{ $param['location'] }}" name="file">
