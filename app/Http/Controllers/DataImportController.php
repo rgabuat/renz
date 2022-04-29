@@ -48,6 +48,6 @@ class DataImportController extends Controller
         Excel::import(new DomainImport,$file);
 
         Storage::delete('/storage/app/public/excels/uploads'.$filename);
-        return redirect('./admin/users/import')->with('status','Excel File Imported Successfully');
+        return redirect('./data/import')->with('status','Excel File Imported Successfully');
     }
 }
