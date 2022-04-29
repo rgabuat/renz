@@ -103,7 +103,7 @@ class RegisterController extends Controller
 
 
                
-            // return back()->with('success', 'Account Registration Success');
+p            // return back()->with('success', 'Account Registration Success');
             $message = ['success' => 'Account Registration Success'];
         }
         else 
