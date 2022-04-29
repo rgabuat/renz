@@ -94,7 +94,7 @@
                     <span class="error invalid-feedback"> {{ $message }}</span>
                 @enderror
             </div>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="******">
@@ -121,7 +121,7 @@
                     @enderror
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label for="exampleSelectRounded0">Role</label>
                 <select class="custom-select" name="role" id="role">

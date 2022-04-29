@@ -55,14 +55,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a href="{{ route('users/sub-accounts') }}" class="nav-link">
                   <i class="pl-3 nav-icon fas fa-eye"></i>
                   <p class="pl-3">
                     View Sub Accounts
                   </p>
                 </a>
-              </li>
+              </li> -->
             @role('system admin|system|editor')
               <li class="nav-item">
                 <a href="{{ route('users/list') }}" class="nav-link">

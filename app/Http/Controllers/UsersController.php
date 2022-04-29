@@ -53,27 +53,25 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'company' => 'required|max:255',
             'firstname' => 'required|max:255',
             'lastname' => 'required|max:255',
             'address' => 'required|max:255',
             'phone_number' => 'required|max:255',
             'username' => 'required|max:255',
             'email' => 'required|email|max:255',
-            'password' => 'required',
             'role' => 'required',
         ]);
 
 
         $user = User::create([
-            'company' => $request->company,
+            'company_id' => 0,
             'first_name' => $request->firstname,
             'last_name' => $request->lastname,
             'address' => $request->address,
             'phone_number' => $request->phone_number,
             'username' => $request->username,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make('default123'),
             'role' => $request->role
         ]);
         $user->assignRole($request->role);
