@@ -15,13 +15,13 @@ class CreateDomainDataTable extends Migration
     {
         Schema::create('domain_data', function (Blueprint $table) {
             $table->id();
-            $table->string('domain');
-            $table->string('country');
-            $table->string('domain_rating');
-            $table->string('traffic');
-            $table->string('ref_domain');
-            $table->string('token_cost');
-            $table->string('remarks');
+            $table->string('domain')->nullable();
+            $table->string('country')->nullable();
+            $table->string('domain_rating')->nullable();
+            $table->string('traffic')->nullable();
+            $table->string('ref_domain')->nullable();
+            $table->string('token_cost')->nullable();
+            $table->string('remarks')->nullable();
             $table->string('last_updated');
             $table->timestamps();
         });

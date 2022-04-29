@@ -45,6 +45,7 @@ class DataImportController extends Controller
         $filename = $request->file;
         $destinationPath = storage_path() .'/app/public/excels/uploads';
         $file = $destinationPath.'/'.$filename;
+        
         Excel::import(new DomainImport,$file);
 
         Storage::delete('/storage/app/public/excels/uploads'.$filename);
