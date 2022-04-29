@@ -13,9 +13,8 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Company extends Model
 {
-    use HasFactory,HasRoles;
+    use HasFactory;
 
-    protected $guard_name = 'web';
     protected $table = 'company';
     protected $fillable = [
         'company_name',
@@ -24,4 +23,5 @@ class Company extends Model
         'created_by_admin',
         'status',
     ];
+    
 }

@@ -184,12 +184,12 @@
 
           <!-- /.social-auth-links -->
 
-          <p class="mb-1 text-center">
+          <!-- <p class="mb-1 text-center">
             <a href="forgot-password.html">I forgot my password</a>
           </p>
           <p class="mb-0 text-center  ">
             <a href="register.html" class="text-center">Login now</a>
-          </p>
+          </p> -->
         </div>
         <!-- /.login-card-body -->
       </div>

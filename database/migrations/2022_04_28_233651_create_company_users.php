@@ -19,13 +19,13 @@ class CreateCompanyUsers extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('address');
-            $table->string('reg_number');
             $table->string('phone_number');
             $table->string('username');
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('is_activated')->default(1);
+            $table->string('profile_image')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->string('role');

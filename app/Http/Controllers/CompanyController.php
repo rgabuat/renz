@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class CompanyController extends Controller
@@ -17,7 +19,13 @@ class CompanyController extends Controller
 
     public function index()
     {
-        $companies = Company::all();
+        // $companies = Company::all();
+
+        $companies = User::where('id',5)->with('created_by_owner')->get();
+        // foreach($data as $company)
+        // {
+        //     echo json_encode($company->created_by_owner[0]->id);
+        // }
         return view('company.CompanyList',compact('companies'));
     }
 

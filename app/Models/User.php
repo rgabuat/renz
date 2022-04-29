@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Company;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable,HasRoles;
@@ -21,7 +23,7 @@ class User extends Authenticatable
     // public $timestamps = false;
     protected $table = 'users';
     protected $fillable = [
-        'company',
+        'company_id',
         'first_name',
         'last_name',
         'address',
@@ -32,6 +34,21 @@ class User extends Authenticatable
         'username',
         'role'
     ];
+
+    public function company()
+    {
+        return $this->hasMany(Company::class,'id','company_id');
+    }
+
+    public function created_by_owner()
+    {
+        return $this->hasMany(Company::class,'id','created_by_owner');
+    }
+
+    public function created_by_admin()
+    {
+        return $this->hasMany(Company::class,'id','created_by_admin');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

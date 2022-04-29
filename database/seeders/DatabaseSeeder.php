@@ -27,8 +27,24 @@ class DatabaseSeeder extends Seeder
         $role5 = Role::create(['name' => 'company user']);
 
 
+        $company = \App\Models\Company::create([
+            'company_name'  => 'Quantum', 
+            'reg_number'  => '1397702389', 
+            'created_by_owner'  => '1',
+            'created_by_admin'  => 'null', 
+            'status'  => 'pending', 
+        ]);
+
+        $company = \App\Models\Company::create([
+            'company_name'  => 'Quantum', 
+            'reg_number'  => '1397702389', 
+            'created_by_owner'  => 'null',
+            'created_by_admin'  => '2', 
+            'status'  => 'active', 
+        ]);
+    
         $user = \App\Models\User::create([
-            'company'  => 'Riffpedia', 
+            'company_id'  => '0',
             'first_name'  => 'system',
             'last_name'  => 'admin',
             'address'  => '8 Quincy Parkway', 
@@ -41,7 +57,7 @@ class DatabaseSeeder extends Seeder
         $user->assignRole($role1);
 
         $user = \App\Models\User::create([
-            'company'  => 'Riffpedia', 
+            'company_id'  => '0',
             'first_name'  => 'system',
             'last_name'  => 'editor',
             'address'  => '8 Quincy Parkway', 
@@ -54,7 +70,7 @@ class DatabaseSeeder extends Seeder
         $user->assignRole($role2);
 
         $user = \App\Models\User::create([
-            'company'  => 'Riffpedia', 
+            'company_id'  => '0',
             'first_name'  => 'system',
             'last_name'  => 'user',
             'address'  => '8 Quincy Parkway', 
@@ -66,8 +82,10 @@ class DatabaseSeeder extends Seeder
         ]);
         $user->assignRole($role3);
 
+       
+
         $user = \App\Models\User::create([
-            'company'  => 'Riffpedia', 
+            'company_id'  => '1', 
             'first_name'  => 'company',
             'last_name'  => 'admin',
             'address'  => '8 Quincy Parkway', 
@@ -80,7 +98,7 @@ class DatabaseSeeder extends Seeder
         $user->assignRole($role4);
 
         $user = \App\Models\User::create([
-            'company'  => 'Riffpedia', 
+            'company_id'  => '2',  
             'first_name'  => 'company',
             'last_name'  => 'user',
             'address'  => '8 Quincy Parkway', 
@@ -93,32 +111,6 @@ class DatabaseSeeder extends Seeder
         $user->assignRole($role5);
 
 
-        $company = \App\Models\Company::create([
-            'company'  => 'Quantum', 
-            'first_name'  => 'company',
-            'last_name'  => 'admin',
-            'address'  => '18 Quincy Parkway', 
-            'reg_number'  => '1397702389', 
-            'phone_number'  => '+46 (990) 985-2798',
-            'username'  => 'compadmin', 
-            'email'  => 'compadmin@example.com', 
-            'password'  => 'compadmin',
-            'role'  => 'company admin',
-        ]);
-        $company->assignRole($role4);
-
-        $company = \App\Models\Company::create([
-            'company'  => 'Raspberry', 
-            'first_name'  => 'company',
-            'last_name'  => 'user',
-            'address'  => '19 Quincy Parkway', 
-            'reg_number'  => '9832077931', 
-            'phone_number'  => '+46 (990) 985-8972',
-            'username'  => 'compuser2', 
-            'email'  => 'compuse2r@example.com', 
-            'password'  => 'compuser2',
-            'role'  => 'company user',
-        ]);
-        $company->assignRole($role5);
+        
     }
 }

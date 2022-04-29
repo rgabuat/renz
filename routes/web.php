@@ -52,7 +52,6 @@ Route::group(['middleware' => 'auth'],function(){
 
     //imports
     Route::group(['prefix' => 'users'],function(){
-        
         Route::get('/list', [UsersController::class,'index'])->name('users/list');
         Route::get('/create', [UsersController::class, 'create'])->name('users/create');
         Route::post('/store', [UsersController::class, 'store'])->name('users/store');
@@ -89,5 +88,16 @@ Route::group(['prefix' => 'user'],function(){
 
 });
 
+Route::get('/clear', function() {
+
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+
+    return "Cleared!";
+
+});
 
 
