@@ -2,6 +2,7 @@
 
 
 @section('content')
+
 <div class="">
     <div class="col-lg-8">
       <!-- /.login-logo -->
@@ -15,17 +16,6 @@
                 @endif
           <form action="{{ url('users/update/'.$user->id) }}" method="post">
               @csrf
-            <div class="input-group mb-3">
-              <input type="text" name="company" class="form-control @error('company') is-invalid @enderror" value="{{ $user->company }}" placeholder="Company">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="far fa-building"></span>
-                </div>
-              </div>
-                @error('company')
-                    <span class="error invalid-feedback"> {{ $message }}</span>
-                @enderror
-            </div>
             <div class="row">
               <div class="col-lg-6">
                 <div class="input-group mb-3">
@@ -109,6 +99,34 @@
                         @enderror
                     </div>
                 </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="******">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-key"></span>
+                    </div>
+                  </div>
+                    @error('password')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="******">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-key"></span>
+                    </div>
+                  </div>
+                    @error('password_confirmation')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+              </div>
             </div>
             <div class="form-group">
                 <label for="exampleSelectRounded0">Role</label>

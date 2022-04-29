@@ -16,13 +16,7 @@ class DashboardController extends Controller
     
     public function index()
     {
-        $data = Company::where('id',auth()->user()->id)->with('company')->get();
-
-        foreach($data as $company)
-        {
-            echo json_encode($company);
-        }
-
+        $data = Company::where('created_by_admin',auth()->user()->id)->with('admin_sub_accounts')->get();
         return view('dashboard.dashboard');
     }
 }

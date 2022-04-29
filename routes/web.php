@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'],function(){
     //imports
     Route::group(['prefix' => 'users'],function(){
         Route::get('/list', [UsersController::class,'index'])->name('users/list');
+        Route::get('/sub-accounts', [UsersController::class,'sub_accounts'])->name('users/sub-accounts');
         Route::get('/create', [UsersController::class, 'create'])->name('users/create');
         Route::post('/store', [UsersController::class, 'store'])->name('users/store');
         Route::get('/edit/{uid}', [UsersController::class, 'edit'])->name('users/edit/{uid}');
@@ -69,6 +70,7 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::group(['prefix' => 'company'],function(){
         Route::get('/list', [CompanyController::class,'index'])->name('company/list');
+        Route::get('/sub-accounts', [CompanyController::class,'sub_accounts'])->name('company/sub-accounts');
         Route::get('/create', [CompanyController::class, 'create'])->name('company/create');
         Route::post('/store', [CompanyController::class, 'store'])->name('company/store');
         Route::get('/edit/{uid}', [CompanyController::class, 'edit'])->name('company/edit/{uid}');

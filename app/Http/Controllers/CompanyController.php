@@ -19,19 +19,34 @@ class CompanyController extends Controller
 
     public function index()
     {
-        // $companies = Company::all();
-
-        $companies = User::where('id',5)->with('created_by_owner')->get();
-        // foreach($data as $company)
-        // {
-        //     echo json_encode($company->created_by_owner[0]->id);
-        // }
+       
+        if(auth()->user()->hasRole(['system admin','system editor']))
+        {
+            $companies = Company::with('admin_sub_accounts','user_sub_accounts')->get();
+        }
+        elseif(auth()->user()->hasRole(['company admin']))
+        {
+            $companies = Company::where('created_by_admin',auth()->user()->id)->with('admin_sub_accounts')->get();
+        }
+        else
+        {
+            $companies = Company::where('created_by_owner',auth()->user()->id)->with('user_sub_accounts')->get();
+        }
+        
         return view('company.CompanyList',compact('companies'));
     }
 
-    public function show()
+    public function sub_accounts()
     {
-
+        if(auth()->user()->hasRole(['company admin']))
+        {
+            $companies = Company::where('created_by_admin',auth()->user()->id)->with('admin_sub_accounts')->get();
+        }
+        else
+        {
+            $companies = Company::where('created_by_owner',auth()->user()->id)->with('user_sub_accounts')->get();
+        }
+        return view('company.CompanySubAccounts',compact('companies'));
     }
 
     public function create()
@@ -59,30 +74,42 @@ class CompanyController extends Controller
             'phone_number' => 'required|max:255',
             'username' => 'required|max:255',
             'email' => 'required|email|max:255',
-            'password' => 'required',
             'role' => 'required',
         ]);
 
-
         $company = Company::create([
-            'company' => $request->company,
-            'first_name' => $request->firstname,
-            'last_name' => $request->lastname,
-            'address' => $request->address,
+            'company_name' => $request->company,
             'reg_number' => $request->reg_number,
+            'created_by_owner' => 'null',
+            'created_by_admin' => 'null',
+            'status' => 'active',
             'phone_number' => $request->phone_number,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role
         ]);
-        $company->assignRole($request->role);
-        return redirect()->back()->with('status','Account Creation Success');
+        $last_id = $company->id;
+
+        if($last_id)
+        {
+            $user = User::create([
+                'company_id' => $last_id,
+                'first_name' => $request->firstname,
+                'last_name' => $request->lastname,
+                'address' => $request->address,
+                'phone_number' => $request->phone_number,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make('default123'),
+                'role' => $request->role,
+                'is_activated' => 1
+            ]);
+            $user->assignRole($user->role);
+            Company::where('id',$last_id)->update(['created_by_admin' => auth()->user()->id]);
+            return redirect()->back()->with('status','Account Creation Success');
+        }
     }
 
     public function edit($uid)
     {
-        $company = Company::where('id',$uid)->with('roles')->first();
+        $company = Company::where('id',$uid)->with('admin_sub_accounts','user_sub_accounts')->first();
         $roles = Role::whereNotIn('name', ['system admin', 'system editor','system user'])->get();
         return view('company.CompanyEdit', compact('company','roles'));
     }
@@ -92,26 +119,12 @@ class CompanyController extends Controller
 
             $this->validate($request, [
                 'company' => 'required|max:255',
-                'firstname' => 'required|max:255',
-                'lastname' => 'required|max:255',
-                'address' => 'required|max:255',
                 'reg_number' => 'required|max:255',
-                'phone_number' => 'required|max:255',
-                'username' => 'required|max:255',
-                'email' => 'required|email|max:255',
-                'password' => 'required',
             ]);
 
             $company_data = [
-                'company' => $request->company,
-                'first_name' => $request->firstname,
-                'last_name' => $request->lastname,
-                'address' => $request->address,
+                'company_name' => $request->company,
                 'reg_number' => $request->reg_number,
-                'phone_number' => $request->phone_number,
-                'username' => $request->username,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
             ];
 
             $company_update = Company::where('id',$uid)->update($company_data);

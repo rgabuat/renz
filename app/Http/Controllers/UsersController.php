@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Company;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,8 +17,37 @@ class UsersController extends Controller
 
     public function index()
     {
-        $users = User::all();
+        if(auth()->user()->hasRole(['system admin|system editor|system user']))
+        {
+            $users = User::all();
+        }
+        elseif(auth()->user()->hasRole(['company admin']))
+        {
+            $users = Company::where('created_by_admin',auth()->user()->id)->with('admin_sub_accounts')->get();
+        }
+        else 
+        {
+            $users = Company::where('created_by_owner',auth()->user()->id)->with('user_sub_accounts')->get();
+        }
         return view('admin.users.UsersList', compact('users'));
+    }
+
+
+    public function sub_accounts()
+    {
+        if(auth()->user()->hasRole(['system admin|system editor|system user']))
+        {
+            $users = User::all();
+        }
+        elseif(auth()->user()->hasRole(['company admin']))
+        {
+            $users = Company::where('created_by_admin',auth()->user()->id)->with('admin_sub_accounts')->get();
+        }
+        else 
+        {
+            $users = Company::where('created_by_owner',auth()->user()->id)->with('user_sub_accounts')->get();
+        }
+        return view('admin.users.UserSubAccounts', compact('users'));
     }
 
     public function store(Request $request)
@@ -52,7 +82,7 @@ class UsersController extends Controller
 
     public function edit($uid)
     {
-        $user = User::where('id',$uid)->with('roles')->first();
+        $user = User::where('id',$uid)->first();
         $roles = Role::whereNotIn('name', ['company admin','company user'])->get();
         return view('admin.users.UserEdit', compact('user','roles'));
     }
@@ -61,19 +91,16 @@ class UsersController extends Controller
     {
 
         $this->validate($request, [
-            'company' => 'required|max:255',
             'firstname' => 'required|max:255',
             'lastname' => 'required|max:255',
             'address' => 'required|max:255',
             'phone_number' => 'required|max:255',
             'username' => 'required|max:255',
             'email' => 'required|email|max:255',
-            'password' => 'required',
         ]);
 
 
             $user_data = [
-                'company' => $request->company,
                 'first_name' => $request->firstname,
                 'last_name' => $request->lastname,
                 'address' => $request->address,
@@ -82,6 +109,7 @@ class UsersController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ];
+            
             $user_update = User::where('id',$uid)->update($user_data);
             if($user_update)
             {

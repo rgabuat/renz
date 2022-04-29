@@ -16,8 +16,9 @@
                 @endif
           <!-- <form action="{{ url('update-profile/'.auth()->user()->id) }}" method="post" enctype="multipart/form-data"> -->
               @csrf
+            @role('company admin')
             <div class="input-group mb-3">
-              <input type="text"disabled name="company" class="form-control @error('company') is-invalid @enderror" value="{{ auth()->user()->company }}" placeholder="Company">
+              <input type="text"disabled name="company" class="form-control @error('company') is-invalid @enderror" value="{{ auth()->user()->company[0]->company_name }}" placeholder="Company">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="far fa-building"></span>
@@ -27,6 +28,7 @@
                     <span class="error invalid-feedback"> {{ $message }}</span>
                 @enderror
             </div>
+            @endrole
             <div class="row">
               <div class="col-lg-6">
                 <div class="input-group mb-3">

@@ -44,15 +44,17 @@ class ProfileController extends Controller
         //     'password' => 'required',
         //     'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         // ]);
-            
-        $destinationPath = 'images/uploads';
-        $file = $request->file('image');
-        $file_name = $file->getClientOriginalName();
-        $path = $request->file('image')->storeAs($destinationPath,$file_name);
         
-        $update_profile = User::where('id',$uid)->update(['profile_image' => $path]);
-        return redirect()->back()->with('status', 'Image Has been uploaded');
-
+        if($request->has('image'))
+        {
+            $destinationPath = 'images/uploads';
+            $file = $request->file('image');
+            $file_name = $file->getClientOriginalName();
+            $path = $request->file('image')->storeAs($destinationPath,$file_name);
+            
+            $update_profile = User::where('id',$uid)->update(['profile_image' => $path]);
+        }
+        return redirect()->back()->with('status', 'Profile Successfully Update');
     }
     
 }
