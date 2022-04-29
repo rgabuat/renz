@@ -108,8 +108,10 @@ class UsersController extends Controller
                 'password' => Hash::make($request->password),
             ];
             
-            $user_update = User::where('id',$uid)->update($user_data);
-            if($user_update)
+            $user = User::where('id',$uid)->first();
+            $resp = $user->update($user_data);
+            $user->syncRoles($request->role);
+            if($resp)
             {
                 return redirect()->back()->with('status','Update Success');
             }
