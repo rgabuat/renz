@@ -9,8 +9,17 @@ use App\Imports\UserCollection;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
+use App\Models\Domain;
+
 class DataImportController extends Controller
 {
+
+    public function index()
+    {
+        $domain_datas = Domain::all();
+        return view('admin.import.DataList',compact('domain_datas'));
+    }
+
     public function show()
     {
         return view('admin.import.DataImport');

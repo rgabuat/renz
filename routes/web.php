@@ -64,6 +64,7 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::group(['prefix' => 'data'],function(){
         Route::get('/import', [DataImportController::class,'show'])->name('data/import');
+        Route::get('/list', [DataImportController::class,'index'])->name('data/list');
         Route::post('/parse_import', [DataImportController::class,'parse'])->name('data/parse_import');
         Route::post('/import', [DataImportController::class,'store'])->name('data/import');
     });
