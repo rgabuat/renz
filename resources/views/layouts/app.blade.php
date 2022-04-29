@@ -38,21 +38,21 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
+    <!-- <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">Dashboard v3</h1>
-          </div><!-- /.col -->
+          </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Dashboard v3</li>
             </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
     <!-- /.content-header -->
 
     <!-- Main content -->
@@ -67,7 +67,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
 
  <!-- 4 right menu  -->
 @include('layouts.rightSidebar')
@@ -90,6 +89,6 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('vendors/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('vendors/dist/js/pages/dashboard3.js') }}"></script>
+<!-- <script src="{{ asset('vendors/dist/js/pages/dashboard3.js') }}"></script> -->
 </body>
 </html>

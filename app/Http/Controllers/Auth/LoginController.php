@@ -29,10 +29,14 @@ class LoginController extends Controller
             return back()->with('status', 'Invalid login details');
         }
 
-        // if(auth()->user()->role == 'user')
-        // {
+        if(auth()->user()->is_activated == '1')
+        {
             return redirect()->route('dashboard');
-        // }
+        }
+        else 
+        {
+            return back()->with('status','Your Account was Disabled');
+        }
 
             
     }

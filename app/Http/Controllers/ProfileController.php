@@ -44,7 +44,7 @@ class ProfileController extends Controller
         //     'password' => 'required',
         //     'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         // ]);
-
+            
         $destinationPath = 'images/uploads';
         $file = $request->file('image');
         $file_name = $file->getClientOriginalName();

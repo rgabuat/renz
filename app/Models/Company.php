@@ -18,15 +18,10 @@ class Company extends Model
     protected $guard_name = 'web';
     protected $table = 'company';
     protected $fillable = [
-        'company',
-        'first_name',
-        'last_name',
-        'address',
+        'company_name',
         'reg_number',
-        'phone_number',
-        'email',
-        'password',
-        'username',
-        'role'
+        'created_by_owner',
+        'created_by_admin',
+        'status',
     ];
 }

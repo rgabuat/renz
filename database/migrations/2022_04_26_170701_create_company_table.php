@@ -15,19 +15,13 @@ class CreateCompanyTable extends Migration
     {
         Schema::create('company', function (Blueprint $table) {
             $table->id();
-            $table->string('company');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('address');
+            $table->string('company_name');
             $table->string('reg_number');
-            $table->string('phone_number');
-            $table->string('username');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('created_by_owner')->nullable();
+            $table->string('created_by_admin')->nullable();
+            $table->string('status');
             $table->rememberToken();
             $table->timestamps();
-            $table->string('role');
         });
     }
 

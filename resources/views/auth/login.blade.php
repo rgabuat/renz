@@ -12,7 +12,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
             @if (session('status'))
-                <div class="bg-danger text-center text-white mb-3">
+                <div class="bg-danger text-center text-white py-2 mb-3">
                     {{ session('status') }}
                 </div>
             @endif

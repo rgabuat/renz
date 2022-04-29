@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{ asset('vendors/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">Login System</span>
     </a>
 
     <!-- Sidebar -->
@@ -92,6 +92,7 @@
                     </p>
                   </a>
                 </li>
+                @role('system admin|system editor')
                 <li class="nav-item">
                   <a href="{{ route('data/import') }}" class="nav-link">
                     <i class="pl-3 nav-icon fas fa-plus"></i>
@@ -100,8 +101,10 @@
                     </p>
                   </a>
                 </li>
+                @endrole
               </ul>
             </li>
+            @role('system admin|system editor')
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-building"></i>
@@ -129,6 +132,7 @@
                 </li>
               </ul>
             </li>
+            @endrole
             @endrole
           <li class="nav-item">
             <a href="{{route('view-profile')}}" class="nav-link">
