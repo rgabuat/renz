@@ -20,22 +20,22 @@ class CompanyController extends Controller
     public function index()
     {
        
-        // if(auth()->user()->hasRole(['system admin','system editor','system user']))
-        // {
-        //     $companies = Company::with('admin_sub_accounts','user_sub_accounts')->get();
-        // }
-        // elseif(auth()->user()->hasRole(['company admin']))
-        // {
-        //     $company = User::where('id',auth()->user()->id)->with('company')->get();
-        //     $comp_id = $company[0]['company'][0]['id'];
-        //     $companies = User::where('company_id',$comp_id)->get();
-        // }
-        // else
-        // {
-        //     $companies = Company::where('created_by_owner',auth()->user()->id)->with('user_sub_accounts')->get();
-        // }
+        if(auth()->user()->hasRole(['system admin','system editor','system user']))
+        {
+            $companies = Company::with('admin_sub_accounts','user_sub_accounts')->get();
+        }
+        elseif(auth()->user()->hasRole(['company admin']))
+        {
+            $company = User::where('id',auth()->user()->id)->with('company')->get();
+            $comp_id = $company[0]['company'][0]['id'];
+            $companies = User::where('company_id',$comp_id)->get();
+        }
+        else
+        {
+            $companies = Company::where('created_by_owner',auth()->user()->id)->with('user_sub_accounts')->get();
+        }
 
-        $companies = Company::where('created_by_owner',auth()->user()->id)->orwhere('created_by_admin',auth()->user()->id)->get();
+        
         
         return view('company.CompanyList',compact('companies'));
     }

@@ -152,7 +152,7 @@
                     <a href="{{ route('company/create') }}" class="nav-link">
                       <i class="pl-3 nav-icon fas fa-plus"></i>
                       <p class="pl-3">
-                        Add Company
+                        Add Company Accounts
                       </p>
                     </a>
                   </li>

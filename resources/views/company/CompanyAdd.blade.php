@@ -7,7 +7,7 @@
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <p class="login-box-msg h2 text-left px-0">Create Company</p>
+          <p class="login-box-msg h2 text-left px-0">Create Company Account</p>
                 @if (session('status'))
                     <div class="bg-success text-center text-white py-2 mb-3">
                         {{ session('status') }}
