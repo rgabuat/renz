@@ -40,7 +40,7 @@ class ProfileController extends Controller
             'phone_number' => 'required|max:255',
             'username' => 'required|max:255',
             'email' => 'required|email|max:255',
-            'image' => '|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
 
         if(auth()->user()->hasRole('company admin|company user'))
