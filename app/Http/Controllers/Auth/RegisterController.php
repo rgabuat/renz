@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 use App\Models\User;
+use App\Models\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -27,14 +28,14 @@ class RegisterController extends Controller
         $captcha = md5($request->captcha);
         
         $this->validate($request, [
-            'company' => 'required|max:255',
+            'company' => 'required|unique:company,company_name|max:255',
             'firstname' => 'required|max:255',
             'lastname' => 'required|max:255',
             'address' => 'required|max:255',
-            'reg_number' => 'required|max:255',
+            'reg_number' => 'required|unique:company,reg_number|max:255',
             'phone_number' => 'required|max:255',
             'username' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|unique:users,email|email|max:255',
             'password' => 'required|confirmed',
             'captcha' => 'required'
         ]);
@@ -50,21 +51,35 @@ class RegisterController extends Controller
                 {
                     $role = 'company user';
                 }
-                $user = User::create([
-                    'company' => $request->company,
-                    'first_name' => $request->firstname,
-                    'last_name' => $request->lastname,
-                    'address' => $request->address,
+                $company = Company::create([
+                    'company_name' => $request->company,
                     'reg_number' => $request->reg_number,
-                    'phone_number' => $request->phone_number,
-                    'username' => $request->username,
-                    'email' => $request->email,
-                    'password' => Hash::make($request->password),
-                    'role' => $role,
+                    'created_by_owner' => 'null',
+                    'created_by_admin' => 'null',
+                    'status' => 'pending',
                 ]);
-                $user->assignRole($role);
-            // return back()->with('success', 'Account Registration Success');
-            $message = ['success' => 'Account Registration Success'];
+                
+                if($company)
+                {
+                    // $comp_lastId = $company->id
+                    $user = User::create([
+                        'company_id' => $company->id,
+                        'first_name' => $request->firstname,
+                        'last_name' => $request->lastname,
+                        'address' => $request->address,
+                        'reg_number' => $request->reg_number,
+                        'phone_number' => $request->phone_number,
+                        'username' => $request->username,
+                        'email' => $request->email,
+                        'password' => Hash::make($request->password),
+                        'role' => $role,
+                    ]);
+                    $user->assignRole($role);
+                    $user = company::where('id',$company->id)->update(['created_by_owner' => $user->id]);
+
+
+                    $message = ['success' => 'Account Registration Success'];
+                }
         }
         else 
         {

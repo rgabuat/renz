@@ -29,8 +29,6 @@ class CompanyController extends Controller
             $company = User::where('id',auth()->user()->id)->with('company')->get();
             $comp_id = $company[0]['company'][0]['id'];
             $companies = User::where('company_id',$comp_id)->get();
-
-            // $companies = Company::where('created_by_admin',auth()->user()->id)->with('admin_sub_accounts')->get();
         }
         else
         {
