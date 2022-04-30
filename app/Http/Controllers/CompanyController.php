@@ -20,7 +20,7 @@ class CompanyController extends Controller
     public function index()
     {
        
-        if(auth()->user()->hasRole(['system admin','system editor']))
+        if(auth()->user()->hasRole(['system admin','system editor','system user']))
         {
             $companies = Company::with('admin_sub_accounts','user_sub_accounts')->get();
         }

@@ -50,25 +50,28 @@ class ProfileController extends Controller
             ];
         }
 
-        $param = [
-            'first_name' => $request->firstname,
-            'last_name' => $request->lastname,
-            'address' => $request->address,
-            'phone_number' => $request->phone_number,
-            'username' => $request->username,
-            'email' => $request->email
-        ];
 
+        $image = '';
         if($request->has('image'))
         {
             $destinationPath = 'excels/uploads';
             $file = $request->file('image');
             $file_name = $file->getClientOriginalName();
             $path = $request->file('image')->storeAs($destinationPath,$file_name);
-            $param = [
-                'profile_image' => $path
-            ];
+            $image = $path;
         }
+        $img = $image != '' ? $path : '';
+        $param = [
+            'first_name' => $request->firstname,
+            'last_name' => $request->lastname,
+            'address' => $request->address,
+            'phone_number' => $request->phone_number,
+            'username' => $request->username,
+            'email' => $request->email,
+            'profile_image' => $img
+        ];
+
+        
 
         $update_profile = User::where('id',$uid)->update($param);
 

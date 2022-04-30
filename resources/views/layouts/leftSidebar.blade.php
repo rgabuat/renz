@@ -63,7 +63,7 @@
                   </p>
                 </a>
               </li> -->
-            @role('system admin|system editor')
+            @role('system admin|system editor|system user')
               <li class="nav-item">
                 <a href="{{ route('users/list') }}" class="nav-link">
                   <i class="pl-3 nav-icon fas fa-eye"></i>
@@ -72,6 +72,7 @@
                   </p>
                 </a>
               </li>
+              @role('system admin|system editor')
               <li class="nav-item">
                 <a href="{{ route('users/create') }}" class="nav-link">
                   <i class="pl-3 nav-icon fas fa-user-plus"></i>
@@ -81,10 +82,11 @@
                 </a>
               </li>
               @endrole
+              @endrole
             </ul>
           </li>
           @endrole
-          @role('system admin|system editor|company admin')
+          @role('system admin|system editor|system user|company admin')
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-database"></i>
@@ -125,7 +127,7 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                @role('system admin|system editor')
+                @role('system admin|system editor|system user')
                 <li class="nav-item">
                   <a href="{{ route('company/list') }}" class="nav-link">
                     <i class="pl-3 nav-icon fas fa-eye"></i>
