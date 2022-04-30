@@ -6,7 +6,7 @@
   <div class="container">
     <div class="col-lg-8 m-auto">
       <div class="login-logo">
-        <a href="../../index2.html"><b>LOGIN SYSTEM</b></a>
+        <a href="{{ route('login') }}"><b>LOGIN SYSTEM</b></a>
       </div>
       <!-- /.login-logo -->
       <div class="card">
@@ -184,12 +184,9 @@
 
           <!-- /.social-auth-links -->
 
-          <!-- <p class="mb-1 text-center">
-            <a href="forgot-password.html">I forgot my password</a>
-          </p>
           <p class="mb-0 text-center  ">
-            <a href="register.html" class="text-center">Login now</a>
-          </p> -->
+            <a href="{{ route('login') }}" class="text-center">Already have account?</a>
+          </p>
         </div>
         <!-- /.login-card-body -->
       </div>
