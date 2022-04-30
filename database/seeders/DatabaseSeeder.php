@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             'reg_number'  => '1397702389', 
             'created_by_owner'  => '1',
             'created_by_admin'  => 'null', 
-            'status'  => 'pending', 
+            'status'  => 'active', 
         ]);
 
         $company = \App\Models\Company::create([

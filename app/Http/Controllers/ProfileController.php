@@ -61,7 +61,7 @@ class ProfileController extends Controller
 
         if($request->has('image'))
         {
-            $destinationPath = 'images/uploads';
+            $destinationPath = 'public/images/uploads';
             $file = $request->file('image');
             $file_name = $file->getClientOriginalName();
             $path = $request->file('image')->storeAs($destinationPath,$file_name);

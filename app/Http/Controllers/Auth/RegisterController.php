@@ -49,7 +49,7 @@ class RegisterController extends Controller
                 }
                 else 
                 {
-                    $role = 'company user';
+                    $role = 'company admin';
                 }
                 $company = Company::create([
                     'company_name' => $request->company,
