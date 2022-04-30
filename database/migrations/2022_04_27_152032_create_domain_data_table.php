@@ -22,7 +22,7 @@ class CreateDomainDataTable extends Migration
             $table->string('ref_domain')->nullable();
             $table->string('token_cost')->nullable();
             $table->string('remarks')->nullable();
-            $table->string('last_updated');
+            $table->string('last_updated')->nullable();
             $table->timestamps();
         });
     }
