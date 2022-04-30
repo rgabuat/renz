@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="table-responsive-sm">
 <table class="table">
     <thead>
         <tr>
@@ -88,4 +89,5 @@
         @endforeach
     </tbody>
 </table>
+<div>
 @endsection

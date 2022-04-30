@@ -5,7 +5,7 @@
 <div class="login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>LOGIN SYSTEM</b></a>
+    <a href="{{ route('login') }}"><b>LOGIN SYSTEM</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -42,28 +42,24 @@
             @enderror
         </div>
         <div class="row">
-          <div class="col-8">
+          <!-- <div class="col-8">
             <div class="icheck-primary">
               <input type="checkbox" id="remember">
               <label for="remember">
                 Remember Me
               </label>
             </div>
-          </div>
+          </div> -->
           <!-- /.col -->
-          <div class="col-4">
+          <div class="col-12 mb-2">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
       </form>
       <!-- /.social-auth-links -->
-
-      <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
-      </p>
-      <p class="mb-0">
-        <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
+      <p class="mb-0 text-center">
+        <a href="{{ route('register') }}">Register a new membership</a>
       </p>
     </div>
     <!-- /.login-card-body -->
