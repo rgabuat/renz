@@ -107,6 +107,7 @@ class UsersController extends Controller
                 'phone_number' => $request->phone_number,
                 'username' => $request->username,
                 'email' => $request->email,
+                'role' => $request->role,
             ];
             
             $user = User::where('id',$uid)->first();
