@@ -54,6 +54,22 @@ class CompanyController extends Controller
         return view('company.CompanySubAccounts',compact('companies'));
     }
 
+    public function sub_accounts_edit($uid)
+    {
+        $user = User::where('id',$uid)->first();
+        if(auth()->user()->hasRole(['system admin','system editor']))
+        {
+            $roles = Role::whereNotIn('name', ['system admin','system editor','system user'])->get();
+        }
+        else 
+        {
+           
+            $roles = Role::whereNotIn('name', ['company admin','company user'])->get();
+        }
+          
+        return view('company.CompanySubAccountsEdit', compact('user','roles'));
+    }
+
     public function company_accounts($id)
     {
         $companies = User::where('company_id',$id)->get();
@@ -64,53 +80,63 @@ class CompanyController extends Controller
     {
         
         $company = User::where('id',auth()->user()->id)->with('company')->get();
-
-        $company_details = [
-            'comp_id' => $company[0]['company'][0]['id'],
-            'company_name' => $company[0]['company'][0]['company_name'],
-            'reg_num' => $company[0]['company'][0]['reg_number'],
-        ];
-
         $roles = Role::whereNotIn('name', ['system admin', 'system editor','system user'])->get();
-
-        return view('company.CompanyAdd',compact('roles','company_details'));
+        return view('company.CompanyAdd',compact('roles'));
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
-            'company' => 'required|max:255',
+            'company' => 'max:255',
             'firstname' => 'required|unique:users,first_name|max:255',
             'lastname' => 'required|unique:users,last_name|max:255',
             'address' => 'required|max:255',
-            'reg_number' => 'required|max:255',
+            'reg_number' => 'max:255',
             'phone_number' => 'required|max:255',
             'username' => 'required|unique:users,username|max:255',
             'email' => 'required|email|unique:users,email|max:255',
             'role' => 'required',
         ]);
-        
-        $comp_id = $request->comp_id;
-        $cid =Company::find($comp_id);
 
-        if($cid)
-        {
+            if(auth()->user()->hasRole(['system admin','system editor']))
+            {
+                $company = Company::create([
+                    'company_name' => $request->company,
+                    'reg_number' => $request->reg_number,
+                    'created_by_owner' => 'null',
+                    'created_by_admin' => 'null',
+                    'status' => 'pending',
+                ]);
+                if($company)
+                {
+                    $company_id = $company->id;
+                    $reg_num = $company->reg_num;
+                }
+            }
+            else 
+            {
+                $user_comp = User::where('id',auth()->user()->id)->with('company')->get();
+                $company_id =  $user_comp[0]['company'][0]['id'];
+                $reg_num = $user_comp[0]['company'][0]['reg_num'];
+            }
+
             $user = User::create([
-                'company_id' => $comp_id,
+                'company_id' => $company_id,
                 'first_name' => $request->firstname,
                 'last_name' => $request->lastname,
                 'address' => $request->address,
+                'reg_number' => $reg_num,
                 'phone_number' => $request->phone_number,
                 'username' => $request->username,
                 'email' => $request->email,
                 'password' => Hash::make('default123'),
                 'role' => $request->role,
-                'is_activated' => 1
             ]);
-            $user->assignRole($user->role);
-            // Company::where('id',$comp_id)->update(['created_by_admin' => auth()->user()->id]);
+            $user->assignRole($request->role);
+            $user = company::where('id',$company_id)->update(['created_by_admin' => auth()->user()->id]);
+            // $message = ['success' => 'Account Creation Success'];
+        
             return redirect()->back()->with('status','Account Creation Success');
-        }
     }
 
     public function edit($uid)

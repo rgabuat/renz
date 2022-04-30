@@ -34,7 +34,7 @@
                 <div class="dropdown-menu" role="menu" style="">
                    
                     @role('system admin|system editor|company admin')
-                        <a class="dropdown-item" href="{{ url('company/edit/'.$company['id'])}}"><span class="fas fa-pen mr-2"></span>Edit User</a>
+                        <a class="dropdown-item" href="{{ url('company/edit/user/'.$company['id'])}}"><span class="fas fa-pen mr-2"></span>Edit User</a>
                     @endrole
                     @role('system admin')
                         @if($company['is_activated'] == 1)

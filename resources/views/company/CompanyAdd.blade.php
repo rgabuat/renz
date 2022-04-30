@@ -15,18 +15,37 @@
                 @endif
           <form action="{{ route('company/store') }}" method="post">
               @csrf
-              <input type="hidden" name="comp_id" value="{{ $company_details['comp_id'] }}">
-            <div class="input-group mb-3">
-              <input type="text" name="company" class="form-control @error('company') is-invalid @enderror" {{ $company_details['company_name'] != '' ? 'readonly' : '' }} value="{{ $company_details['company_name'] }}" placeholder="Company">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="far fa-building"></span>
+              <input type="hidden" name="comp_id" value="">
+            @role('system admin|system editor')
+            <div class="row">
+            <div class="col-md-6">
+              <div class="input-group mb-3">
+                <input type="text" name="company" class="form-control @error('company') is-invalid @enderror" value="{{ old('company') }}" placeholder="Company">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="far fa-building"></span>
+                  </div>
+                </div>
+                  @error('company')
+                      <span class="error invalid-feedback"> {{ $message }}</span>
+                  @enderror
+              </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <input type="tel" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror"  value="{{ old('reg_number') }}" placeholder="Registered Number">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-circle"></span>
+                    </div>
+                  </div>
+                    @error('reg_number')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
                 </div>
               </div>
-                @error('company')
-                    <span class="error invalid-feedback"> {{ $message }}</span>
-                @enderror
             </div>
+            @endrole
             <div class="row">
               <div class="col-lg-6">
                 <div class="input-group mb-3">
@@ -55,18 +74,20 @@
                 </div>
               </div>
             </div>
-            <div class="input-group mb-3">
-              <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Address">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-map-marker-alt"></span>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="input-group mb-3">
+                  <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Address">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-map-marker-alt"></span>
+                    </div>
+                  </div>
+                    @error('address')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
                 </div>
               </div>
-                @error('address')
-                    <span class="error invalid-feedback"> {{ $message }}</span>
-                @enderror
-            </div>
-            <div class="row">
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <input type="tel" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('phone_number') }}" placeholder="Phone Number">
@@ -80,19 +101,9 @@
                     @enderror
                 </div>
               </div>
-              <div class="col-lg-6">
-                <div class="input-group mb-3">
-                  <input type="tel" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror" {{ $company_details['reg_num'] != '' ? 'readonly' : '' }} value="{{ $company_details['reg_num'] }}" placeholder="Registered Number">
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <span class="fas fa-circle"></span>
-                    </div>
-                  </div>
-                    @error('reg_number')
-                        <span class="error invalid-feedback"> {{ $message }}</span>
-                    @enderror
-                </div>
-              </div>
+              @role('system admin|system editor')
+              
+              @endrole
             </div>
             <div class="input-group mb-3">
               <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" placeholder="Username">

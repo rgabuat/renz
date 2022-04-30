@@ -72,6 +72,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::group(['prefix' => 'company'],function(){
         Route::get('/list', [CompanyController::class,'index'])->name('company/list');
         Route::get('/list/users/{id}', [CompanyController::class,'company_accounts'])->name('company/list/users/{id}');
+        Route::get('/edit/user/{id}', [CompanyController::class,'sub_accounts_edit'])->name('company/edit/user/{id}');
         Route::get('/sub-accounts', [CompanyController::class,'sub_accounts'])->name('company/sub-accounts');
         Route::get('/create', [CompanyController::class, 'create'])->name('company/create');
         Route::post('/store', [CompanyController::class, 'store'])->name('company/store');

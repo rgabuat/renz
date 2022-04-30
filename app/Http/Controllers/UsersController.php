@@ -107,7 +107,6 @@ class UsersController extends Controller
                 'phone_number' => $request->phone_number,
                 'username' => $request->username,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
             ];
             
             $user = User::where('id',$uid)->first();
