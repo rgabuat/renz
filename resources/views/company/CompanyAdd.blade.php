@@ -15,8 +15,9 @@
                 @endif
           <form action="{{ route('company/store') }}" method="post">
               @csrf
+              <input type="hidden" name="comp_id" value="{{ $company_details['comp_id'] }}">
             <div class="input-group mb-3">
-              <input type="text" name="company" class="form-control @error('company') is-invalid @enderror" value="{{ old('company') }}" placeholder="Company">
+              <input type="text" name="company" class="form-control @error('company') is-invalid @enderror" {{ $company_details['company_name'] != '' ? 'readonly' : '' }} value="{{ $company_details['company_name'] }}" placeholder="Company">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="far fa-building"></span>
@@ -29,7 +30,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="input-group mb-3">
-                  <input type="text" name="firstname" class="form-control @error('firstname') is-invalid @enderror" placeholder="Firstname">
+                  <input type="text" name="firstname" class="form-control @error('firstname') is-invalid @enderror" value="{{ old('firstname') }}"  placeholder="Firstname">
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-user"></span>
@@ -42,7 +43,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="input-group mb-3">
-                  <input type="text" name="lastname" class="form-control @error('lastname') is-invalid @enderror" placeholder="Lastname">
+                  <input type="text" name="lastname" class="form-control @error('lastname') is-invalid @enderror" value="{{ old('lastname') }}"  placeholder="Lastname">
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-user"></span>
@@ -55,7 +56,7 @@
               </div>
             </div>
             <div class="input-group mb-3">
-              <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" placeholder="Address">
+              <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Address">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-map-marker-alt"></span>
@@ -81,7 +82,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="input-group mb-3">
-                  <input type="tel" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror" placeholder="Registered Number">
+                  <input type="tel" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror" {{ $company_details['reg_num'] != '' ? 'readonly' : '' }} value="{{ $company_details['reg_num'] }}" placeholder="Registered Number">
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-circle"></span>
@@ -115,7 +116,8 @@
                     <span class="error invalid-feedback"> {{ $message }}</span>
                 @enderror
             </div>
-            <div class="row">
+            <p>Default Password : default123</p>
+            <!-- <div class="row">
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="******">
@@ -141,16 +143,19 @@
                         <span class="error invalid-feedback"> {{ $message }}</span>
                     @enderror
                 </div>
-              </div>
-            </div>
+              </div> 
+            </div>-->
             <div class="form-group">
                 <label for="exampleSelectRounded0">Role</label>
-                <select class="custom-select" name="role" id="role">
+                <select class="custom-select @error('role') is-invalid @enderror" name="role" id="role" >
                   <option value="">Select Role</option>
                   @foreach($roles as $role)
                   <option>{{$role['name']}}</option>
                   @endforeach
                 </select>
+                @error('role')
+                    <span class="error invalid-feedback"> {{ $message }}</span>
+                @enderror
               </div>
             <div class="row">
               <div class="col-12">

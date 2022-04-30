@@ -46,6 +46,9 @@
                     <a class="dropdown-item" href="{{ url('company/edit/'.$company['id'])}}"><span class="fas fa-pen mr-2"></span>Edit company</a>
                     @endrole
                     @role('system admin')
+                        <a class="dropdown-item" href="{{ url('company/list/users/'.$company['id'])}}"><span class="fas fa-users mr-2"></span>View Users</a>
+                    @endrole
+                    @role('system admin')
                         @if($company['is_activated'])
                             <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#deactivate{{ $company['id'] }}"><span class="fas fa-eye-slash mr-2"></span>Deactivate company</a>
                         @else
@@ -67,7 +70,7 @@
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    {{$company['id']}}
+                    Deactivate Company
                     <div class="modal-body">
                         <form action="{{ url('company/deactivate/'.$company['id']) }}" method="post">
                             @csrf
@@ -88,7 +91,7 @@
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    {{$company['id']}}
+                    Deactivate Company
                     <div class="modal-body">
                         <form action="{{ url('company/activate/'.$company['id']) }}" method="post">
                             @csrf

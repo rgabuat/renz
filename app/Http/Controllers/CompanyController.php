@@ -26,7 +26,11 @@ class CompanyController extends Controller
         }
         elseif(auth()->user()->hasRole(['company admin']))
         {
-            $companies = Company::where('created_by_admin',auth()->user()->id)->with('admin_sub_accounts')->get();
+            $company = User::where('id',auth()->user()->id)->with('company')->get();
+            $comp_id = $company[0]['company'][0]['id'];
+            $companies = User::where('company_id',$comp_id)->get();
+
+            // $companies = Company::where('created_by_admin',auth()->user()->id)->with('admin_sub_accounts')->get();
         }
         else
         {
@@ -38,59 +42,63 @@ class CompanyController extends Controller
 
     public function sub_accounts()
     {
-        if(auth()->user()->hasRole(['company admin']))
-        {
-            $companies = Company::where('created_by_admin',auth()->user()->id)->with('admin_sub_accounts')->get();
-        }
-        else
-        {
-            $companies = Company::where('created_by_owner',auth()->user()->id)->with('user_sub_accounts')->get();
-        }
+        // if(auth()->user()->hasRole(['company admin']))
+        // {
+        //     $companies = Company::where('created_by_admin',auth()->user()->id)->with('admin_sub_accounts')->get();
+        // }
+        // else
+        // {
+        //     $companies = Company::where('created_by_owner',auth()->user()->id)->with('user_sub_accounts')->get();
+        // }
+        $company = User::where('id',auth()->user()->id)->with('company')->get();
+        $comp_id = $company[0]['company'][0]['id'];
+        $companies = User::where('company_id',$comp_id)->get();
+        return view('company.CompanySubAccounts',compact('companies'));
+    }
+
+    public function company_accounts($id)
+    {
+        $companies = User::where('company_id',$id)->get();
         return view('company.CompanySubAccounts',compact('companies'));
     }
 
     public function create()
     {
-        $user = auth()->user();
-        // if($user->hasRole(['system admin','system editor']))
-        // {
-        //     $roles = Role::all();
-        // }
-        // else 
-        // {
-            $roles = Role::whereNotIn('name', ['system admin', 'system editor','system user'])->get();
-        // }
-        return view('company.CompanyAdd',compact('roles'));
+        
+        $company = User::where('id',auth()->user()->id)->with('company')->get();
+
+        $company_details = [
+            'comp_id' => $company[0]['company'][0]['id'],
+            'company_name' => $company[0]['company'][0]['company_name'],
+            'reg_num' => $company[0]['company'][0]['reg_number'],
+        ];
+
+        $roles = Role::whereNotIn('name', ['system admin', 'system editor','system user'])->get();
+
+        return view('company.CompanyAdd',compact('roles','company_details'));
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
             'company' => 'required|max:255',
-            'firstname' => 'required|max:255',
-            'lastname' => 'required|max:255',
+            'firstname' => 'required|unique:users,first_name|max:255',
+            'lastname' => 'required|unique:users,last_name|max:255',
             'address' => 'required|max:255',
             'reg_number' => 'required|max:255',
             'phone_number' => 'required|max:255',
-            'username' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'username' => 'required|unique:users,username|max:255',
+            'email' => 'required|email|unique:users,email|max:255',
             'role' => 'required',
         ]);
+        
+        $comp_id = $request->comp_id;
+        $cid =Company::find($comp_id);
 
-        $company = Company::create([
-            'company_name' => $request->company,
-            'reg_number' => $request->reg_number,
-            'created_by_owner' => 'null',
-            'created_by_admin' => 'null',
-            'status' => 'active',
-            'phone_number' => $request->phone_number,
-        ]);
-        $last_id = $company->id;
-
-        if($last_id)
+        if($cid)
         {
             $user = User::create([
-                'company_id' => $last_id,
+                'company_id' => $comp_id,
                 'first_name' => $request->firstname,
                 'last_name' => $request->lastname,
                 'address' => $request->address,
@@ -102,7 +110,7 @@ class CompanyController extends Controller
                 'is_activated' => 1
             ]);
             $user->assignRole($user->role);
-            Company::where('id',$last_id)->update(['created_by_admin' => auth()->user()->id]);
+            // Company::where('id',$comp_id)->update(['created_by_admin' => auth()->user()->id]);
             return redirect()->back()->with('status','Account Creation Success');
         }
     }

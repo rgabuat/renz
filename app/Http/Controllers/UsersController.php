@@ -21,14 +21,16 @@ class UsersController extends Controller
         {
             $users = User::all();
         }
-        elseif(auth()->user()->hasRole(['company admin']))
+        elseif(auth()->user()->hasRole(['company admin','company user']))
         {
-            $users = Company::where('created_by_admin',auth()->user()->id)->with('admin_sub_accounts')->get();
+            $company = User::where('id',auth()->user()->id)->with('company')->get();
+            $comp_id = $company[0]['company'][0]['id'];
+            $users = User::where('company_id',$comp_id)->get();
         }
-        else 
-        {
-            $users = Company::where('created_by_owner',auth()->user()->id)->with('user_sub_accounts')->get();
-        }
+        // else 
+        // {
+        //     $users = Company::where('created_by_owner',auth()->user()->id)->with('user_sub_accounts')->get();
+        // }
         return view('admin.users.UsersList', compact('users'));
     }
 

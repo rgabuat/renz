@@ -5,36 +5,27 @@
     <thead>
         <tr>
             <th>S/N</th>
-            <th>Company</th>
-            <th>Reg No.</th>
-            <th>Creator</th>
-            <th>Status</th>
-            <th>Created</th>
-            <th>Updated</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Role</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach($companies as $company)
         <tr>
-            <td>{{ $company['id']}}</td>
-            <td>{{ $company['company_name']}}</td>
-            <td>{{ $company['reg_number']}}</td>
-                <td> 
-                    @role('system admin|system editor|company admin')
-                        @if(!empty($company['admin_sub_accounts'][0])) 
-                            {{ $company['admin_sub_accounts'][0]['first_name']}}
-                        @endif
-                        @role('company user|system admin|system editor')
-                            @if(!empty($company['user_sub_accounts'][0])) 
-                                {{ $company['user_sub_accounts'][0]['first_name']}}
-                            @endif
-                        @endrole
-                    @endrole
-                </td>
-            <td>{{ $company['status']}}</td>
-            <td>{{ $company['created_at']}}</td>
-            <td>{{ $company['updated_at']}}</td>
+            <td>{{ $company['id'] }}</td>
+            <td>{{ $company['first_name']}}</td>
+            <td>{{ $company['last_name']}}</td>
+            <td>{{ $company['address']}}</td>
+            <td>{{ $company['phone_number']}}</td>
+            <td>{{ $company['email']}}</td>
+            <td>{{ $company['username']}}</td>
+            <td>{{ $company['role']}}</td>
             <td>
             <div class="btn-group">
                 <button type="button" class="btn btn-warning " data-toggle="dropdown" aria-expanded="false">
@@ -43,13 +34,13 @@
                 <div class="dropdown-menu" role="menu" style="">
                    
                     @role('system admin|system editor|company admin')
-                    <a class="dropdown-item" href="{{ url('company/edit/'.$company['id'])}}"><span class="fas fa-pen mr-2"></span>Edit company</a>
+                        <a class="dropdown-item" href="{{ url('company/edit/'.$company['id'])}}"><span class="fas fa-pen mr-2"></span>Edit User</a>
                     @endrole
                     @role('system admin')
-                        @if($company['is_activated'])
-                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#deactivate{{ $company['id'] }}"><span class="fas fa-eye-slash mr-2"></span>Deactivate company</a>
+                        @if($company['is_activated'] == 1)
+                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#deactivate{{ $company['id'] }}"><span class="fas fa-eye-slash mr-2"></span>Deactivate User</a>
                         @else
-                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#activate{{ $company['id'] }}"><span class="fas fa-eye mr-2"></span>Activate company</a>
+                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#activate{{ $company['id'] }}"><span class="fas fa-eye mr-2"></span>Activate User</a>
                         @endif
                     @endrole
                 </div>
@@ -62,12 +53,12 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deactivateModal">Deactivate company</h5>
+                        <h5 class="modal-title" id="deactivateModal">Deactivate User</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    {{$company['id']}}
+                    Deactivate User
                     <div class="modal-body">
                         <form action="{{ url('company/deactivate/'.$company['id']) }}" method="post">
                             @csrf
@@ -83,12 +74,12 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="activateModal">Deactivate company</h5>
+                        <h5 class="modal-title" id="activateModal">Deactivate User</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    {{$company['id']}}
+                    Activate User
                     <div class="modal-body">
                         <form action="{{ url('company/activate/'.$company['id']) }}" method="post">
                             @csrf

@@ -18,97 +18,14 @@
     <tbody>
         @foreach($users as $user)
         <tr>
-            
-            
-                <td>{{ $user['id']}}</td>
-                <td>
-                @role('system admin|system editor|system user')
-                    {{ $user['first_name']}}
-                @endrole
-                @role('company admin|company user')
-                    {{ $user['admin_sub_accounts'][0]['first_name']}}
-                @endrole
-                </td>
-                <td>
-                @role('system admin|system editor|system user')
-                    {{ $user['last_name']}}
-                @endrole
-                @role('company admin|company user')
-                    {{ $user['admin_sub_accounts'][0]['last_name']}}
-                @endrole
-                </td>
-                <td>
-                @role('system admin|system editor|system user')
-                    {{ $user['last_name']}}
-                @endrole
-                @role('company admin|company user')
-                    @if(!empty($company['admin_sub_accounts'][0]))
-                        {{ $user['admin_sub_accounts'][0]['last_name']}}
-                    @else 
-                        {{ $user['admin_sub_accounts'][0]['last_name']}}
-                    @endif
-                @endrole
-                </td>
-                <td>
-                @role('system admin|system editor|system user')
-                    {{ $user['address']}}
-                @endrole
-                @role('company admin|company user')
-                    @if(!empty($company['admin_sub_accounts'][0]))
-                        {{ $user['admin_sub_accounts'][0]['address']}}
-                    @else
-                        {{ $user['admin_sub_accounts'][0]['address']}}
-                    @endif
-                @endrole
-                </td>
-                <td>
-                @role('system admin|system editor|system user')
-                    {{ $user['phone_number']}}
-                @endrole
-                @role('company admin|company user')
-                    @if(!empty($company['admin_sub_accounts'][0])) 
-                        {{ $user['admin_sub_accounts'][0]['phone_number']}}
-                    @else 
-                        {{ $user['admin_sub_accounts'][0]['phone_number']}}
-                    @endif
-                @endrole
-                </td>
-                <td>
-                @role('system admin|system editor|system user')
-                    {{ $user['email']}}
-                @endrole
-                @role('company admin|company user')
-                    @if(!empty($company['admin_sub_accounts'][0])) 
-                        {{ $user['admin_sub_accounts'][0]['email']}}
-                    @else 
-                        {{ $user['admin_sub_accounts'][0]['email']}}
-                    @endif
-                @endrole
-                </td>
-                <td>
-                @role('system admin|system editor|system user')
-                    {{ $user['username']}}
-                @endrole
-                @role('company admin|company user')
-                    @if(!empty($company['admin_sub_accounts'][0])) 
-                        {{ $user['admin_sub_accounts'][0]['username']}}
-                    @else 
-                        {{ $user['admin_sub_accounts'][0]['username']}}
-                    @endif
-                @endrole
-                </td>
-                <td>
-                @role('system admin|system editor|system user')
-                    {{ $user['first_name']}}
-                @endrole
-                @role('company admin|company user')
-                    @if(!empty($company['admin_sub_accounts'][0])) 
-                        {{ $user['admin_sub_accounts'][0]['role']}}
-                    @else
-                        {{ $user['admin_sub_accounts'][0]['role']}}
-                    @endif
-                @endrole
-                </td>
+            <td>{{ $user['id'] }}</td>
+            <td>{{ $user['first_name']}}</td>
+            <td>{{ $user['last_name']}}</td>
+            <td>{{ $user['address']}}</td>
+            <td>{{ $user['phone_number']}}</td>
+            <td>{{ $user['email']}}</td>
+            <td>{{ $user['username']}}</td>
+            <td>{{ $user['role']}}</td>
             <td>
             <div class="btn-group">
                 <button type="button" class="btn btn-warning " data-toggle="dropdown" aria-expanded="false">

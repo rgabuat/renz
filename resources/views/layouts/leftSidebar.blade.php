@@ -140,7 +140,7 @@
                   <a href="{{ route('company/sub-accounts') }}" class="nav-link">
                     <i class="pl-3 nav-icon fas fa-eye"></i>
                     <p class="pl-3">
-                      View Sub Accounts
+                      View Accounts
                     </p>
                   </a>
                 </li>
