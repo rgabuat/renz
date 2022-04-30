@@ -86,7 +86,7 @@
             </ul>
           </li>
           @endrole
-          @role('system admin|system editor|system user|company admin')
+          @role('system admin|system editor|system user|company admin|company user')
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-database"></i>
