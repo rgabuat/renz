@@ -63,7 +63,7 @@
                   </p>
                 </a>
               </li> -->
-            @role('system admin|system|editor')
+            @role('system admin|system editor')
               <li class="nav-item">
                 <a href="{{ route('users/list') }}" class="nav-link">
                   <i class="pl-3 nav-icon fas fa-eye"></i>

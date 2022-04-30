@@ -19,7 +19,7 @@ class UsersController extends Controller
     {
         if(auth()->user()->hasRole(['system admin|system editor|system user']))
         {
-            $users = User::all();
+            $users = User::where('role','system admin')->orWhere('role','system editor')->orWhere('role','system user')->get();
         }
         elseif(auth()->user()->hasRole(['company admin','company user']))
         {
