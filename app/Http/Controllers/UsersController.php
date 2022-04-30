@@ -97,8 +97,8 @@ class UsersController extends Controller
             'phone_number' => 'required|max:255',
             'username' => 'required|max:255',
             'email' => 'required|email|max:255',
+            'role' => 'required',
         ]);
-
 
             $user_data = [
                 'first_name' => $request->firstname,

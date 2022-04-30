@@ -128,12 +128,15 @@
             </div> -->
             <div class="form-group">
                 <label for="exampleSelectRounded0">Role</label>
-                <select class="custom-select" name="role" id="role">
+                <select class="custom-select" name="role" id="role" required >
                   <option value="">Select Role</option>
                   @foreach($roles as $role)
                     <option value="{{$role['name']}}" {{ ($user->role == $role['name']) ? 'selected' : '' }}>{{$role['name']}}</option>
                   @endforeach
                 </select>
+                 @error('role')
+                     <span class="error invalid-feedback"> {{ $message }}</span>
+                 @enderror
               </div>
             <div class="row">
               <div class="col-12">
