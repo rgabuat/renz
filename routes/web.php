@@ -22,6 +22,7 @@ use App\Http\Controllers\CompanyController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//test dev
 
 Route::get('/', function () {
     return view('auth/login');
