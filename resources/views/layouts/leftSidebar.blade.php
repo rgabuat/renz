@@ -89,27 +89,35 @@
           @role('system admin|system editor|system user|company admin|company user')
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-database"></i>
+                <i class="nav-icon fas fa-globe"></i>
                 <p>
-                  Data Management
+                  Domain Management
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{ route('data/list') }}" class="nav-link">
+                  <a href="{{ route('domain/list') }}" class="nav-link">
                     <i class="pl-3 nav-icon fas fa-eye"></i>
                     <p class="pl-3">
-                      View All Data
+                      View All Domains
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('domain/create') }}" class="nav-link">
+                    <i class="pl-3 nav-icon fas fa-plus"></i>
+                    <p class="pl-3">
+                      Create new Domain
                     </p>
                   </a>
                 </li>
                 @role('system admin|system editor')
                 <li class="nav-item">
-                  <a href="{{ route('data/import') }}" class="nav-link">
-                    <i class="pl-3 nav-icon fas fa-plus"></i>
+                  <a href="{{ route('domain/import') }}" class="nav-link">
+                    <i class="pl-3 nav-icon fas fa-file-import"></i>
                     <p class="pl-3">
-                      Import Data
+                      Import Domains
                     </p>
                   </a>
                 </li>
