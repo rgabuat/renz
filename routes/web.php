@@ -62,11 +62,16 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/activate/{uid}', [UsersController::class, 'activateUser'])->name('users/activate/{uid}');
     });
 
-    Route::group(['prefix' => 'data'],function(){
-        Route::get('/import', [DataImportController::class,'show'])->name('data/import');
-        Route::get('/list', [DataImportController::class,'index'])->name('data/list');
-        Route::post('/parse_import', [DataImportController::class,'parse'])->name('data/parse_import');
-        Route::post('/import', [DataImportController::class,'store'])->name('data/import');
+    Route::group(['prefix' => 'domain'],function(){
+        Route::get('/import', [DataImportController::class,'show'])->name('domain/import');
+        Route::get('/list', [DataImportController::class,'index'])->name('domain/list');
+        Route::get('/create', [DataImportController::class,'create'])->name('domain/create');
+        Route::post('/input', [DataImportController::class,'input'])->name('domain/input');
+        Route::get('/edit/{did}', [DataImportController::class,'edit'])->name('domain/edit/{did}');
+        Route::post('/delete/{did}', [DataImportController::class,'delete'])->name('domain/delete/{did}');
+        Route::post('/update/{did}', [DataImportController::class,'update'])->name('domain/update/{did}');
+        Route::post('/parse_import', [DataImportController::class,'parse'])->name('domain/parse_import');
+        Route::post('/import', [DataImportController::class,'store'])->name('domain/import');
     });
 
     Route::group(['prefix' => 'company'],function(){
