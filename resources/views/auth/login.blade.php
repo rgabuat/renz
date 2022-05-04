@@ -10,26 +10,25 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <h2 class="login-box-msg text-left text-primary">Sign in</h2>
             @if (session('status'))
                 <div class="bg-danger text-center text-white py-2 mb-3">
                     {{ session('status') }}
                 </div>
             @endif
       <form action="{{ route('login') }}" method="post">
-          @csrf
+        @csrf
         <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Email">
+          <input type="text" name="userlogin" class="form-control @error('userlogin') is-invalid @enderror" value="{{ old('userlogin') }}" placeholder="username">
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+              <span class="fas fa-user"></span>
             </div>
           </div>
-            @error('email')
+            @error('userlogin')
                 <span class="error invalid-feedback"> {{ $message }}</span>
             @enderror
         </div>
-
         <div class="input-group mb-3">
           <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
           <div class="input-group-append">
@@ -59,7 +58,7 @@
       </form>
       <!-- /.social-auth-links -->
       <p class="mb-0 text-center">
-        <a href="{{ route('register') }}">Register a new membership</a>
+        <a href="{{ route('register') }}">Create Account</a>
       </p>
     </div>
     <!-- /.login-card-body -->

@@ -3,18 +3,35 @@
 
 @section('content')
 <div class="">
-    <div class="col-lg-8">
+    <div class="col-lg-8 py-4">
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <p class="login-box-msg h2 text-left px-0">My Profile</p>
-          <a href="{{ route('edit-profile') }}" class="btn btn-primary mb-3">EDIT PROFILE</a>
+          <h2 class="login-box-msg text-primary text-left px-0"><b>My Profile</b></h2>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="row">
+                <div class="col-6">
+                    <div>
+                    <p><a href="{{ route('edit-profile') }}" class="btn btn-primary mb-3">EDIT PROFILE</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-right">
+                  <div class="image">
+                      <img src=" {{ auth()->user()->profile_image != '' ? asset('storage/'.auth()->user()->profile_image) : 'vendors/dist/img/AdminLTELogo.png' }}" class="border mb-3" alt="avatar">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
                 @if (session('status'))
                     <div class="bg-success text-center text-white py-2 mb-3">
                         {{ session('status') }}
                     </div>
                 @endif
-          <!-- <form action="{{ url('update-profile/'.auth()->user()->id) }}" method="post" enctype="multipart/form-data"> -->
+                
+          <form action="{{ url('update-profile/'.auth()->user()->id) }}" method="post" enctype="multipart/form-data">
               @csrf
             @role('company admin')
             <div class="input-group mb-3">

@@ -9,10 +9,6 @@
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
       <li class="nav-item">
-        <a class="nav-link"  href="{{ route('dashboard') }}">
-          <i class="fas fa-home"></i>
-          Home
-        </a>
         <!-- <div class="navbar-search-block">
           <form class="form-inline">
             <div class="input-group input-group-sm">

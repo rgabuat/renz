@@ -1,6 +1,5 @@
 @extends('layouts.guest')
 
-
 @section('content')
 <div class="login-page">
   <div class="container">
@@ -11,7 +10,7 @@
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <p class="login-box-msg">Register Now</p>
+          <h2 class="login-box-msg text-left text-primary px-0"><b>Create Account</b></h2>
                 @if (session('error'))
                     <div class="bg-danger text-center text-white py-2 mb-3">
                         {{ session('error') }}
@@ -23,6 +22,7 @@
                 @endif
           <form action="{{ route('register') }}" method="post">
               @csrf
+              <label for="company">Company <span class="text-danger">*</span> </label>
             <div class="input-group mb-3">
               <input type="text" name="company" class="form-control @error('company') is-invalid @enderror" value="{{ old('company') }}" placeholder="Company">
               <div class="input-group-append">
@@ -36,6 +36,7 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
+              <label for="firstname">Firstname <span class="text-danger">*</span> </label>
                 <div class="input-group mb-3">
                   <input type="text" name="firstname" class="form-control @error('firstname') is-invalid @enderror" value="{{ old('firstname') }}" placeholder="Firstname">
                   <div class="input-group-append">
@@ -49,6 +50,7 @@
                 </div>
               </div>
               <div class="col-lg-6">
+              <label for="lastname">Lastname <span class="text-danger">*</span> </label>
                 <div class="input-group mb-3">
                   <input type="text" name="lastname" class="form-control @error('lastname') is-invalid @enderror" value="{{ old('lastname') }}" placeholder="Lastname">
                   <div class="input-group-append">
@@ -62,6 +64,7 @@
                 </div>
               </div>
             </div>
+            <label for="address">Address <span class="text-danger">*</span> </label>
             <div class="input-group mb-3">
               <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Address">
               <div class="input-group-append">
@@ -75,11 +78,12 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
+              <label for="reg_number">Registered/VAT Number <span class="text-danger">*</span> </label>
                 <div class="input-group mb-3">
-                  <input type="tel" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror" value="{{ old('reg_number') }}" placeholder="Registered Number">
+                  <input type="tel" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror" value="{{ old('reg_number') }}" placeholder="Registered/VAT Number">
                   <div class="input-group-append">
                     <div class="input-group-text">
-                      <span class="fas fa-mobile-alt"></span>
+                      <span class="fas fa-credit-card"></span>
                     </div>
                   </div>
                     @error('reg_number')
@@ -88,6 +92,7 @@
                 </div>
               </div>
               <div class="col-lg-6">
+              <label for="phone_number">Phone number<span class="text-danger">*</span> </label>
                 <div class="input-group mb-3">
                   <input type="tel" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('phone_number') }}" placeholder="Phone Number">
                   <div class="input-group-append">
@@ -101,6 +106,7 @@
                 </div>
               </div>
             </div>
+            <label for="username">Username<span class="text-danger">*</span> </label>
             <div class="input-group mb-3">
               <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" placeholder="Username">
               <div class="input-group-append">
@@ -112,6 +118,7 @@
                     <span class="error invalid-feedback"> {{ $message }}</span>
                 @enderror
             </div>
+            <label for="email">Email<span class="text-danger">*</span> </label>
             <div class="input-group mb-3">
               <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Email">
               <div class="input-group-append">
@@ -125,8 +132,9 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
+              <label for="password">Password<span class="text-danger">*</span> </label>
                 <div class="input-group mb-3">
-                  <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="******">
+                  <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-lock"></span>
@@ -138,8 +146,9 @@
                 </div>
               </div>
               <div class="col-lg-6">
+              <label for="password_confirmation">Confirm password<span class="text-danger">*</span> </label>
                 <div class="input-group mb-3">
-                  <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="******">
+                  <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Confirm password">
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-lock"></span>
@@ -152,7 +161,7 @@
               </div>
             </div>
             <div>
-              <label for="captcha">Answer this question</label>
+              <label for="captcha">Answer this question <span class="text-danger"> *</span></label>
               @php
                   $randNum1 = mt_rand(1,20);
                   $randNum2 = mt_rand(1, 20);
@@ -160,10 +169,10 @@
               @endphp
                 <input type="hidden" name="captchaResult" value="{{ md5($sum) }}">
               <div class="row">
-                <div class="col-lg-3">
-                  <h5> Answer : {{ $randNum1 }} - {{ $randNum2 }} =</h5>
+                <div class="col-lg-2">
+                  <h5>{{ $randNum1 }} - {{ $randNum2 }} =</h5>
                 </div>
-                <div class="col-lg-9">
+                <div class="col-lg-10">
                   <div class="form-group">
                     <input type="tel" name="captcha" class="form-control @error('captcha') is-invalid @enderror" value="" size="2"> 
                   </div>
@@ -176,7 +185,7 @@
             <div class="row">
               <!-- /.col -->
               <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block mb-3">REGISTER NOW</button>
+                <button type="submit" class="btn btn-primary btn-block mb-3">Create Now</button>
               </div>
               <!-- /.col -->
             </div>
@@ -185,7 +194,7 @@
           <!-- /.social-auth-links -->
 
           <p class="mb-0 text-center  ">
-            <a href="{{ route('login') }}" class="text-center">Already have account?</a>
+            <a href="{{ route('login') }}" class="text-center">Already have an account? Go to Login</a>
           </p>
         </div>
         <!-- /.login-card-body -->

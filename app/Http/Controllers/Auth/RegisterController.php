@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -34,7 +35,7 @@ class RegisterController extends Controller
             'address' => 'required|max:255',
             'reg_number' => 'required|unique:company,reg_number|max:255',
             'phone_number' => 'required|max:255',
-            'username' => 'required|max:255',
+            'username' => 'required|unique:users,username|max:255',
             'email' => 'required|unique:users,email|email|max:255',
             'password' => 'required|confirmed',
             'captcha' => 'required'
@@ -52,7 +53,7 @@ class RegisterController extends Controller
                     $role = 'company admin';
                 }
                 $company = Company::create([
-                    'company_name' => $request->company,
+                    'company_name' => Str::ucfirst(Str::lower($request->company)),
                     'reg_number' => $request->reg_number,
                     'created_by_owner' => 'null',
                     'created_by_admin' => 'null',
@@ -64,13 +65,13 @@ class RegisterController extends Controller
                     // $comp_lastId = $company->id
                     $user = User::create([
                         'company_id' => $company->id,
-                        'first_name' => $request->firstname,
-                        'last_name' => $request->lastname,
-                        'address' => $request->address,
+                        'first_name' => Str::ucfirst(Str::lower($request->firstname)),
+                        'last_name' => Str::ucfirst(Str::lower($request->lastname)),
+                        'address' => Str::ucfirst(Str::lower($request->lastname)),
                         'reg_number' => $request->reg_number,
                         'phone_number' => $request->phone_number,
-                        'username' => $request->username,
-                        'email' => $request->email,
+                        'username' => Str::lower($request->username),
+                        'email' => Str::lower($request->email),
                         'password' => Hash::make($request->password),
                         'role' => $role,
                     ]);
