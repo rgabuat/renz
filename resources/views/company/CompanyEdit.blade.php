@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-
+@section('title',"Company Modify")
 @section('content')
 
-<div class="">
+<div class="py-3">
     <div class="col-lg-8">
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <p class="login-box-msg h2 text-left px-0">Edit Company {{ $company->id }}</p>
+          <h2 class="login-box-msg  text-left text-primary px-0"><b>Edit Company {{ $company->id }}</b></h2>
                 @if (session('status'))
                     <div class="bg-success text-center text-white py-2 mb-3">
                         {{ session('status') }}
@@ -18,7 +18,7 @@
               @csrf
             <div class="row">
             <div class="col-md-6">
-              <label for="comp_name">Company Name</label>
+              <label for="comp_name">Company Name <span class="text-danger">*</span></label>
               <div class="input-group mb-3">
                 <input type="text" name="company" class="form-control @error('company') is-invalid @enderror" value="{{ $company->company_name }}" placeholder="Company">
                 <div class="input-group-append">
@@ -32,7 +32,7 @@
               </div>
             </div>
               <div class="col-lg-6">
-              <label for="vat_num">Registered Number</label>
+              <label for="vat_num">Registered Number <span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
                   <input type="text" name="reg_number" class="form-control @error('firstname') is-invalid @enderror" value="{{ $company->reg_number }}" placeholder="Firstname">
                   <div class="input-group-append">

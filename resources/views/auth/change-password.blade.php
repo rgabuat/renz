@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title',"Change my Password")
 @section('content')
   <div class="container-fluid">
     <div class="col-lg-8 pt-5">

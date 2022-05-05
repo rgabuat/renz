@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-
+@section('title',"Domain Edit")
 @section('content')
     <div class="col-lg-6 py-3">
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <p class="login-box-msg h2 text-left px-0">Create New Domain</p>
+          <h2 class="login-box-msg h2 text-left text-primary px-0"><b>Create New Domain</b></h2>
                 @if (session('status'))
                     <div class="bg-success text-center text-white py-2 mb-3">
                         {{ session('status') }}

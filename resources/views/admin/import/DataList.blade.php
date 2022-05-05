@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title',"Domain List")
 @section('content')
 <div class="table-responsive-sm py-3">
     <div class="card">
@@ -9,6 +9,7 @@
                 {{ session('status') }}
             </div>
         @endif
+        <h2 class="text-left text-primary"><b>Domains</b></h2>
         <table class="table">
             <thead>
                 <tr>

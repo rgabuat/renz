@@ -42,14 +42,6 @@ class CompanyController extends Controller
 
     public function sub_accounts()
     {
-        // if(auth()->user()->hasRole(['company admin']))
-        // {
-        //     $companies = Company::where('created_by_admin',auth()->user()->id)->with('admin_sub_accounts')->get();
-        // }
-        // else
-        // {
-        //     $companies = Company::where('created_by_owner',auth()->user()->id)->with('user_sub_accounts')->get();
-        // }
         $company = User::where('id',auth()->user()->id)->with('company')->get();
         $comp_id = $company[0]['company'][0]['id'];
         $companies = User::where('company_id',$comp_id)->get();
@@ -61,14 +53,9 @@ class CompanyController extends Controller
         $user = User::where('id',$uid)->first();
         if(auth()->user()->hasRole(['system admin','system editor']))
         {
-            $roles = Role::whereNotIn('name', ['company admin','company user'])->get();
-        }
-        else 
-        {
-           
             $roles = Role::whereNotIn('name',['system admin','system editor','system user'] )->get();
         }
-          
+
         return view('company.CompanySubAccountsEdit', compact('user','roles'));
     }
 
@@ -172,7 +159,7 @@ class CompanyController extends Controller
 
     public function activateUser($uid)
     {
-        $response = Company::where('id',$uid)->update(['is_activated' => 1]);
+        $response = User::where('id',$uid)->update(['is_activated' => 1]);
         if($response)
         {
             return redirect()->back()->with('status','User Activated');
@@ -181,7 +168,7 @@ class CompanyController extends Controller
 
     public function deactivateUser($uid)
     {
-        $response = Company::where('id',$uid)->update(['is_activated' => 0]);
+        $response = User::where('id',$uid)->update(['is_activated' => 0]);
         if($response)
         {
             return redirect()->back()->with('status','User Deactivated');

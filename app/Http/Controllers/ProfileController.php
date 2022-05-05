@@ -50,17 +50,21 @@ class ProfileController extends Controller
             ];
         }
 
-
-        $image = '';
         if($request->has('image'))
         {
             $destinationPath = 'excels/uploads';
             $file = $request->file('image');
             $file_name = $file->getClientOriginalName();
-            $path = $request->file('image')->storeAs($destinationPath,$file_name);
+            $path = $request->file('image')->storeAs($destinationPath,$file_name,'public');
             $image = $path;
+
+            $param = [
+                'profile_image' =>  $image
+            ];
+
+            $update_profile = User::where('id',$uid)->update($param);
         }
-        $img = $image != '' ? $path : '';
+
         $param = [
             'first_name' => $request->firstname,
             'last_name' => $request->lastname,
@@ -68,10 +72,7 @@ class ProfileController extends Controller
             'phone_number' => $request->phone_number,
             'username' => $request->username,
             'email' => $request->email,
-            'profile_image' => $img
         ];
-
-        
 
         $update_profile = User::where('id',$uid)->update($param);
 

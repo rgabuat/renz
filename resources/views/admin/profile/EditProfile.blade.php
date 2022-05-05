@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-
+@section('title',"Modify My Profile")
 @section('content')
-<div class="">
+<div class="py-3">
     <div class="col-lg-8">
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <p class="login-box-msg h2 text-left px-0">My Profile</p>
+          <h2 class="login-box-msg h2 text-left text-primary px-0"><b>My Profile</b></h2>
                 @if (session('status'))
                     <div class="bg-success text-center text-white py-2 mb-3">
                         {{ session('status') }}

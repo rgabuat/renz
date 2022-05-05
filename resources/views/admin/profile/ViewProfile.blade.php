@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-
+@section('title',"My Profile")
 @section('content')
-<div class="">
+<div class="py-3">
     <div class="col-lg-8 py-4">
       <!-- /.login-logo -->
       <div class="card">

@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
+@section('title',"Users Create")
 
 @section('content')
-<div class="">
+<div class="py-3">
     <div class="col-lg-8">
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <p class="login-box-msg h2 text-left px-0">Create Account</p>
+          <h2 class="login-box-msg h2 text-left text-primary px-0"><b>Create Account</b></h2>
                 @if (session('status'))
                     <div class="bg-success text-center text-white py-2 mb-3">
                         {{ session('status') }}
@@ -17,6 +18,7 @@
               @csrf
             <div class="row">
               <div class="col-lg-6">
+                <label for="firstname">Firstname <span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
                   <input type="text" name="firstname" class="form-control @error('firstname') is-invalid @enderror" placeholder="Firstname">
                   <div class="input-group-append">
@@ -30,6 +32,7 @@
                 </div>
               </div>
               <div class="col-lg-6">
+              <label for="lastname">Lastname <span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
                   <input type="text" name="lastname" class="form-control @error('lastname') is-invalid @enderror" placeholder="Lastname">
                   <div class="input-group-append">
@@ -46,6 +49,7 @@
             
             <div class="row">
               <div class="col-lg-6">
+              <label for="phone">Phone Number <span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
                   <input type="tel" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('phone_number') }}" placeholder="Phone Number">
                   <div class="input-group-append">
@@ -59,6 +63,7 @@
                 </div>
               </div>
               <div class="col-lg-6">
+              <label for="address">Address<span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
                   <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" placeholder="Address">
                   <div class="input-group-append">
@@ -72,6 +77,7 @@
                 </div>
               </div>
             </div>
+            <label for="username">Username <span class="text-danger">*</span></label>
             <div class="input-group mb-3">
               <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" placeholder="Username">
               <div class="input-group-append">
@@ -83,6 +89,7 @@
                     <span class="error invalid-feedback"> {{ $message }}</span>
                 @enderror
             </div>
+            <label for="email">Email <span class="text-danger">*</span></label>
             <div class="input-group mb-3">
               <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Email">
               <div class="input-group-append">
@@ -123,13 +130,16 @@
               </div>
             </div> -->
             <div class="form-group">
-                <label for="exampleSelectRounded0">Role</label>
-                <select class="custom-select" name="role" id="role">
+                <label for="exampleSelectRounded0">Role <span class="text-danger">*</span></label>
+                <select class="custom-select @error('role') is-invalid @enderror" name="role" id="role">
                   <option value="">Select Role</option>
                   @foreach($roles as $role)
                   <option>{{$role['name']}}</option>
                   @endforeach
                 </select>
+                @error('role')
+                    <span class="error invalid-feedback"> {{ $message }}</span>
+                @enderror
               </div>
             <div class="row">
               <div class="col-12">

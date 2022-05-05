@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-
+@section('title',"Company Create")
 @section('content')
-<div class="">
+<div class="py-3">
     <div class="col-lg-8">
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <p class="login-box-msg h2 text-left px-0">Create Company Account</p>
+          <h2 class="login-box-msg h2 text-left text-primary px-0"><b>Create Company Account</b></h2>
                 @if (session('status'))
                     <div class="bg-success text-center text-white py-2 mb-3">
                         {{ session('status') }}
@@ -19,6 +19,7 @@
             @role('system admin|system editor')
             <div class="row">
             <div class="col-md-6">
+            <label for="company">Company <span class="text-danger">*</span></label>
               <div class="input-group mb-3">
                 <input type="text" name="company" class="form-control @error('company') is-invalid @enderror" value="{{ old('company') }}" placeholder="Company">
                 <div class="input-group-append">
@@ -32,8 +33,9 @@
               </div>
             </div>
             <div class="col-lg-6">
+            <label for="vat_num">Registered/VAT Number <span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
-                  <input type="tel" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror"  value="{{ old('reg_number') }}" placeholder="Registered Number">
+                  <input type="tel" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror"  value="{{ old('reg_number') }}" placeholder="Registered/VAT Number">
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-circle"></span>
@@ -48,6 +50,7 @@
             @endrole
             <div class="row">
               <div class="col-lg-6">
+              <label for="firstname">Firstname <span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
                   <input type="text" name="firstname" class="form-control @error('firstname') is-invalid @enderror" value="{{ old('firstname') }}"  placeholder="Firstname">
                   <div class="input-group-append">
@@ -61,6 +64,7 @@
                 </div>
               </div>
               <div class="col-lg-6">
+              <label for="lastname">Lastname <span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
                   <input type="text" name="lastname" class="form-control @error('lastname') is-invalid @enderror" value="{{ old('lastname') }}"  placeholder="Lastname">
                   <div class="input-group-append">
@@ -76,6 +80,7 @@
             </div>
             <div class="row">
               <div class="col-md-6">
+              <label for="address">Address <span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
                   <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Address">
                   <div class="input-group-append">
@@ -89,6 +94,7 @@
                 </div>
               </div>
               <div class="col-lg-6">
+              <label for="phone">Phone Number <span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
                   <input type="tel" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('phone_number') }}" placeholder="Phone Number">
                   <div class="input-group-append">
@@ -105,6 +111,7 @@
               
               @endrole
             </div>
+            <label for="username">Username <span class="text-danger">*</span></label>
             <div class="input-group mb-3">
               <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" placeholder="Username">
               <div class="input-group-append">
@@ -116,6 +123,7 @@
                     <span class="error invalid-feedback"> {{ $message }}</span>
                 @enderror
             </div>
+            <label for="email">Email <span class="text-danger">*</span></label>
             <div class="input-group mb-3">
               <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Email">
               <div class="input-group-append">
@@ -128,36 +136,8 @@
                 @enderror
             </div>
             <p>Default Password : default123</p>
-            <!-- <div class="row">
-              <div class="col-lg-6">
-                <div class="input-group mb-3">
-                  <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="******">
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <span class="fas fa-lock"></span>
-                    </div>
-                  </div>
-                    @error('password')
-                        <span class="error invalid-feedback"> {{ $message }}</span>
-                    @enderror
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="input-group mb-3">
-                  <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="******">
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <span class="fas fa-key"></span>
-                    </div>
-                  </div>
-                    @error('password_confirmation')
-                        <span class="error invalid-feedback"> {{ $message }}</span>
-                    @enderror
-                </div>
-              </div> 
-            </div>-->
             <div class="form-group">
-                <label for="exampleSelectRounded0">Role</label>
+                <label for="exampleSelectRounded0">Role <span class="text-danger">*</span></label>
                 <select class="custom-select @error('role') is-invalid @enderror" name="role" id="role" >
                   <option value="">Select Role</option>
                   @foreach($roles as $role)

@@ -38,23 +38,23 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{ route('dashboard') }}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+            <a href="{{ route('dashboard') }}" class="nav-link {{ Request::is('dashboard*') ? 'active open' : '' }}">
+              <i class="nav-icon fas fa-tachometer-alt" ></i>
               <p>
                  Dashboard
               </p>
             </a>
           </li>
           @role('system admin|system editor|system user')
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
+          <li class="nav-item  {{ Request::is('users*') ? 'menu-is-opening menu-open' : '' }}">
+            <a href="#" class="nav-link {{ Request::is('users*') ? 'active' : '' }} ">
+              <i class="nav-icon fas fa-users "></i>
               <p>
                  Users Management
-                <i class="right fas fa-angle-left"></i>
+                <i class="right fas fa-angle-left "></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview {{ Request::is('users*') ? 'd-block' : '' }}">
             <!-- <li class="nav-item">
                 <a href="{{ route('users/sub-accounts') }}" class="nav-link">
                   <i class="pl-3 nav-icon fas fa-eye"></i>
@@ -65,7 +65,7 @@
               </li> -->
             @role('system admin|system editor|system user')
               <li class="nav-item">
-                <a href="{{ route('users/list') }}" class="nav-link">
+                <a href="{{ route('users/list') }}" class="nav-link {{ Request::is('users/list*') ? 'active open' : '' }}">
                   <i class="pl-3 nav-icon fas fa-eye"></i>
                   <p class="pl-3">
                     View All Users
@@ -74,7 +74,7 @@
               </li>
               @role('system admin|system editor')
               <li class="nav-item">
-                <a href="{{ route('users/create') }}" class="nav-link">
+                <a href="{{ route('users/create') }}" class="nav-link {{ Request::is('users/create*') ? 'active open' : '' }}">
                   <i class="pl-3 nav-icon fas fa-user-plus"></i>
                   <p class="pl-3">
                     Add User
@@ -87,8 +87,8 @@
           </li>
           @endrole
           @role('system admin|system editor|system user|company admin|company user')
-            <li class="nav-item">
-              <a href="#" class="nav-link">
+            <li class="nav-item {{ Request::is('domain*') ? 'menu-is-opening menu-open' : '' }}">
+              <a href="#" class="nav-link {{ Request::is('domain*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-globe"></i>
                 <p>
                   Domain Management
@@ -97,7 +97,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{ route('domain/list') }}" class="nav-link">
+                  <a href="{{ route('domain/list') }}" class="nav-link {{ Request::is('domain/list*') ? 'active' : '' }}">
                     <i class="pl-3 nav-icon fas fa-eye"></i>
                     <p class="pl-3">
                       View All Domains
@@ -105,7 +105,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('domain/create') }}" class="nav-link">
+                  <a href="{{ route('domain/create') }}" class="nav-link {{ Request::is('domain/create*') ? 'active' : '' }} ">
                     <i class="pl-3 nav-icon fas fa-plus"></i>
                     <p class="pl-3">
                       Create new Domain
@@ -114,7 +114,7 @@
                 </li>
                 @role('system admin|system editor')
                 <li class="nav-item">
-                  <a href="{{ route('domain/import') }}" class="nav-link">
+                  <a href="{{ route('domain/import') }}" class="nav-link {{ Request::is('domain/import*') ? 'active' : '' }}">
                     <i class="pl-3 nav-icon fas fa-file-import"></i>
                     <p class="pl-3">
                       Import Domains
@@ -126,8 +126,8 @@
             </li>
             @endrole
             @role('system admin|system editor|company admin|company user|system user')
-            <li class="nav-item">
-              <a href="#" class="nav-link">
+            <li class="nav-item {{ Request::is('company*') ? 'menu-is-opening menu-open' : '' }}">
+              <a href="#" class="nav-link {{ Request::is('company*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-building"></i>
                 <p>
                   Company
@@ -137,7 +137,7 @@
               <ul class="nav nav-treeview">
                 @role('system admin|system editor|system user')
                 <li class="nav-item">
-                  <a href="{{ route('company/list') }}" class="nav-link">
+                  <a href="{{ route('company/list') }}" class="nav-link {{ Request::is('company/list*') ? 'active' : '' }}">
                     <i class="pl-3 nav-icon fas fa-eye"></i>
                     <p class="pl-3">
                       View All Company
@@ -147,7 +147,7 @@
                 @endrole
                 @role('company user|company admin')
                 <li class="nav-item">
-                  <a href="{{ route('company/sub-accounts') }}" class="nav-link">
+                  <a href="{{ route('company/sub-accounts') }}" class="nav-link {{ Request::is('company/sdub-accounts') ? 'active' : '' }}">
                     <i class="pl-3 nav-icon fas fa-eye"></i>
                     <p class="pl-3">
                       View Accounts
@@ -157,7 +157,7 @@
                 @endrole
                   @role('company admin|system admin|system editor')
                   <li class="nav-item">
-                    <a href="{{ route('company/create') }}" class="nav-link">
+                    <a href="{{ route('company/create') }}" class="nav-link {{ Request::is('company/create*') ? 'active' : '' }}">
                       <i class="pl-3 nav-icon fas fa-plus"></i>
                       <p class="pl-3">
                         Add Company Accounts
@@ -169,7 +169,7 @@
               </li>
             @endrole
           <li class="nav-item">
-            <a href="{{route('view-profile')}}" class="nav-link">
+            <a href="{{route('view-profile')}}" class="nav-link {{ Request::is('view-profile*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-eye"></i>
               <p>
                 Profile
@@ -177,7 +177,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('change-password') }}" class="nav-link">
+            <a href="{{ route('change-password') }}" class="nav-link {{ Request::is('change-password*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-key"></i>
               <p>
                 Change Password

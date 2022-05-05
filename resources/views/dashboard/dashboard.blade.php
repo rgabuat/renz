@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title',"Dashboard")
+
 @section('content')
 
     @role('system-admin')
@@ -21,7 +23,5 @@
     @role('company-user')
         <p>I'm Company user</p>
     @endrole
-
-    
 
 @endsection
