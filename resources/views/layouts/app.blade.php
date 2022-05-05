@@ -17,6 +17,21 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('vendors/dist/css/adminlte.min.css') }}">
 
+  <style>
+    .user-panel img {
+    height: 2rem;
+    width: 2rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+img.border.mb-3 {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+  </style>
 </head>
 <!--
 `body` tag options:

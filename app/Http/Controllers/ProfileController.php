@@ -63,6 +63,7 @@ class ProfileController extends Controller
             ];
 
             $update_profile = User::where('id',$uid)->update($param);
+            return redirect()->back()->with('status', 'Profile Successfully Update');
         }
 
         $param = [
@@ -80,10 +81,7 @@ class ProfileController extends Controller
         {
             return redirect()->back()->with('status', 'Profile Successfully Update');
         }
-        else 
-        {
-            return redirect()->back()->with('status', 'Something went wrong!');
-        }
+
         
     }
     
