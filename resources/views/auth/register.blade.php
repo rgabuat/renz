@@ -1,5 +1,5 @@
 @extends('layouts.guest')
-
+@section('title',"Register")
 @section('content')
 <div class="login-page">
   <div class="container">

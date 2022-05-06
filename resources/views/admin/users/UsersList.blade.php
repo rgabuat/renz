@@ -62,11 +62,13 @@
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        {{$user['id']}}
+                       
                         <div class="modal-body">
                             <form action="{{ url('users/deactivate/'.$user['id']) }}" method="post">
                                 @csrf
-                                <input type="submit" class="btn btn-danger" value="Deactivate User">
+                                 <p>Are you sure you want to deactive user: <span class="text-primary" style="font-size:24px">{{$user['username']}}</span> ?</p>
+                                <button class="btn btn-light" role="button">Cancel</button>
+                                <input type="submit" class="btn btn-danger" value="Deactivate">
                             </form>
                         </div>
                     </div>

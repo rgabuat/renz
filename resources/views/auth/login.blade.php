@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 
-
+@section('title',"Login")
 @section('content')
 <div class="login-page">
 <div class="login-box">
@@ -10,7 +10,7 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <h2 class="login-box-msg text-left text-primary">Sign in</h2>
+      <h2 class="login-box-msg text-center text-primary">Sign in</h2>
             @if (session('status'))
                 <div class="bg-danger text-center text-white py-2 mb-3">
                     {{ session('status') }}

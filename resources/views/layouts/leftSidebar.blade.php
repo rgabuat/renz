@@ -104,6 +104,7 @@
                     </p>
                   </a>
                 </li>
+                @role('system admin|system editor')
                 <li class="nav-item">
                   <a href="{{ route('domain/create') }}" class="nav-link {{ Request::is('domain/create*') ? 'active' : '' }} ">
                     <i class="pl-3 nav-icon fas fa-plus"></i>
@@ -112,6 +113,7 @@
                     </p>
                   </a>
                 </li>
+                @endrole
                 @role('system admin|system editor')
                 <li class="nav-item">
                   <a href="{{ route('domain/import') }}" class="nav-link {{ Request::is('domain/import*') ? 'active' : '' }}">

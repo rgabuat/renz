@@ -101,34 +101,7 @@
                     <span class="error invalid-feedback"> {{ $message }}</span>
                 @enderror
             </div>
-            <!-- <div class="row">
-              <div class="col-lg-6">
-                <div class="input-group mb-3">
-                  <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="******">
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <span class="fas fa-lock"></span>
-                    </div>
-                  </div>
-                    @error('password')
-                        <span class="error invalid-feedback"> {{ $message }}</span>
-                    @enderror
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="input-group mb-3">
-                  <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="******">
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <span class="fas fa-lock"></span>
-                    </div>
-                  </div>
-                    @error('password_confirmation')
-                        <span class="error invalid-feedback"> {{ $message }}</span>
-                    @enderror
-                </div>
-              </div>
-            </div> -->
+            <h3>Default password is: <span class="text-warning">default123</span></h3>
             <div class="form-group">
                 <label for="exampleSelectRounded0">Role <span class="text-danger">*</span></label>
                 <select class="custom-select @error('role') is-invalid @enderror" name="role" id="role">

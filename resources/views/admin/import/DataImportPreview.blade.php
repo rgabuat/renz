@@ -37,7 +37,7 @@
                   @endforeach
               </tbody>
             </table>
-            <form action="/data/import" method="post" enctype="multipart/form-data">
+            <form action="/domain/import" method="post" enctype="multipart/form-data">
               @csrf
               <div class="form-group">
                   <input hidden type="text" value="{{ $param['location'] }}" name="file">

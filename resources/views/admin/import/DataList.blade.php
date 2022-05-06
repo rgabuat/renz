@@ -43,7 +43,7 @@
                             <span class="fas fa-align-right"></span>
                             </button>
                             <div class="dropdown-menu" role="menu" style="">
-                                @role('system admin|system editor|company admin')
+                                @role('system admin|system editor')
                                 <a class="dropdown-item" href="{{ url('domain/edit/'.$domain_data['id'])}}"><span class="fas fa-pen mr-2"></span>Edit Domain</a>
                                 @endrole
                                 @role('system admin')
