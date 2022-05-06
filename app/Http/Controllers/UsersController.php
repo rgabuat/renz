@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Company;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UsersController extends Controller
 {
@@ -59,20 +60,20 @@ class UsersController extends Controller
             'lastname' => 'required|max:255',
             'address' => 'required|max:255',
             'phone_number' => 'required|max:255',
-            'username' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'username' => 'required|max:255|unique:users,username',
+            'email' => 'required|email|max:255|unique:users,email',
             'role' => 'required',
         ]);
 
 
         $user = User::create([
             'company_id' => 0,
-            'first_name' => $request->firstname,
-            'last_name' => $request->lastname,
-            'address' => $request->address,
+            'first_name' => Str::ucfirst(Str::lower($request->firstname)),
+            'last_name' => Str::ucfirst(Str::lower($request->lastname)),
+            'address' => Str::ucfirst(Str::lower($request->address)),
             'phone_number' => $request->phone_number,
-            'username' => $request->username,
-            'email' => $request->email,
+            'username' => Str::lower($request->username),
+            'email' => Str::lower($request->email),
             'password' => Hash::make('default123'),
             'role' => $request->role
         ]);
@@ -95,18 +96,18 @@ class UsersController extends Controller
             'lastname' => 'required|max:255',
             'address' => 'required|max:255',
             'phone_number' => 'required|max:255',
-            'username' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'username' => 'required|max:255|unique:users,username',
+            'email' => 'required|email|max:255|unique:users,email',
             'role' => 'required',
         ]);
 
             $user_data = [
-                'first_name' => $request->firstname,
-                'last_name' => $request->lastname,
-                'address' => $request->address,
+                'first_name' => Str::ucfirst(Str::lower($request->firstname)),
+                'last_name' => Str::ucfirst(Str::lower($request->lastname)),
+                'address' => Str::ucfirst(Str::lower($request->address)),
                 'phone_number' => $request->phone_number,
-                'username' => $request->username,
-                'email' => $request->email,
+                'username' => Str::lower($request->username),
+                'email' => Str::lower($request->email),
                 'role' => $request->role,
             ];
             

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 
 use App\Models\Company;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+
 
 class CompanyController extends Controller
 {
