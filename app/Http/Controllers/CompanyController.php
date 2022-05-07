@@ -53,11 +53,8 @@ class CompanyController extends Controller
     public function sub_accounts_edit($uid)
     {
         $user = User::where('id',$uid)->first();
-        if(auth()->user()->hasRole(['system admin','system editor']))
-        {
-            $roles = Role::whereNotIn('name',['system admin','system editor','system user'] )->get();
-        }
 
+        $roles = Role::whereNotIn('name',['system admin','system editor','system user'] )->get();
         return view('company.CompanySubAccountsEdit', compact('user','roles'));
     }
 
@@ -92,7 +89,7 @@ class CompanyController extends Controller
             if(auth()->user()->hasRole(['system admin','system editor']))
             {
                 $company = Company::create([
-                    'company_name' => $request->company,
+                    'company_name' => Str::ucfirst(Str::lower($request->company)),
                     'reg_number' => $request->reg_number,
                     'created_by_owner' => 'null',
                     'created_by_admin' => 'null',
@@ -113,13 +110,13 @@ class CompanyController extends Controller
 
             $user = User::create([
                 'company_id' => $company_id,
-                'first_name' => $request->firstname,
-                'last_name' => $request->lastname,
-                'address' => $request->address,
+                'first_name' => Str::ucfirst(Str::lower($request->firstname)),
+                'last_name' => Str::ucfirst(Str::lower($request->lastname)),
+                'address' => Str::ucfirst(Str::lower($request->address)),
                 'reg_number' => $reg_num,
                 'phone_number' => $request->phone_number,
-                'username' => $request->username,
-                'email' => $request->email,
+                'username' => Str::lower($request->username),
+                'email' => Str::lower($request->email),
                 'password' => Hash::make('default123'),
                 'role' => $request->role,
             ]);
@@ -139,14 +136,14 @@ class CompanyController extends Controller
 
     public function update(Request $request,$uid)
     {   
-
+ 
             $this->validate($request, [
-                'company' => 'required|max:255',
+                'company' => 'required|max:255|unique:company,company_name',
                 'reg_number' => 'required|max:255',
             ]);
 
             $company_data = [
-                'company_name' => $request->company,
+                'company_name' => Str::ucfirst(Str::lower($request->company)),
                 'reg_number' => $request->reg_number,
             ];
 
@@ -157,6 +154,17 @@ class CompanyController extends Controller
             }
 
         // return redirect()->back()->with('status','Update Success');
+    }
+
+    public function company_details()
+    {
+        $comp_id = auth()->user()->company_id;
+
+        $company_details = Company::where('id',$comp_id)->get();
+
+        $company = $company_details[0];
+
+        return view('company.CompanyEdit', compact('company'));
     }
 
     public function activateUser($uid)

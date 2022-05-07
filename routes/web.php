@@ -86,6 +86,8 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/update/{uid}', [CompanyController::class, 'update'])->name('company/update/{uid}');
         Route::post('/deactivate/{uid}', [CompanyController::class, 'deactivateUser'])->name('company/deactivate/{uid}');
         Route::post('/activate/{uid}', [CompanyController::class, 'activateUser'])->name('company/activate/{uid}');
+        Route::get('/company-details', [CompanyController::class, 'company_details'])->name('company/company-details');
+        // Route::post('/activate/{uid}', [CompanyController::class, 'activateUser'])->name('company/activate/{uid}');
     });
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

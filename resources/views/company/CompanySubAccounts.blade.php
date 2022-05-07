@@ -5,7 +5,14 @@
 <div class="table-responsive-sm py-3">
 <div class="card">
     <div class="card-body">
-        <h2 class="text-left text-primary"><b>Company Sub Users</b></h2>
+        <div class="row">
+           <div class="col-lg-6">
+                <h2 class="text-left text-primary"><b>{{ $companies[0]['company'][0]['company_name'] }} Sub Users</b></h2>
+           </div>
+            <div class="col-lg-6 text-right">
+                <a href="{{ route('company/company-details') }} " class="btn btn-primary rounded-0">Edit Company</a>
+            </div>
+        </div>
         <table class="table">
             <thead>
                 <tr>

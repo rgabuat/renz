@@ -149,7 +149,7 @@
                 @endrole
                 @role('company user|company admin')
                 <li class="nav-item">
-                  <a href="{{ route('company/sub-accounts') }}" class="nav-link {{ Request::is('company/sdub-accounts') ? 'active' : '' }}">
+                  <a href="{{ route('company/sub-accounts') }}" class="nav-link {{ Request::is('company/sub-accounts') ? 'active' : '' }}">
                     <i class="pl-3 nav-icon fas fa-eye"></i>
                     <p class="pl-3">
                       View Accounts
