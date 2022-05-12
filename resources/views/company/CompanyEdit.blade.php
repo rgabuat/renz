@@ -8,7 +8,7 @@
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <h2 class="login-box-msg  text-left text-primary px-0"><b>Edit Company {{ $company->id }}</b></h2>
+          <h2 class="login-box-msg  text-left text-primary px-0"><b>Edit Company Details</b></h2>
                 @if (session('status'))
                     <div class="bg-success text-center text-white py-2 mb-3">
                         {{ session('status') }}
@@ -34,13 +34,13 @@
               <div class="col-lg-6">
               <label for="vat_num">Registered Number <span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
-                  <input type="text" name="reg_number" class="form-control @error('firstname') is-invalid @enderror" value="{{ $company->reg_number }}" placeholder="Firstname">
+                  <input type="text" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror" value="{{ $company->reg_number }}" placeholder="Firstname">
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-company"></span>
                     </div>
                   </div>
-                    @error('reg_num')
+                    @error('reg_number')
                         <span class="error invalid-feedback"> {{ $message }}</span>
                     @enderror
                 </div>

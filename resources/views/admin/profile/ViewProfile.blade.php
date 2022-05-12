@@ -86,6 +86,7 @@
                 @enderror
             </div>
             <div class="row">
+            @role('company admin')
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <input type="tel" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror" disabled value="{{ auth()->user()->reg_number }}" placeholder="Registered Number">
@@ -99,6 +100,7 @@
                     @enderror
                 </div>
               </div>
+            @endrole
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <input type="tel" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" disabled value="{{ auth()->user()->phone_number }}" placeholder="Phone Number">
@@ -112,17 +114,19 @@
                     @enderror
                 </div>
               </div>
-            </div>
-            <div class="input-group mb-3">
-              <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" disabled value="{{ auth()->user()->username }}" placeholder="Username">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-user-tie"></span>
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" disabled value="{{ auth()->user()->username }}" placeholder="Username">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-user-tie"></span>
+                    </div>
+                  </div>
+                    @error('username')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
                 </div>
               </div>
-                @error('username')
-                    <span class="error invalid-feedback"> {{ $message }}</span>
-                @enderror
             </div>
             <div class="input-group mb-3">
               <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" disabled value="{{ auth()->user()->email }}" placeholder="Email">
