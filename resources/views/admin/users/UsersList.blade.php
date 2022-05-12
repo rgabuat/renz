@@ -66,30 +66,31 @@
                         <div class="modal-body">
                             <form action="{{ url('users/deactivate/'.$user['id']) }}" method="post">
                                 @csrf
-                                 <p>Are you sure you want to deactive user: <span class="text-primary" style="font-size:24px">{{$user['username']}}</span> ?</p>
-                                <button class="btn btn-light" role="button">Cancel</button>
+                                 <p>Are you sure you want to deactive user: <span><b>{{$user['username']}}'s</b></span> account ?</p>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <input type="submit" class="btn btn-danger" value="Deactivate">
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-
+            
             <!-- activate Modal -->
             <div class="modal fade" id="activate{{ $user['id'] }}" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="activateModal">Deactivate User</h5>
+                            <h5 class="modal-title" id="activateModal">Activate User</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        {{$user['id']}}
                         <div class="modal-body">
                             <form action="{{ url('users/activate/'.$user['id']) }}" method="post">
                                 @csrf
-                                <input type="submit" class="btn btn-danger" value="Activate User">
+                                <p>Are you sure you want to Activate user: <span><b>{{$user['username']}}'s </b></span> account ?</p>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-success" value="Activate User">
                             </form>
                         </div>
                     </div>

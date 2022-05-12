@@ -11,6 +11,7 @@ use App\Http\Controllers\DataImportController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +87,15 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/update/{uid}', [CompanyController::class, 'update'])->name('company/update/{uid}');
         Route::post('/deactivate/{uid}', [CompanyController::class, 'deactivateUser'])->name('company/deactivate/{uid}');
         Route::post('/activate/{uid}', [CompanyController::class, 'activateUser'])->name('company/activate/{uid}');
+    });
+
+    Route::group(['prefix' => 'article'],function(){
+        Route::get('/lists', [ArticleController::class,'index'])->name('article/lists');
+        Route::get('/create', [ArticleController::class,'create'])->name('article/create');
+        Route::post('/store', [ArticleController::class,'store'])->name('article/store');
+        Route::get('/edit/{aid}', [ArticleController::class,'edit'])->name('article/edit/{aid}');
+        Route::post('/update/{aid}', [ArticleController::class,'update'])->name('article/update/{aid}');
+        Route::post('/delete/{aid}', [ArticleController::class,'delete'])->name('article/delete/{aid}');
     });
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

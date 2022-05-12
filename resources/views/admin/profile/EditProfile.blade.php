@@ -124,7 +124,7 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <a href="{{ route('view-profile') }}" class="btn btn-primary btn-block mb-3 btn-warning">BACK</a>
+                <a href="{{ route('view-profile') }}" class="btn btn-primary btn-block mb-3 btn-primary">BACK</a>
               </div>
               <div class="col-6">
                 <button type="submit" class="btn btn-primary btn-block mb-3">UPDATE PROFILE</button>

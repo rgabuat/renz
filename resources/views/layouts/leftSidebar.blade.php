@@ -55,14 +55,6 @@
               </p>
             </a>
             <ul class="nav nav-treeview {{ Request::is('users*') ? 'd-block' : '' }}">
-            <!-- <li class="nav-item">
-                <a href="{{ route('users/sub-accounts') }}" class="nav-link">
-                  <i class="pl-3 nav-icon fas fa-eye"></i>
-                  <p class="pl-3">
-                    View Sub Accounts
-                  </p>
-                </a>
-              </li> -->
             @role('system admin|system editor|system user')
               <li class="nav-item">
                 <a href="{{ route('users/list') }}" class="nav-link {{ Request::is('users/list*') ? 'active open' : '' }}">
@@ -170,6 +162,35 @@
                 </ul>
               </li>
             @endrole
+            @role('company admin|system admin')
+            <li class="nav-item  {{ Request::is('article*') ? 'menu-is-opening menu-open' : '' }}">
+              <a href="#" class="nav-link {{ Request::is('article*') ? 'active' : '' }} ">
+                <i class="nav-icon fas fa-newspaper "></i>
+                <p>
+                  Articles
+                  <i class="right fas fa-angle-left "></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview {{ Request::is('users*') ? 'd-block' : '' }}">
+                <li class="nav-item">
+                  <a href="{{ route('article/lists') }}" class="nav-link {{ Request::is('article/lists*') ? 'active open' : '' }}">
+                    <i class="pl-3 nav-icon fas fa-eye"></i>
+                    <p class="pl-3">
+                      View All Articles
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('article/create') }}" class="nav-link {{ Request::is('article/create*') ? 'active open' : '' }}">
+                    <i class="pl-3 nav-icon fas fa-plus"></i>
+                    <p class="pl-3">
+                      Create Article
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            @endrole
+          </li>
           <li class="nav-item">
             <a href="{{route('view-profile')}}" class="nav-link {{ Request::is('view-profile*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-eye"></i>
