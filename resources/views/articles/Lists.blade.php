@@ -5,7 +5,7 @@
 <div class="table-responsive-sm py-3">
 <div class="card">
     <div class="card-body">
-        <h2 class="text-primary"><b>Users</b></h2>
+        <h2 class="text-primary"><b>Articles</b></h2>
         @if (session('status'))
             <div class="bg-success text-center text-white py-2 mb-3">
                 {{ session('status') }}
