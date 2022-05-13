@@ -171,7 +171,7 @@
                   <i class="right fas fa-angle-left "></i>
                 </p>
               </a>
-              <ul class="nav nav-treeview {{ Request::is('users*') ? 'd-block' : '' }}">
+              <ul class="nav nav-treeview {{ Request::is('article*') ? 'd-block' : '' }}">
                 <li class="nav-item">
                   <a href="{{ route('article/lists') }}" class="nav-link {{ Request::is('article/lists*') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-eye"></i>
@@ -185,6 +185,34 @@
                     <i class="pl-3 nav-icon fas fa-plus"></i>
                     <p class="pl-3">
                       Create Article
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            @endrole
+            @role('company admin|system admin')
+            <li class="nav-item  {{ Request::is('package*') ? 'menu-is-opening menu-open' : '' }}">
+              <a href="#" class="nav-link {{ Request::is('package*') ? 'active' : '' }} ">
+                <i class="nav-icon fas fa-box "></i>
+                <p>
+                  Package
+                  <i class="right fas fa-angle-left "></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview {{ Request::is('package*') ? 'd-block' : '' }}">
+                <li class="nav-item">
+                  <a href="{{ route('package/lists') }}" class="nav-link {{ Request::is('package/lists*') ? 'active open' : '' }}">
+                    <i class="pl-3 nav-icon fas fa-eye"></i>
+                    <p class="pl-3">
+                      View All Package
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('package/create') }}" class="nav-link {{ Request::is('package/create*') ? 'active open' : '' }}">
+                    <i class="pl-3 nav-icon fas fa-plus"></i>
+                    <p class="pl-3">
+                      Create Package
                     </p>
                   </a>
                 </li>

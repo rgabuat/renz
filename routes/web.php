@@ -12,6 +12,8 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\PackageController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -98,6 +100,15 @@ Route::group(['middleware' => 'auth'],function(){
         Route::get('/edit/{aid}', [ArticleController::class,'edit'])->name('article/edit/{aid}');
         Route::post('/update/{aid}', [ArticleController::class,'update'])->name('article/update/{aid}');
         Route::post('/delete/{aid}', [ArticleController::class,'delete'])->name('article/delete/{aid}');
+    });
+
+    Route::group(['prefix' => 'package'],function(){
+        Route::get('/lists', [PackageController::class,'index'])->name('package/lists');
+        Route::get('/create', [PackageController::class,'create'])->name('package/create');
+        Route::post('/store', [PackageController::class,'store'])->name('package/store');
+        Route::get('/edit/{aid}', [PackageController::class,'edit'])->name('package/edit/{aid}');
+        Route::post('/update/{aid}', [PackageController::class,'update'])->name('package/update/{aid}');
+        Route::post('/delete/{aid}', [PackageController::class,'delete'])->name('package/delete/{aid}');
     });
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
