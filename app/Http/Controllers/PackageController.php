@@ -45,8 +45,11 @@ class PackageController extends Controller
         {
             return redirect()->back()->with('status','New Package Created');
         }
+        else 
+        {
+            return redirect()->back()->with('status','Something went wrong!');
+        }
 
-        return redirect()->back()->with('status','New Package Created');
     }
 
     public function edit($pid)
@@ -55,34 +58,45 @@ class PackageController extends Controller
         return view('articles.Edit',compact('article'));
     }
 
-    public function update(Request $request,$aid)
+    public function update(Request $request,$pid)
     {
         $this->validate($request, [
-            'title' => 'required|max:255|unique:table_article,title',
-            'url' => 'required|max:255|unique:table_article,url',
-            'category' => 'required|max:255',
-            'author' => 'required|max:255',
+            'name' => 'required|max:255|unique:tbl_package,name',
+            'price' => 'required|max:255',
+            'credits' => 'required|max:255',
+            'payment_method' => 'required|max:255',
+            'duration' => 'required|max:255',
         ]);
 
-        $article_data = [
-            'title' => $request->title,
-            'url' => $request->url,
-            'body' => $request->body,
-            'categories' => $request->category,
-            'author' => $request->author,
+        $package_update = [
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+            'credits' => $request->credits,
+            'payment_method' => $request->payment_method,
+            'duration' => $request->duration,
         ];
 
-        $article_update = Article::where('id',$aid)->update($article_data);
-        return redirect()->back()->with('status','Article Update');
+        $update = Package::where('id',$pid)->update($package_update);
+
+        if($update)
+        {
+            return redirect()->back()->with('status','Package Updated');
+        }
+        else 
+        {
+            return redirect()->back()->with('status','Something went wrong!');
+        }
+   
     }
 
     public function delete($aid)
     {
-        $destroy = Article::where('id',$aid)->delete();
+        $destroy = Package::where('id',$aid)->delete();
 
         if($destroy)
         {
-            return redirect()->back()->with('status','Article Delete Success!');
+            return redirect()->back()->with('status','Package Delete Success!');
         }
     }
 }

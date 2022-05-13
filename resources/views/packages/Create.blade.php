@@ -80,7 +80,7 @@
                 </div>
             </div>
               <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block mb-3">CREATE DOMAIN</button>
+                <button type="submit" class="btn btn-primary btn-block mb-3">CREATE PACKAGE</button>
               </div>
           </form>
         </div>

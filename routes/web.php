@@ -107,7 +107,7 @@ Route::group(['middleware' => 'auth'],function(){
         Route::get('/create', [PackageController::class,'create'])->name('package/create');
         Route::post('/store', [PackageController::class,'store'])->name('package/store');
         Route::get('/edit/{aid}', [PackageController::class,'edit'])->name('package/edit/{aid}');
-        Route::post('/update/{aid}', [PackageController::class,'update'])->name('package/update/{aid}');
+        Route::post('/update/{pid}', [PackageController::class,'update'])->name('package/update/{pid}');
         Route::post('/delete/{aid}', [PackageController::class,'delete'])->name('package/delete/{aid}');
     });
 

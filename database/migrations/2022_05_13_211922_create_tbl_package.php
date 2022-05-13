@@ -17,7 +17,7 @@ class CreateTblPackage extends Migration
             $table->id();
             $table->string('name');
             $table->float('price');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->integer('credits');
             $table->string('payment_method');
             $table->string('duration');
