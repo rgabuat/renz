@@ -56,31 +56,39 @@ Route::group(['middleware' => 'auth'],function(){
 
     //imports
     Route::group(['prefix' => 'users'],function(){
-        Route::get('/list', [UsersController::class,'index'])->name('users/list');
-        Route::get('/sub-accounts', [UsersController::class,'sub_accounts'])->name('users/sub-accounts');
-        Route::get('/create', [UsersController::class, 'create'])->name('users/create');
-        Route::post('/store', [UsersController::class, 'store'])->name('users/store');
-        Route::get('/edit/{uid}', [UsersController::class, 'edit'])->name('users/edit/{uid}');
-        Route::post('/update/{uid}', [UsersController::class, 'update'])->name('users/update/{uid}');
-        Route::post('/deactivate/{uid}', [UsersController::class, 'deactivateUser'])->name('users/deactivate/{uid}');
-        Route::post('/activate/{uid}', [UsersController::class, 'activateUser'])->name('users/activate/{uid}');
+        Route::group(['middleware' => ['role:system admin|system editor|system user']], function () {
+            Route::get('/list', [UsersController::class,'index'])->name('users/list');
+            Route::group(['middleware' => ['role:system admin|system editor']], function () {
+                Route::get('/sub-accounts', [UsersController::class,'sub_accounts'])->name('users/sub-accounts');
+                Route::get('/create', [UsersController::class, 'create'])->name('users/create');
+                Route::post('/store', [UsersController::class, 'store'])->name('users/store');
+                Route::get('/edit/{uid}', [UsersController::class, 'edit'])->name('users/edit/{uid}');
+                Route::post('/update/{uid}', [UsersController::class, 'update'])->name('users/update/{uid}');
+            });
+            Route::group(['middleware' => ['role:system admin']], function () {
+                Route::post('/deactivate/{uid}', [UsersController::class, 'deactivateUser'])->name('users/deactivate/{uid}');
+                Route::post('/activate/{uid}', [UsersController::class, 'activateUser'])->name('users/activate/{uid}');
+            });
+        });
     });
 
     Route::group(['prefix' => 'domain'],function(){
-        Route::get('/import', [DataImportController::class,'show'])->name('domain/import');
-        Route::get('/list', [DataImportController::class,'index'])->name('domain/list');
-        Route::get('/create', [DataImportController::class,'create'])->name('domain/create');
-        Route::post('/input', [DataImportController::class,'input'])->name('domain/input');
-        Route::get('/edit/{did}', [DataImportController::class,'edit'])->name('domain/edit/{did}');
-        Route::post('/delete/{did}', [DataImportController::class,'delete'])->name('domain/delete/{did}');
-        Route::post('/update/{did}', [DataImportController::class,'update'])->name('domain/update/{did}');
-        Route::post('/parse_import', [DataImportController::class,'parse'])->name('domain/parse_import');
-        Route::post('/import', [DataImportController::class,'store'])->name('domain/import');
+        Route::group(['middleware' => ['role:system admin|system editor']], function () {
+            Route::get('/import', [DataImportController::class,'show'])->name('domain/import');
+            Route::get('/list', [DataImportController::class,'index'])->name('domain/list');
+            Route::get('/create', [DataImportController::class,'create'])->name('domain/create');
+            Route::post('/input', [DataImportController::class,'input'])->name('domain/input');
+            Route::get('/edit/{did}', [DataImportController::class,'edit'])->name('domain/edit/{did}');
+            Route::post('/delete/{did}', [DataImportController::class,'delete'])->name('domain/delete/{did}');
+            Route::post('/update/{did}', [DataImportController::class,'update'])->name('domain/update/{did}');
+            Route::post('/parse_import', [DataImportController::class,'parse'])->name('domain/parse_import');
+            Route::post('/import', [DataImportController::class,'store'])->name('domain/import');
+        });
     });
 
     Route::group(['prefix' => 'company'],function(){
         Route::get('/list', [CompanyController::class,'index'])->name('company/list');
-        Route::get('/list/users/{id}', [CompanyController::class,'company_accounts'])->name('company/list/users/{id}');
+        Route::get('/{cname}/users/{id}', [CompanyController::class,'company_accounts'])->name('company/{cname}/users/{id}');
         Route::get('/edit/user/{id}', [CompanyController::class,'sub_accounts_edit'])->name('company/edit/user/{id}');
         Route::get('/sub-accounts', [CompanyController::class,'sub_accounts'])->name('company/sub-accounts');
         Route::get('/create', [CompanyController::class, 'create'])->name('company/create');
@@ -94,12 +102,14 @@ Route::group(['middleware' => 'auth'],function(){
     });
 
     Route::group(['prefix' => 'article'],function(){
-        Route::get('/lists', [ArticleController::class,'index'])->name('article/lists');
-        Route::get('/create', [ArticleController::class,'create'])->name('article/create');
-        Route::post('/store', [ArticleController::class,'store'])->name('article/store');
-        Route::get('/edit/{aid}', [ArticleController::class,'edit'])->name('article/edit/{aid}');
-        Route::post('/update/{aid}', [ArticleController::class,'update'])->name('article/update/{aid}');
-        Route::post('/delete/{aid}', [ArticleController::class,'delete'])->name('article/delete/{aid}');
+        Route::group(['middleware' => ['role:system admin']], function () {
+            Route::get('/lists', [ArticleController::class,'index'])->name('article/lists');
+            Route::get('/create', [ArticleController::class,'create'])->name('article/create');
+            Route::post('/store', [ArticleController::class,'store'])->name('article/store');
+            Route::get('/edit/{aid}', [ArticleController::class,'edit'])->name('article/edit/{aid}');
+            Route::post('/update/{aid}', [ArticleController::class,'update'])->name('article/update/{aid}');
+            Route::post('/delete/{aid}', [ArticleController::class,'delete'])->name('article/delete/{aid}');
+        });
     });
 
     Route::group(['prefix' => 'package'],function(){

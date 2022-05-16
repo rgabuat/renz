@@ -47,6 +47,7 @@ class CompanyController extends Controller
         $company = User::where('id',auth()->user()->id)->with('company')->get();
         $comp_id = $company[0]['company'][0]['id'];
         $companies = User::where('company_id',$comp_id)->get();
+
         return view('company.CompanySubAccounts',compact('companies'));
     }
 
@@ -58,7 +59,7 @@ class CompanyController extends Controller
         return view('company.CompanySubAccountsEdit', compact('user','roles'));
     }
 
-    public function company_accounts($id)
+    public function company_accounts($cname,$id)
     {
         $companies = User::where('company_id',$id)->get();
         return view('company.CompanySubAccounts',compact('companies'));
@@ -159,11 +160,8 @@ class CompanyController extends Controller
     public function company_details()
     {
         $comp_id = auth()->user()->company_id;
-
         $company_details = Company::where('id',$comp_id)->get();
-
         $company = $company_details[0];
-
         return view('company.CompanyEdit', compact('company'));
     }
 

@@ -10,7 +10,7 @@
             </div>
         @endif
         <h2 class="text-left text-primary"><b>Domains</b></h2>
-        <table class="table">
+        <table class="table" id="domain_tbl">
             <thead>
                 <tr>
                     <th>S/N</th>

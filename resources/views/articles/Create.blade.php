@@ -34,7 +34,7 @@
 
                 <div class="form-group">
                     <label for="body">Body</label>
-                    <textarea name="body" id="body" cols="30" rows="10" class="form-control"></textarea>
+                    <textarea name="body" id="tinymce" cols="30" rows="10" class="form-control">{{ old('body') }}</textarea>
                     @error('body')
                         <span class="error invalid-feedback"> {{ $message }}</span>
                     @enderror

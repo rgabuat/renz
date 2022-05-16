@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
    <!-- No Index, No Follow -->
   <meta NAME="robots" CONTENT="noindex,nofollow">
-  <title>{{ config('app.Name','Demo')}} | @yield('title') </title>
+  <title>{{ config('app.Name','Login System')}} | @yield('title') </title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -16,6 +16,12 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('vendors/dist/css/adminlte.min.css') }}">
+  <!-- datatables styles -->
+  <link rel="stylesheet" href="{{ asset('vendors/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/plugins/datatables-buttons/css/buttons.bootstrap4.min.css ') }}">
+  
+  <script src="{{ asset('vendors/plugins/tinymce/tinymce.min.js') }}"></script>
 
   <style>
     .user-panel img {
@@ -107,6 +113,24 @@ img.border.mb-3 {
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('vendors/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<!-- admin lte datatables script -->
+<script src="{{ asset('vendors/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('vendors/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('vendors/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('vendors/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<!-- custom js -->
+<script src="{{ asset('js/admin.js') }}"></script>
+<!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
+
+
+<!-- <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../../plugins/jszip/jszip.min.js"></script>
+<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script> -->
 <!-- <script src="{{ asset('vendors/dist/js/pages/dashboard3.js') }}"></script> -->
 </body>
 </html>

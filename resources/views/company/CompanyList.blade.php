@@ -5,7 +5,7 @@
 <div class="card">
     <div class="card-body">
         <h2 class="text-left text-primary"><b>Company</b></h2>
-        <table class="table">
+        <table class="table" @role('system admin|system editor|system user') id="company_tbl_search" @endrole @role('company admin|company user') id="company_tbl" @endrole" >
             <thead>
                 <tr>
                     <th>S/N</th>
@@ -49,7 +49,7 @@
                             @role('system admin|system editor|company admin')
                             <a class="dropdown-item" href="{{ url('company/edit/'.$company['id'])}}"><span class="fas fa-pen mr-2"></span>Edit company</a>
                             @endrole
-                                <a class="dropdown-item" href="{{ url('company/list/users/'.$company['id'])}}"><span class="fas fa-users mr-2"></span>View Users</a>
+                                <a class="dropdown-item" href="{{ url('company/'.$company['company_name'].'/users/'.$company['id'])}}"><span class="fas fa-users mr-2"></span>View Users</a>
                             @role('system admin')
                                 @if($company['is_activated'])
                                     <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#deactivate{{ $company['id'] }}"><span class="fas fa-eye-slash mr-2"></span>Deactivate company</a>

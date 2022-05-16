@@ -1,4 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/vendors/plugins/tinymce/tinymce.js": "/vendors/plugins/tinymce/tinymce.js",
+    "/vendors/plugins/tinymce/tinymce.min.js": "/vendors/plugins/tinymce/tinymce.min.js"
 }
