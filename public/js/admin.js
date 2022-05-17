@@ -33,9 +33,30 @@ $(document).ready(function() {
     });
 
 
+    $('#article_tbl').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+  });
+
+  $('#sub_accounts_tbl').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": true,
+    "ordering": true,
+    "info": true,
+    "autoWidth": false,
+    "responsive": true,
+});
+
+
     // tiny mce plugin
     tinymce.init({
-        selector: 'textarea#tinymce',
+        selector: 'textarea',
         convert_urls: false,
         statusbar: false, 
         height: 600,
@@ -43,7 +64,7 @@ $(document).ready(function() {
         toolbar: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat |undo redo | image code| link fontsizeselect  | ',
         image_title: true,
         automatic_uploads: true,
-        images_upload_url: '{{url("/admin/upload")}}',
+        images_upload_url: '/article/upload',
         file_picker_types: 'image',
         file_picker_callback: function(cb, value, meta) {
 

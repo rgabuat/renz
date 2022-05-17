@@ -11,7 +11,15 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::all();
+        if(auth()->user()->hasRole(['system admin','system editor','system user']))
+        {
+            $articles = Article::all();
+        }
+        else 
+        {
+            $uid = auth()->user()->company_id;
+            $articles = Article::with('created_by_company')->whereHas('created_by_company', function ($query) use ($uid) { $query->where('company_id',$uid); })->get();
+        }
         return view('articles.Lists',compact('articles'));
     }
 
@@ -32,12 +40,27 @@ class ArticleController extends Controller
 
         $now = Carbon::now()->format('m/d/Y');
 
+        if($request->has('featured_image'))
+        {
+            $destinationPath = 'excels/uploads';
+            $file = $request->file('featured_image');
+            $file_name = $file->getClientOriginalName();
+            $path = $request->file('featured_image')->storeAs($destinationPath,$file_name,'public');
+
+            $featured_image = $path;
+        }
+        else 
+        {
+            $featured_image = '';
+        }
+
         $company = Article::create([
             'title' => $request->title,
             'url' => $request->url,
             'body' => $request->body,
             'categories' => $request->category,
             'author' => $request->author,
+            'featured_image' => $featured_image,
             'created_by' => auth()->user()->id,
             'publishing_date' => $now,
         ]);
@@ -60,6 +83,21 @@ class ArticleController extends Controller
             'author' => 'required|max:255',
         ]);
 
+        if($request->has('featured_image'))
+        {
+            $destinationPath = 'excels/uploads';
+            $file = $request->file('featured_image');
+            $file_name = $file->getClientOriginalName();
+            $path = $request->file('featured_image')->storeAs($destinationPath,$file_name,'public');
+            $image = $path;
+
+            $featured_image = [
+                'featured_image' =>  $image
+            ];
+
+            $article_update = Article::where('id',$aid)->update($featured_image);
+        }
+
         $article_data = [
             'title' => $request->title,
             'url' => $request->url,
@@ -69,7 +107,11 @@ class ArticleController extends Controller
         ];
 
         $article_update = Article::where('id',$aid)->update($article_data);
-        return redirect()->back()->with('status','Article Update');
+        if($article_update)
+        {
+            return redirect()->back()->with('status','Article Updated');
+        }
+       
     }
 
     public function delete($aid)
@@ -79,6 +121,18 @@ class ArticleController extends Controller
         if($destroy)
         {
             return redirect()->back()->with('status','Article Delete Success!');
+        }
+    }
+
+    public function upload_img(Request $request)
+    {
+        if($request->has('file'))
+        {
+            $destinationPath = 'excels/uploads';
+            $file = $request->file('file');
+            $file_name = $file->getClientOriginalName();
+            $path = $request->file('file')->storeAs($destinationPath,$file_name,'public');
+            return response()->json(['location' => "/storage/$path"]);
         }
     }
 }

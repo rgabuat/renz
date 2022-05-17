@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 use App\Models\Company;
+use App\Models\Article;
 
 class User extends Authenticatable
 {
@@ -49,6 +50,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Company::class,'id','created_by_admin');
     }
+
+
 
     /**
      * The attributes that should be hidden for serialization.

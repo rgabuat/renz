@@ -3,7 +3,7 @@
 @section('title',"Article Create")
 @section('content')
 <div class="py-3">
-<form action="{{ route('article/store') }}" method="post">
+<form action="{{ route('article/store') }}" method="post" enctype="multipart/form-data">
 @csrf
   <div class="row">
     <div class="col-lg-8">
@@ -67,7 +67,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-group">
-                    <label for="category">Featured image </label>
+                    <label for="featured_image">Featured image </label>
                     <input type="file" name="featured_image" class="form-control @error('featured_image') is-invalid @enderror">
                     @error('featured_image')
                         <span class="error invalid-feedback"> {{ $message }}</span>

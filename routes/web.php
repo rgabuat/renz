@@ -102,14 +102,18 @@ Route::group(['middleware' => 'auth'],function(){
     });
 
     Route::group(['prefix' => 'article'],function(){
-        Route::group(['middleware' => ['role:system admin']], function () {
-            Route::get('/lists', [ArticleController::class,'index'])->name('article/lists');
-            Route::get('/create', [ArticleController::class,'create'])->name('article/create');
-            Route::post('/store', [ArticleController::class,'store'])->name('article/store');
-            Route::get('/edit/{aid}', [ArticleController::class,'edit'])->name('article/edit/{aid}');
-            Route::post('/update/{aid}', [ArticleController::class,'update'])->name('article/update/{aid}');
-            Route::post('/delete/{aid}', [ArticleController::class,'delete'])->name('article/delete/{aid}');
-        });
+        Route::group(['middleware' => ['role:system admin|system user|system editor|company admin|company user']], function () {
+                Route::get('/lists', [ArticleController::class,'index'])->name('article/lists');
+                Route::group(['middleware' => ['role:company admin|company user']], function () {
+                    Route::get('/create', [ArticleController::class,'create'])->name('article/create');
+                });
+                Route::post('/store', [ArticleController::class,'store'])->name('article/store');
+                Route::get('/edit/{aid}', [ArticleController::class,'edit'])->name('article/edit/{aid}');
+                Route::post('/update/{aid}', [ArticleController::class,'update'])->name('article/update/{aid}');
+                Route::post('/delete/{aid}', [ArticleController::class,'delete'])->name('article/delete/{aid}');
+                Route::post('/upload', [ArticleController::class,'upload_img'])->name('article/upload');
+            });
+        
     });
 
     Route::group(['prefix' => 'package'],function(){

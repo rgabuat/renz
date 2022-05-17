@@ -162,7 +162,7 @@
                 </ul>
               </li>
             @endrole
-            @role('company admin|system admin')
+            @role('company admin|company user|system admin|system user')
             <li class="nav-item  {{ Request::is('article*') ? 'menu-is-opening menu-open' : '' }}">
               <a href="#" class="nav-link {{ Request::is('article*') ? 'active' : '' }} ">
                 <i class="nav-icon fas fa-newspaper "></i>
@@ -180,6 +180,7 @@
                     </p>
                   </a>
                 </li>
+                @role('company admin')
                 <li class="nav-item">
                   <a href="{{ route('article/create') }}" class="nav-link {{ Request::is('article/create*') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-plus"></i>
@@ -188,6 +189,7 @@
                     </p>
                   </a>
                 </li>
+                @endrole
               </ul>
             @endrole
             @role('company admin|system admin')

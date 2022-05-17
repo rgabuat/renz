@@ -11,7 +11,7 @@
                 {{ session('status') }}
             </div>
         @endif
-        <table class="table">
+        <table class="table" id="article_tbl">
         <thead>
             <tr>
                 <th>S/N</th>
@@ -20,7 +20,6 @@
                 <th>Url</th>
                 <th>Author</th>
                 <th>Categories</th>
-                <th>Body</th>
                 <th>Publish Date</th>
                 <th>Created At</th>
                 <th>Updated At</th>
@@ -31,12 +30,11 @@
             @foreach($articles as $article)
             <tr>
                 <td>{{ $article['id'] }}</td>
-                <td><img src="{{ $article['featured_image'] }}" alt="{{ $article['title'] }}_featured_image"></td>
+                <td><img src="{{ $article['featured_image'] != NULL ? asset('storage/'.$article['featured_image']) : '/vendors/dist/img/AdminLTELogo.png' }}" alt="{{ $article['title'] }}_featured_image" class="img-fluid" style="width: 80px;height:82px;object-fit: contain;"></td>
                 <td>{{ $article['title'] }}</td>
                 <td>{{ $article['url'] }}</td>
                 <td>{{ $article['author'] }}</td>
                 <td>{{ $article['categories'] }}</td>
-                <td>{{ $article['body'] }}</td>
                 <td>{{ $article['publishing_date'] }}</td>
                 <td>{{ $article['created_at'] }}</td>
                 <td>{{ $article['updated_at'] }}</td>

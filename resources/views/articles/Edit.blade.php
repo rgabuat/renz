@@ -3,7 +3,7 @@
 @section('title',"Article Edit")
 @section('content')
 <div class="py-3">
-<form action="{{ url('article/update/'.$article[0]['id']) }}" method="post">
+<form action="{{ url('article/update/'.$article[0]['id']) }}" method="post" enctype="multipart/form-data">
 @csrf
   <div class="row">
     <div class="col-lg-8">
@@ -68,6 +68,9 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="category">Featured image </label>
+                    <div class="col-lg-12 py-2">
+                        <img src="{{ $article[0]['featured_image'] != NULL ? asset('storage/'.$article[0]['featured_image']) : '/vendors/dist/img/AdminLTELogo.png' }}" alt="{{ $article[0]['title'] }}_featured_image" class="img-fluid">
+                    </div>
                     <input type="file" name="featured_image" class="form-control @error('featured_image') is-invalid @enderror">
                     @error('featured_image')
                         <span class="error invalid-feedback"> {{ $message }}</span>

@@ -7,7 +7,7 @@
     <div class="card-body">
         <div class="row">
            <div class="col-lg-6">
-                <h2 class="text-left text-primary"><b>{{ Request::segment(2) }} Sub Users</b></h2>
+                <h2 class="text-left text-primary"><b>@role('system admin|systen editor|system user') {{ Request::segment(2) }} @endrole Sub Users</b></h2>
            </div>
            @role('company admin')
             <div class="col-lg-6 text-right">
@@ -15,7 +15,7 @@
             </div>
            @endrole
         </div>
-        <table class="table">
+        <table class="table" id="sub_accounts_tbl">
             <thead>
                 <tr>
                     <th>S/N</th>

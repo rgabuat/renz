@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+Use App\Models\User;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,4 +22,9 @@ class Article extends Model
         'created_by',
         'publishing_date',
     ];
+
+    public function created_by_company()
+    {
+        return $this->hasMany(User::class,'id','created_by');
+    }
 }
