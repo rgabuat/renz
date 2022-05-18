@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Package;
+use App\Models\Subscriptions;
 
 class PackageController extends Controller
 {
@@ -98,5 +99,21 @@ class PackageController extends Controller
         {
             return redirect()->back()->with('status','Package Delete Success!');
         }
+    }
+
+    public function buy($aid)
+    {
+        $buy = Package::where('id',$aid)->get();
+
+       
+
+        $subscription = Subscription::create([
+            'user_id' => auth()->user()->id,
+            'started_at' => 'null',
+            'expires_at' => 'null',
+            'avail_credits' => $buy[0]['credits'],
+            'package_id' =>  $buy[0]['id'],
+        ]);
+        
     }
 }

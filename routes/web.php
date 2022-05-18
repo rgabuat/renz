@@ -123,6 +123,7 @@ Route::group(['middleware' => 'auth'],function(){
         Route::get('/edit/{aid}', [PackageController::class,'edit'])->name('package/edit/{aid}');
         Route::post('/update/{pid}', [PackageController::class,'update'])->name('package/update/{pid}');
         Route::post('/delete/{aid}', [PackageController::class,'delete'])->name('package/delete/{aid}');
+        Route::post('/buy/{aid}', [PackageController::class,'buy'])->name('package/buy/{aid}');
     });
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

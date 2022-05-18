@@ -33,7 +33,7 @@
                 <td>{{ $package['id'] }}</td>
                 <td>{{ $package['name'] }}</td>
                 <td>{{ $package['price'] }}</td>
-                <td>{{ $package['description'] }}</td>
+                <td>{!! $package['description'] !!}</td>
                 <td>{{ $package['credits'] }}</td>
                 <td>{{ $package['payment_method'] }}</td>
                 <td>{{ $package['duration'] }}</td>
@@ -46,8 +46,9 @@
                     <span class="fas fa-align-right"></span>
                     </button>
                     <div class="dropdown-menu" role="menu" style="">
-                            <a class="dropdown-item" href="javacsript:void(0);" data-toggle="modal" data-target="#edit{{ $package['id'] }}"><span class="fas fa-pen mr-2"></span>Edit Packge</a>
-                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#delete{{ $package['id'] }}"><span class="fas fa-trash mr-2"></span>Delete Package</a>
+                        <a class="dropdown-item" href="javacsript:void(0);" data-toggle="modal" data-target="#buy{{ $package['id'] }}"><span class="fas fa-shopping-cart mr-2"></span>Buy Packge</a>
+                        <a class="dropdown-item" href="javacsript:void(0);" data-toggle="modal" data-target="#edit{{ $package['id'] }}"><span class="fas fa-pen mr-2"></span>Edit Packge</a>
+                        <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#delete{{ $package['id'] }}"><span class="fas fa-trash mr-2"></span>Delete Package</a>
                     </div>
                 </div>
                 </td>
@@ -158,6 +159,28 @@
                                 <p>Are you sure you want to delete Package: <span><b>{{ $package['name'] }}</b></span></p>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <input type="submit" class="btn btn-danger" value="DELETE">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- buy Package Modal -->
+            <div class="modal fade" id="buy{{ $package['id'] }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="Delete">Buy Package</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url('package/buy/'.$package['id']) }}" method="post">
+                                @csrf
+                                <p>Buy this Package: <span><b>{{ $package['name'] }}</b></span></p>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-success" value="BUY">
                             </form>
                         </div>
                     </div>
