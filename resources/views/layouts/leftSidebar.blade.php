@@ -192,6 +192,34 @@
                 @endrole
               </ul>
             @endrole
+            <!-- @role('company admin|system admin')
+            <li class="nav-item  {{ Request::is('Subscriptions*') ? 'menu-is-opening menu-open' : '' }}">
+              <a href="#" class="nav-link {{ Request::is('Subscriptions*') ? 'active' : '' }} ">
+                <i class="nav-icon fas fa-box "></i>
+                <p>
+                  Subscriptions
+                  <i class="right fas fa-angle-left "></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview {{ Request::is('Subscriptions*') ? 'd-block' : '' }}">
+                <li class="nav-item">
+                  <a href="{{ route('package/lists') }}" class="nav-link {{ Request::is('Subscriptions/lists*') ? 'active open' : '' }}">
+                    <i class="pl-3 nav-icon fas fa-eye"></i>
+                    <p class="pl-3">
+                      View All Subscriptions
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('package/create') }}" class="nav-link {{ Request::is('package/create*') ? 'active open' : '' }}">
+                    <i class="pl-3 nav-icon fas fa-plus"></i>
+                    <p class="pl-3">
+                      Create Package
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            @endrole -->
             @role('company admin|system admin')
             <li class="nav-item  {{ Request::is('package*') ? 'menu-is-opening menu-open' : '' }}">
               <a href="#" class="nav-link {{ Request::is('package*') ? 'active' : '' }} ">
@@ -215,6 +243,14 @@
                     <i class="pl-3 nav-icon fas fa-plus"></i>
                     <p class="pl-3">
                       Create Package
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('package/requests') }}" class="nav-link {{ Request::is('package/requests*') ? 'active open' : '' }}">
+                    <i class="pl-3 nav-icon fas fa-file-signature"></i>
+                    <p class="pl-3">
+                      Subscription Requests
                     </p>
                   </a>
                 </li>

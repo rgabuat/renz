@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use App\Models\Subscriptions;
 
 
 class ProfileController extends Controller
@@ -19,7 +20,14 @@ class ProfileController extends Controller
     {
 
         $roles = Role::all();
-        return view('admin.profile.ViewProfile', compact('roles'));
+        $subscriptions = Subscriptions::with('package')->where('user_id',auth()->user()->id)->where('status',1)->get();
+        
+        return view('admin.profile.ViewProfile', compact('roles','subscriptions'));
+       
+        // if($subscriptions)
+        // {
+        //     return view('profile.ViewProfile',compact('subscriptions'));
+        // }
     }
 
     public function edit()

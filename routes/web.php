@@ -13,6 +13,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\SubscriptionsController;
 
 
 /*
@@ -124,6 +125,9 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/update/{pid}', [PackageController::class,'update'])->name('package/update/{pid}');
         Route::post('/delete/{aid}', [PackageController::class,'delete'])->name('package/delete/{aid}');
         Route::post('/buy/{aid}', [PackageController::class,'buy'])->name('package/buy/{aid}');
+        Route::get('/requests', [SubscriptionsController::class,'package_requests'])->name('package/requests');
+        Route::post('/approve/{pid}', [SubscriptionsController::class,'approve'])->name('package/approve/{pid}');
+        Route::post('/decline/{pid}', [SubscriptionsController::class,'approve'])->name('package/decline/{pid}');
     });
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -68,11 +68,11 @@
                 <div class="form-group ">
                     <select name="duration" id="payment_method" class="form-control @error('duration') is-invalid @enderror">
                         <option value="">Select Duration</option>
-                        <option value="1 month">1 Month</option>
-                        <option value="3 months">3 Months</option>
-                        <option value="6 months">6 Months</option>
-                        <option value="12 months">12 Months</option>
-                        <option value="24 months">24 Months</option>
+                        <option value="1">1 Month</option>
+                        <option value="3">3 Months</option>
+                        <option value="6">6 Months</option>
+                        <option value="12">12 Months</option>
+                        <option value="24">24 Months</option>
                     </select>
                     @error('duration')
                         <span class="error invalid-feedback"> {{ $message }}</span>

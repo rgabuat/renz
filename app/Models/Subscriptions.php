@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\User;
+use App\Models\Package;
+
 class Subscriptions extends Model
 {
     use HasFactory;
@@ -18,5 +21,15 @@ class Subscriptions extends Model
         'package_id',
         'status',
     ];
+
+    public function user()
+    {
+        return $this->hasMany(User::class,'id','user_id');
+    }
+
+    public function package()
+    {
+        return $this->hasMany(Package::class,'id','package_id');
+    }
 }
 

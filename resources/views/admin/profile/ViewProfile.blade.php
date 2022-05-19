@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('title',"My Profile")
+
 @section('content')
 <div class="py-3">
-    <div class="col-lg-8 py-4">
+   <div class="row">
+   <div class="col-lg-8">
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
@@ -164,6 +166,24 @@
             </div>
           </form> -->
         </div>
+  </div>
+   </div>
+   <div class="col-lg-4">
+    <div class="card">
+      <div class="card-body">
+      <h2 class="login-box-msg text-primary text-left px-0"><b>Subscription</b></h2>
+
+        @if(isset($subscriptions) && !$subscriptions->isEmpty())
+          @foreach($subscriptions as $subs)
+            <p><span class="font-weight-bold">Package:</span>{{ $subs['package'][0]['name'] }}</p>
+            <p><span class="font-weight-bold">Srated at:</span>{{ $subs['started_at'] }}</p>
+            <p><span class="font-weight-bold">Expires at:</span>{{ $subs['expires_at'] }}</p>
+          @endforeach
+        @else 
+          <p>No Subscribed Plan</p>
+        @endif
+      </div>
+    </div>
   </div>
 </div>
 <!-- /.login-box -->

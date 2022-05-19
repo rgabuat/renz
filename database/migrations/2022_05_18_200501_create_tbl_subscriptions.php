@@ -15,7 +15,7 @@ class CreateTblSubscriptions extends Migration
     {
         Schema::create('tbl_subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->integer('avail_credits');
             $table->foreignId('package_id')->nullable()->constrained('tbl_package')->onDelete('cascade');
             $table->string('started_at');

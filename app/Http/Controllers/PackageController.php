@@ -107,7 +107,7 @@ class PackageController extends Controller
 
        
 
-        $subscription = Subscription::create([
+        $subscription = Subscriptions::create([
             'user_id' => auth()->user()->id,
             'started_at' => 'null',
             'expires_at' => 'null',
@@ -115,5 +115,9 @@ class PackageController extends Controller
             'package_id' =>  $buy[0]['id'],
         ]);
         
+        if($subscription)
+        {
+            return redirect()->back()->with('status','Package request Sent');
+        }
     }
 }

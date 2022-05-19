@@ -1,14 +1,14 @@
 $(document).ready(function() {
 
-    $('#domain_tbl').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
+    // $('#domain_tbl').DataTable({
+    //   "paging": true,
+    //   "lengthChange": false,
+    //   "searching": true,
+    //   "ordering": true,
+    //   "info": true,
+    //   "autoWidth": false,
+    //   "responsive": true,
+    // });
 
 
     // company table
@@ -22,18 +22,9 @@ $(document).ready(function() {
         "responsive": true,
     });
 
-    $('#company_tbl').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
 
 
-    $('#article_tbl').DataTable({
+    $('#sub_accounts_tbl,#article_tbl,#company_tbl,#domain_tbl,#subs_table').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": true,
@@ -42,16 +33,6 @@ $(document).ready(function() {
       "autoWidth": false,
       "responsive": true,
   });
-
-  $('#sub_accounts_tbl').DataTable({
-    "paging": true,
-    "lengthChange": false,
-    "searching": true,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "responsive": true,
-});
 
 
     // tiny mce plugin
