@@ -168,6 +168,7 @@
         </div>
   </div>
    </div>
+   @role('company admin|company user')
    <div class="col-lg-4">
     <div class="card">
       <div class="card-body">
@@ -185,6 +186,7 @@
       </div>
     </div>
   </div>
+  @endrole
 </div>
 <!-- /.login-box -->
 </div>

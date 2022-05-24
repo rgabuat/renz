@@ -220,7 +220,7 @@
                 </li>
               </ul>
             @endrole -->
-            @role('company admin|system admin')
+            @role('system admin|system editor')
             <li class="nav-item  {{ Request::is('package*') ? 'menu-is-opening menu-open' : '' }}">
               <a href="#" class="nav-link {{ Request::is('package*') ? 'active' : '' }} ">
                 <i class="nav-icon fas fa-box "></i>

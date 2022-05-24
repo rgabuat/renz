@@ -77,8 +77,8 @@ class ArticleController extends Controller
     public function update(Request $request,$aid)
     {
         $this->validate($request, [
-            'title' => 'required|max:255|unique:table_article,title',
-            'url' => 'required|max:255|unique:table_article,url',
+            'title' => 'required|max:255|unique:table_article,title,'.$aid,
+            'url' => 'required|max:255|unique:table_article,url,'.$aid,
             'category' => 'required|max:255',
             'author' => 'required|max:255',
         ]);
