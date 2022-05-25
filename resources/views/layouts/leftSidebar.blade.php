@@ -220,7 +220,7 @@
                 </li>
               </ul>
             @endrole -->
-            @role('system admin|system editor')
+            @role('system admin|system editor|company admin')
             <li class="nav-item  {{ Request::is('package*') ? 'menu-is-opening menu-open' : '' }}">
               <a href="#" class="nav-link {{ Request::is('package*') ? 'active' : '' }} ">
                 <i class="nav-icon fas fa-box "></i>
@@ -238,6 +238,7 @@
                     </p>
                   </a>
                 </li>
+                @role('system admin|system editor')
                 <li class="nav-item">
                   <a href="{{ route('package/create') }}" class="nav-link {{ Request::is('package/create*') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-plus"></i>
@@ -254,6 +255,17 @@
                     </p>
                   </a>
                 </li>
+                @endrole
+                @role('company admin')
+                <li class="nav-item">
+                  <a href="{{ route('package/my-subscriptions') }}" class="nav-link {{ Request::is('package/my-subscriptions*') ? 'active open' : '' }}">
+                    <i class="pl-3 nav-icon fas fa-file-signature"></i>
+                    <p class="pl-3 text-sm">
+                      My Subscription Requests
+                    </p>
+                  </a>
+                </li>
+                @endrole
               </ul>
             @endrole
           </li>

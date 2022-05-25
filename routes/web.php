@@ -126,8 +126,9 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/delete/{aid}', [PackageController::class,'delete'])->name('package/delete/{aid}');
         Route::post('/buy/{aid}', [PackageController::class,'buy'])->name('package/buy/{aid}');
         Route::get('/requests', [SubscriptionsController::class,'package_requests'])->name('package/requests');
-        Route::post('/approve/{pid}', [SubscriptionsController::class,'approve'])->name('package/approve/{pid}');
+        Route::post('/approve/{pid}/{uid}', [SubscriptionsController::class,'approve'])->name('package/approve/{pid}/{uid}');
         Route::post('/decline/{pid}', [SubscriptionsController::class,'approve'])->name('package/decline/{pid}');
+        Route::get('/my-subscriptions',[SubscriptionsController::class,'my_subscriptions'])->name('package/my-subscriptions');
     });
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -138,7 +139,6 @@ Route::group(['prefix' => 'user'],function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('user/dashboard');
     Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordGet'])->name('user/change-password');
     Route::get('/view-profile', [ProfileController::class, 'index'])->name('user/view-profile');
-
 });
 
 Route::get('/clear', function() {

@@ -177,8 +177,10 @@
         @if(isset($subscriptions) && !$subscriptions->isEmpty())
           @foreach($subscriptions as $subs)
             <p><span class="font-weight-bold">Package:</span>{{ $subs['package'][0]['name'] }}</p>
-            <p><span class="font-weight-bold">Srated at:</span>{{ $subs['started_at'] }}</p>
+            <p><span class="font-weight-bold">Avail Credits:</span>{{ $subs['avail_credits'] }}</p>
+            <p><span class="font-weight-bold">Started at:</span>{{ $subs['started_at'] }}</p>
             <p><span class="font-weight-bold">Expires at:</span>{{ $subs['expires_at'] }}</p>
+            <p class="font-weight-bold">Subscription Status: <span class="badge {{ \Carbon\Carbon::now() != $subs['expires_at'] ? 'badge-success' : 'badge-danger' }}">{{ \Carbon\Carbon::now() != $subs['expires_at'] ? 'Active' : 'Expired' }}</span></p>
           @endforeach
         @else 
           <p>No Subscribed Plan</p>

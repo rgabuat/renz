@@ -60,7 +60,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ url('package/approve/'.$request['package'][0]['id']) }}" method="post">
+                            <form action="{{ url('package/approve/'.$request['package'][0]['id'].'/'.$request['user'][0]['id'] ) }}" method="post">
                                 @csrf
                                 <p>Approve Package Subscription</p>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

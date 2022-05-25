@@ -20,7 +20,9 @@ class ProfileController extends Controller
     {
 
         $roles = Role::all();
-        $subscriptions = Subscriptions::with('package')->where('user_id',auth()->user()->id)->where('status',1)->get();
+        $subscriptions = Subscriptions::with('package')->where('user_id',auth()->user()->id)->where('status',1)->get()->where('expires_at','!=','null');
+
+        // dd($subscriptions);
         
         return view('admin.profile.ViewProfile', compact('roles','subscriptions'));
        
