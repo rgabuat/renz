@@ -12,7 +12,7 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <a href="{{ route('view-profile') }}">
           <div class="image">
-            <img src=" {{ auth()->user()->profile_image != '' ? asset('storage/'.auth()->user()->profile_image) : 'vendors/dist/img/AdminLTELogo.png' }}" alt="avatar">
+            <img src=" {{ auth()->user()->profile_image != '' ? asset('storage/'.auth()->user()->profile_image) : '/vendors/dist/img/AdminLTELogo.png' }}" alt="avatar">
           </div>
           <div class="info">
             <a href="{{ route('view-profile') }}" class="d-block">@auth {{ auth()->user()->first_name }} {{ auth()->user()->last_name }} @endauth</a>
@@ -182,10 +182,28 @@
                 </li>
                 @role('company admin')
                 <li class="nav-item">
+                  <a href="{{ route('article/order') }}" class="nav-link {{ Request::is('article/order*') ? 'active open' : '' }}">
+                    <i class="pl-3 nav-icon fas fa-shopping-cart"></i>
+                    <p class="pl-3">
+                      Order Article
+                    </p>
+                  </a>
+                </li>
+                @endrole
+                @role('system admin')
+                <li class="nav-item">
                   <a href="{{ route('article/create') }}" class="nav-link {{ Request::is('article/create*') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-plus"></i>
                     <p class="pl-3">
                       Create Article
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('article/requests') }}" class="nav-link {{ Request::is('article/requests*') ? 'active open' : '' }}">
+                    <i class="pl-3 nav-icon fas fa-file-signature"></i>
+                    <p class="pl-3">
+                      Article Requests
                     </p>
                   </a>
                 </li>

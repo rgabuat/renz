@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Article;
+use App\Models\ArticleOrder;
 use Carbon\Carbon;
 
 class ArticleController extends Controller
@@ -135,4 +136,75 @@ class ArticleController extends Controller
             return response()->json(['location' => "/storage/$path"]);
         }
     }
+
+    public function order()
+    {
+        return view('articles.Order');
+    }
+
+    public function make_order(Request $request,$uid,$cid)
+    {   
+        $this->validate($request, [
+            'type' => 'required|max:255',
+            'offer' => 'required|max:255|unique:table_article,url',
+            'url' => 'required|max:255',
+            'publish_date' => 'required|max:255',
+        ]);
+
+        $order = ArticleOrder::create([
+            'type' => $request->type,
+            'offer' => $request->offer,
+            'url' => $request->url,
+            'user_id' => $uid,
+            'company_id' => $cid,
+            'accepted_at' => 'null',
+            'completed_at' => 'null',
+            'publishing_date' => $request->publish_date,
+            'status' => 'pending',
+        ]);
+
+        if($order)
+        {
+            return redirect()->back()->with('status','Order Created');
+        }
+    }
+
+    public function requests()
+    {
+        $requests = ArticleOrder::all();
+        if($requests)
+        {
+            return view('articles.Requests',compact('requests'));
+        }
+    }
+
+    public function order_approve($aid)
+    {
+
+
+        if($aid != '')
+        {
+
+            $params = [
+                'accepted_at' => Carbon::now(),
+                'status' => 'processing'
+            ];
+
+            $approve  = ArticleOrder::where('id',$aid)->update($params);
+
+            if($approve)
+            {
+                return redirect()->back()->with('status','Order Accepted');
+            }
+        }
+    }
+
+    public function order_decline($aid)
+    {
+        if($aid != '')
+        {
+            
+        }
+    }
+
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title',"Users")
+@section('title',"Articles")
 @section('content')
 <div class="table-responsive-sm py-3">
 <div class="card">

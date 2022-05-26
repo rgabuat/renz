@@ -105,14 +105,20 @@ Route::group(['middleware' => 'auth'],function(){
     Route::group(['prefix' => 'article'],function(){
         Route::group(['middleware' => ['role:system admin|system user|system editor|company admin|company user']], function () {
                 Route::get('/lists', [ArticleController::class,'index'])->name('article/lists');
-                Route::group(['middleware' => ['role:company admin|company user']], function () {
+                Route::group(['middleware' => ['role:system admin|system editor']], function () {
                     Route::get('/create', [ArticleController::class,'create'])->name('article/create');
+                    Route::post('/order/{aid}/approve', [ArticleController::class,'order_approve'])->name('article/order/{aid}/approve');
+                    Route::post('/order/{aid}/decline', [ArticleController::class,'order_decline'])->name('article/order/{aid}/decline');
+                    Route::post('/store', [ArticleController::class,'store'])->name('article/store');
+                    Route::get('/requests', [ArticleController::class,'requests'])->name('article/requests');
+                    Route::post('/upload', [ArticleController::class,'upload_img'])->name('article/upload');
+                    Route::post('/update/{aid}', [ArticleController::class,'update'])->name('article/update/{aid}');
+                    Route::post('/delete/{aid}', [ArticleController::class,'delete'])->name('article/delete/{aid}');
                 });
-                Route::post('/store', [ArticleController::class,'store'])->name('article/store');
+              
+                Route::get('/order', [ArticleController::class,'order'])->name('article/order');
+                Route::post('/order/{uid}/{cid}', [ArticleController::class,'make_order'])->name('article/order/{uid}/{cid}');
                 Route::get('/edit/{aid}', [ArticleController::class,'edit'])->name('article/edit/{aid}');
-                Route::post('/update/{aid}', [ArticleController::class,'update'])->name('article/update/{aid}');
-                Route::post('/delete/{aid}', [ArticleController::class,'delete'])->name('article/delete/{aid}');
-                Route::post('/upload', [ArticleController::class,'upload_img'])->name('article/upload');
             });
         
     });
