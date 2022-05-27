@@ -44,8 +44,11 @@
                     <span class="fas fa-align-right"></span>
                     </button>
                     <div class="dropdown-menu" role="menu" style="">
-                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#approve{{ $request['id'] }}"><span class="fas fa-check mr-2"></span>Approve Request</a>
-                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#decline{{ $request['id'] }}"><span class="fas fa-times mr-2"></span>Decline Request</a>
+                            @role('system admin|system editor')
+                                <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#approve{{ $request['id'] }}"><span class="fas fa-check mr-2"></span>Approve Request</a>
+                                <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#decline{{ $request['id'] }}"><span class="fas fa-times mr-2"></span>Decline Request</a>
+                                <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#publish{{ $request['id'] }}"><span class="fas fa-newspaper mr-2"></span>Publish Article</a>
+                            @endrole
                     </div>
                 </div>
                 </td>
@@ -90,6 +93,28 @@
                                 <p>Decline article request from: <span><b>{{ $request['company_name'] }}</b></span></p>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <input type="submit" class="btn btn-danger" value="DECLINE">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- publish article Modal -->
+            <div class="modal fade" id="decline{{ $request['id'] }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="decline">Publish Article Request</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url('article/order/'.$request['id'].'/publish') }}" method="post">
+                                @csrf
+                                <p>Publish article request from: <span><b>{{ $request['company_name'] }}</b></span></p>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-danger" value="PUBLISH">
                             </form>
                         </div>
                     </div>

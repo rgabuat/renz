@@ -178,7 +178,7 @@ class ArticleController extends Controller
         }
         else 
         {
-            $requests = ArticleOrder::where('company_id',auth()->user()->company_id);
+            $requests = ArticleOrder::where('company_id',auth()->user()->company_id)->get();
         }
 
             return view('articles.Requests',compact('requests'));
