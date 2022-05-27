@@ -7,60 +7,59 @@ use Carbon\Carbon;
 use App\Models\Subscriptions;
 use App\Models\Package;
 use App\Models\User;
+use App\Models\Company;
 
 class SubscriptionsController extends Controller
 {
     //
     public function package_requests()
     {
-        $requests = Subscriptions::with('user.company','package')->where('status',0)->get();
+        $requests = Subscriptions::with('user.company','package')->get();
         return view('packages.requests',compact('requests'));
     }
 
-    public function approve($pid,$uid)
+    public function approve(Request $request,$rid,$cid)
     {
-        $package = Package::where('id',$pid)->get();
+        $package = Package::where('id',$request->package_id)->get();
 
-        $has_current = Subscriptions::where('user_id',$uid)->where('status',1)->get();
+        $has_current = Company::where('id',$cid)->where('package_id','!=','null')->get();
         $subsciption = str_replace(' ', '', $package[0]['duration']);
         $credits = str_replace(' ', '', $package[0]['credits']);
         
         if($has_current)
         {
-            $current_sub = Carbon::createFromFormat('Y-m-d H:i:s', $has_current[0]->expires_at)->addMonths($subsciption);
+            $current_sub = Carbon::createFromFormat('Y-m-d H:i:s',$has_current[0]->expires_at)->addMonths($subsciption);
             $current_credits = $has_current[0]->avail_credits + $credits;
 
-            $sub_status = [
-                'status' => 1
-            ];
-
-            $update_sub = Subscriptions::where('package_id',$pid)->update($sub_status);
-           
+            $update_sub = Subscriptions::where('id',$rid)->update(['status' => 1]);
             if($update_sub)
             {
                 $subscription_update = [
+                    'package_id' => $request->package_id,
                     'expires_at' => $current_sub,
                     'avail_credits' => $current_credits,
                 ];
-                $update = Subscriptions::where('id',$has_current[0]->id)->update($subscription_update);
+                $update = Company::where('id',$has_current[0]->id)->update($subscription_update);
                 return redirect()->back()->with('status','Subscription Approved');
             }
 
         }
         else 
         {
-            $approve_date = Carbon::now();
-
             if($package)
             {
-                $subscription_update = [
-                'started_at' => $approve_date,
-                'expires_at' => Carbon::now()->addMonths($subsciption),
-                'status' => 1,
-            ];
-    
-            $update = Subscriptions::where('id',$pid)->update($subscription_update);
-    
+                $update = Subscriptions::where('id',$rid)->update(['status' => 1]);
+
+                if($update)
+                {
+                    $params = [
+                        'package_id' => $package[0]['id'],
+                        'avail_credits' => $package[0]['credits'],
+                        'started_at' => Carbon::now(),
+                        'expires_at' => Carbon::now()->addMonths($subsciption),
+                    ];
+                    $update = Company::where('id',$cid)->update($params);
+                }
                 return redirect()->back()->with('status','Subscription Approved');
             }
             else 

@@ -180,7 +180,7 @@
                     </p>
                   </a>
                 </li>
-                @role('company admin')
+                @role('company admin|company user')
                 <li class="nav-item">
                   <a href="{{ route('article/order') }}" class="nav-link {{ Request::is('article/order*') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-shopping-cart"></i>
@@ -188,9 +188,7 @@
                       Order Article
                     </p>
                   </a>
-                </li>
-                @endrole
-                @role('system admin')
+              </li>
                 <li class="nav-item">
                   <a href="{{ route('article/create') }}" class="nav-link {{ Request::is('article/create*') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-plus"></i>
@@ -199,6 +197,8 @@
                     </p>
                   </a>
                 </li>
+                @endrole
+                @role('company admin|company user|system admin|system user')
                 <li class="nav-item">
                   <a href="{{ route('article/requests') }}" class="nav-link {{ Request::is('article/requests*') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-file-signature"></i>

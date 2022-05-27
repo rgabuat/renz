@@ -7,6 +7,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Subscriptions;
+use App\Models\Company;
 
 
 class ProfileController extends Controller
@@ -20,16 +21,11 @@ class ProfileController extends Controller
     {
 
         $roles = Role::all();
-        $subscriptions = Subscriptions::with('package')->where('user_id',auth()->user()->id)->where('status',1)->get()->where('expires_at','!=','null');
+        // $subscriptions = Subscriptions::with('package')->where('user_id',auth()->user()->id)->where('status',1)->get()->where('expires_at','!=','null');
 
-        // dd($subscriptions);
-        
+        $subscriptions = Company::with('package')->where('package_id','!=','null')->get();
         return view('admin.profile.ViewProfile', compact('roles','subscriptions'));
        
-        // if($subscriptions)
-        // {
-        //     return view('profile.ViewProfile',compact('subscriptions'));
-        // }
     }
 
     public function edit()

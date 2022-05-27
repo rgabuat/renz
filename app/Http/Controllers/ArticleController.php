@@ -171,11 +171,17 @@ class ArticleController extends Controller
 
     public function requests()
     {
-        $requests = ArticleOrder::all();
-        if($requests)
+        
+        if(auth()->user()->hasRole(['system admin','system editor','system user']))
         {
-            return view('articles.Requests',compact('requests'));
+            $requests = ArticleOrder::all();
         }
+        else 
+        {
+            $requests = ArticleOrder::where('company_id',auth()->user()->company_id);
+        }
+
+            return view('articles.Requests',compact('requests'));
     }
 
     public function order_approve($aid)

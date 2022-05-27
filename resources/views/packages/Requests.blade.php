@@ -42,15 +42,17 @@
                     <span class="fas fa-align-right"></span>
                     </button>
                     <div class="dropdown-menu" role="menu" style="">
-                        <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#approve{{ $request['package'][0]['id'] }}"><span class="fas fa-check mr-2"></span>Approve Subscription</a>
-                        <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#decline{{ $request['package'][0]['id'] }}"><span class="fas fa-times mr-2"></span>Decline Subscription</a>      
+                        @if($request['status'] != 1)
+                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#approve{{ $request['id'] }}"><span class="fas fa-check mr-2"></span>Approve Subscription</a>
+                        @endif
+                        <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#decline{{ $request['id'] }}"><span class="fas fa-times mr-2"></span>Decline Subscription</a>      
                     </div>
                 </div>
                 </td>
             </tr>
         
             <!-- edit post Modal -->
-            <div class="modal fade" id="approve{{ $request['package'][0]['id'] }}" aria-hidden="true">
+            <div class="modal fade" id="approve{{ $request['id'] }}" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -60,9 +62,10 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ url('package/approve/'.$request['package'][0]['id'].'/'.$request['user'][0]['id'] ) }}" method="post">
+                            <form action="{{ url('package/approve/'.$request['id'].'/'.$request['user'][0]['company_id'] ) }}" method="post">
                                 @csrf
                                 <p>Approve Package Subscription</p>
+                                <input type="hidden" name="package_id" value="{{ $request['package'][0]['id'] }}">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <input type="submit" class="btn btn-primary" value="UPDATE">
                             </form>

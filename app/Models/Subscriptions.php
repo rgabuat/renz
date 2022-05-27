@@ -20,6 +20,7 @@ class Subscriptions extends Model
         'avail_credits',
         'package_id',
         'status',
+        'company_id',
     ];
 
     public function user()

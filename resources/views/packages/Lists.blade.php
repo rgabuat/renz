@@ -46,9 +46,15 @@
                     <span class="fas fa-align-right"></span>
                     </button>
                     <div class="dropdown-menu" role="menu" style="">
-                        <a class="dropdown-item" href="javacsript:void(0);" data-toggle="modal" data-target="#buy{{ $package['id'] }}"><span class="fas fa-shopping-cart mr-2"></span>Buy Packge</a>
-                        <a class="dropdown-item" href="javacsript:void(0);" data-toggle="modal" data-target="#edit{{ $package['id'] }}"><span class="fas fa-pen mr-2"></span>Edit Packge</a>
-                        <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#delete{{ $package['id'] }}"><span class="fas fa-trash mr-2"></span>Delete Package</a>
+                        @role('company admin|company user')
+                            <a class="dropdown-item" href="javacsript:void(0);" data-toggle="modal" data-target="#buy{{ $package['id'] }}"><span class="fas fa-shopping-cart mr-2"></span>Buy Packge</a>
+                        @endrole
+                        @role('system admin|system editor')
+                            <a class="dropdown-item" href="javacsript:void(0);" data-toggle="modal" data-target="#edit{{ $package['id'] }}"><span class="fas fa-pen mr-2"></span>Edit Packge</a>
+                            @role('system admin')
+                                <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#delete{{ $package['id'] }}"><span class="fas fa-trash mr-2"></span>Delete Package</a>
+                            @endrole
+                        @endrole
                     </div>
                 </div>
                 </td>

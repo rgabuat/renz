@@ -105,10 +105,9 @@ class PackageController extends Controller
     {
         $buy = Package::where('id',$aid)->get();
 
-       
-
         $subscription = Subscriptions::create([
             'user_id' => auth()->user()->id,
+            'company_id' => auth()->user()->company_id,
             'started_at' => 'null',
             'expires_at' => 'null',
             'avail_credits' => $buy[0]['credits'],
