@@ -63,7 +63,8 @@ class ArticleController extends Controller
             'author' => $request->author,
             'featured_image' => $featured_image,
             'created_by' => auth()->user()->id,
-            'publishing_date' => $now,
+            'publishing_date' => 'null',
+            'status' => 'draft',
         ]);
 
         return redirect()->back()->with('status','New Article Created');
@@ -180,17 +181,19 @@ class ArticleController extends Controller
         {
             $requests = ArticleOrder::where('company_id',auth()->user()->company_id)->get();
         }
+        return view('articles.Requests',compact('requests'));
+    }
 
-            return view('articles.Requests',compact('requests'));
+    public function orders()
+    {
+        $orders = ArticleOrder::all();
+        return view('articles.Orders',compact('orders'));
     }
 
     public function order_approve($aid)
     {
-
-
         if($aid != '')
         {
-
             $params = [
                 'accepted_at' => Carbon::now(),
                 'status' => 'processing'
@@ -210,6 +213,46 @@ class ArticleController extends Controller
         if($aid != '')
         {
             
+        }
+    }
+
+    public function order_publish(Request $request,$aid)
+    {
+        if($aid != '')
+        {
+            $this->validate($request, [
+                'url' => 'required|max:255|unique:table_article,url,'.$aid,
+            ]);
+    
+            $params = [
+                'completed_at' => Carbon::now(),
+                'status' => 'completed'
+            ];
+
+            $approve  = ArticleOrder::where('id',$aid)->update($params);
+
+            if($approve)
+            {
+                return redirect()->back()->with('status','Article Published');
+            }
+        }
+    }
+
+    public function publish_request($aid)
+    {
+        if($aid != '')
+        {
+            $params = [
+                'publishing_date' => Carbon::now(),
+                'status' => 'published'
+            ];
+
+            $published  = Article::where('id',$aid)->update($params);
+
+            if($published)
+            {
+                return redirect()->back()->with('status','Article Published');
+            }
         }
     }
 

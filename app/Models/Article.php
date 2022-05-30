@@ -21,6 +21,7 @@ class Article extends Model
         'author',
         'created_by',
         'publishing_date',
+        'status',
     ];
 
     public function created_by_company()

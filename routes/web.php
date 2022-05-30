@@ -109,10 +109,15 @@ Route::group(['middleware' => 'auth'],function(){
                     
                     Route::post('/order/{aid}/approve', [ArticleController::class,'order_approve'])->name('article/order/{aid}/approve');
                     Route::post('/order/{aid}/decline', [ArticleController::class,'order_decline'])->name('article/order/{aid}/decline');
+                    Route::post('/order/{aid}/publish', [ArticleController::class,'order_publish'])->name('article/order/{aid}/publish');
                    
+                    Route::post('/{aid}/publish', [ArticleController::class,'publish_request'])->name('article/{aid}/publish');
+
                     Route::post('/update/{aid}', [ArticleController::class,'update'])->name('article/update/{aid}');
                     Route::post('/delete/{aid}', [ArticleController::class,'delete'])->name('article/delete/{aid}');
+                    Route::get('/orders', [ArticleController::class,'orders'])->name('article/orders');
                 });
+
                 Route::get('/requests', [ArticleController::class,'requests'])->name('article/requests');
                 Route::get('/create', [ArticleController::class,'create'])->name('article/create');
                 Route::post('/store', [ArticleController::class,'store'])->name('article/store');

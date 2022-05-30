@@ -176,7 +176,7 @@
                   <a href="{{ route('article/lists') }}" class="nav-link {{ Request::is('article/lists*') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-eye"></i>
                     <p class="pl-3">
-                      View All Articles
+                      View Articles
                     </p>
                   </a>
                 </li>
@@ -198,8 +198,16 @@
                   </a>
                 </li>
                 @endrole
-                @role('company admin|company user|system admin|system user')
+                @role('system admin|company user|system admin|system user')
                 <li class="nav-item">
+                  <a href="{{ route('article/orders') }}" class="nav-link {{ Request::is('article/orders*') ? 'active open' : '' }}">
+                    <i class="pl-3 nav-icon fas fa-file-signature"></i>
+                    <p class="pl-3">
+                      Article Orders
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item d-none">
                   <a href="{{ route('article/requests') }}" class="nav-link {{ Request::is('article/requests*') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-file-signature"></i>
                     <p class="pl-3">

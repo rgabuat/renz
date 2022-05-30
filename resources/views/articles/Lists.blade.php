@@ -20,6 +20,7 @@
                 <th>Url</th>
                 <th>Author</th>
                 <th>Categories</th>
+                <th>Status</th>
                 <th>Publish Date</th>
                 <th>Created At</th>
                 <th>Updated At</th>
@@ -35,7 +36,8 @@
                 <td>{{ $article['url'] }}</td>
                 <td>{{ $article['author'] }}</td>
                 <td>{{ $article['categories'] }}</td>
-                <td>{{ $article['publishing_date'] }}</td>
+                <td><span class="badge {{ $article['status'] == 'draft' ? 'badge-warning' : 'badge-success' }}">{{ $article['status'] }}</span></td>
+                <td>{{ $article['publishing_date'] != 'null' ? $article['publishing_date'] : '--' }}</td>
                 <td>{{ $article['created_at'] }}</td>
                 <td>{{ $article['updated_at'] }}</td>
                 <td>
@@ -44,8 +46,11 @@
                     <span class="fas fa-align-right"></span>
                     </button>
                     <div class="dropdown-menu" role="menu" style="">
+                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#publish{{ $article['id'] }}"><span class="fas fa-newspaper mr-2"></span>Publish Article</a>
+                        @role('company admin|company user')
                             <a class="dropdown-item" href="{{ url('article/edit/'.$article['id'])}}"><span class="fas fa-pen mr-2"></span>Edit Post</a>
                             <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#delete{{ $article['id'] }}"><span class="fas fa-trash mr-2"></span>Delete Post</a>
+                        @endrole
                     </div>
                 </div>
                 </td>
@@ -90,6 +95,28 @@
                                 <p>Are you sure you want to delete post: <span><b>{{ $article['title'] }}</b></span></p>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <input type="submit" class="btn btn-danger" value="DELETE">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- publish article Modal -->
+            <div class="modal fade" id="publish{{ $article['id'] }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="publish">Publish Article Request</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url('article/'.$article['id'].'/publish') }}" method="post">
+                                @csrf
+                                <p>Publish article: <span><b>{{ $article['title'] }}</b></span></p>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-success" value="PUBLISH">
                             </form>
                         </div>
                     </div>
