@@ -186,7 +186,15 @@ class ArticleController extends Controller
 
     public function orders()
     {
-        $orders = ArticleOrder::all();
+        if(auth()->user()->hasRole(['system admin','system editor','system user']))
+        {
+            $orders = ArticleOrder::all();
+        }
+        else 
+        {
+            $orders = ArticleOrder::where('status','!=','completed')->where('company_id',auth()->user()->company_id)->get();
+        }
+
         return view('articles.Orders',compact('orders'));
     }
 
@@ -254,6 +262,19 @@ class ArticleController extends Controller
                 return redirect()->back()->with('status','Article Published');
             }
         }
+    }
+
+    public function completed_orders()
+    {
+        if(auth()->user()->hasRole(['system admin','system editor','system user']))
+        {
+            $completeorders = ArticleOrder::all();
+        }
+        else 
+        {
+            $completeorders = ArticleOrder::where('status','completed')->where('company_id',auth()->user()->company_id)->get();
+        }
+        return view('articles.Completed',compact('completeorders'));
     }
 
 }

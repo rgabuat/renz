@@ -55,13 +55,67 @@
                                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#publish{{ $order['id'] }}"><span class="fas fa-newspaper mr-2"></span>Publish Article</a>
                                 @endif
                             @endrole
+                            @role('company admin|company user')
+                                <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#view{{ $order['id'] }}"><span class="fas fa-eye mr-2"></span>View Order</a>
+                                <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#edit{{ $order['id'] }}"><span class="fas fa-pen mr-2"></span>Edit Order</a>
+                                <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#delete{{ $order['id'] }}"><span class="fas fa-trash mr-2"></span>Delete Order</a>
+                            @endrole
                     </div>
                 </div>
                 </td>
             </tr>
+
+
+            @role('company admin|company user')
+            <!-- edit order Modal -->
+            <div class="modal fade" id="edit{{ $order['id'] }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="edit">Approve Article Request</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url('article/order/'.$order['id'].'/approve') }}" method="post">
+                                @csrf
+                                <p>Edit article  <span><b>{{ $order['company_name'] }}</b></span></p>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-primary" value="UPDATE">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- delete order Modal -->
+            <div class="modal fade" id="delete{{ $order['id'] }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="delete">Approve Article Request</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url('article/order/'.$order['id'].'/approve') }}" method="post">
+                                @csrf
+                                <p>Edit article  <span><b>{{ $order['company_name'] }}</b></span></p>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-danger" value="DELETE">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endrole
+
         
-            <!-- aprrove request Modal -->
-            <div class="modal fade" id="approve{{ $order['id'] }}" aria-hidden="true">
+            @role('system admin|system editor|system user')
+<!-- aprrove request Modal -->
+<div class="modal fade" id="approve{{ $order['id'] }}" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -110,6 +164,7 @@
                     </div>
                 </div>
             </div>
+            @endrole
             @endforeach
         </tbody>
     </table>

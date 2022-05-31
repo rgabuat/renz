@@ -121,6 +121,8 @@ Route::group(['middleware' => 'auth'],function(){
                 Route::get('/requests', [ArticleController::class,'requests'])->name('article/requests');
                 Route::get('/create', [ArticleController::class,'create'])->name('article/create');
                 Route::post('/store', [ArticleController::class,'store'])->name('article/store');
+
+                Route::get('/completed', [ArticleController::class,'completed_orders'])->name('article/completed');
                 
                 Route::post('/upload', [ArticleController::class,'upload_img'])->name('article/upload');
                 Route::get('/order', [ArticleController::class,'order'])->name('article/order');
