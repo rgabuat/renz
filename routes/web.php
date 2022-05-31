@@ -115,14 +115,16 @@ Route::group(['middleware' => 'auth'],function(){
 
                     Route::post('/update/{aid}', [ArticleController::class,'update'])->name('article/update/{aid}');
                     Route::post('/delete/{aid}', [ArticleController::class,'delete'])->name('article/delete/{aid}');
-                    Route::get('/orders', [ArticleController::class,'orders'])->name('article/orders');
+                    
                 });
-
+                Route::get('/orders', [ArticleController::class,'orders'])->name('article/orders');
                 Route::get('/requests', [ArticleController::class,'requests'])->name('article/requests');
                 Route::get('/create', [ArticleController::class,'create'])->name('article/create');
                 Route::post('/store', [ArticleController::class,'store'])->name('article/store');
+                
                 Route::post('/upload', [ArticleController::class,'upload_img'])->name('article/upload');
                 Route::get('/order', [ArticleController::class,'order'])->name('article/order');
+
                 Route::post('/order/{uid}/{cid}', [ArticleController::class,'make_order'])->name('article/order/{uid}/{cid}');
                 Route::get('/edit/{aid}', [ArticleController::class,'edit'])->name('article/edit/{aid}');
             });

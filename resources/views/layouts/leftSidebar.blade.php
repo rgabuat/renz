@@ -188,7 +188,7 @@
                       Order Article
                     </p>
                   </a>
-              </li>
+                </li>
                 <li class="nav-item">
                   <a href="{{ route('article/create') }}" class="nav-link {{ Request::is('article/create*') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-plus"></i>
@@ -197,8 +197,6 @@
                     </p>
                   </a>
                 </li>
-                @endrole
-                @role('system admin|company user|system admin|system user')
                 <li class="nav-item">
                   <a href="{{ route('article/orders') }}" class="nav-link {{ Request::is('article/orders*') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-file-signature"></i>
@@ -207,7 +205,9 @@
                     </p>
                   </a>
                 </li>
-                <li class="nav-item d-none">
+                @endrole
+                @role('system admin|company user|system admin|system user')
+                <li class="nav-item">
                   <a href="{{ route('article/requests') }}" class="nav-link {{ Request::is('article/requests*') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-file-signature"></i>
                     <p class="pl-3">
