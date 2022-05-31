@@ -182,7 +182,7 @@
                 </li>
                 @role('company admin|company user')
                 <li class="nav-item">
-                  <a href="{{ route('article/order') }}" class="nav-link {{ Request::is('article/order*') ? 'active open' : '' }}">
+                  <a href="{{ route('article/order') }}" class="nav-link {{ Request::is('article/order') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-shopping-cart"></i>
                     <p class="pl-3">
                       Order Article
