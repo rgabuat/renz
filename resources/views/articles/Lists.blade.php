@@ -47,10 +47,8 @@
                     </button>
                     <div class="dropdown-menu" role="menu" style="">
                             <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#publish{{ $article['id'] }}"><span class="fas fa-newspaper mr-2"></span>Publish Article</a>
-                        @role('company admin|company user')
                             <a class="dropdown-item" href="{{ url('article/edit/'.$article['id'])}}"><span class="fas fa-pen mr-2"></span>Edit Post</a>
                             <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#delete{{ $article['id'] }}"><span class="fas fa-trash mr-2"></span>Delete Post</a>
-                        @endrole
                     </div>
                 </div>
                 </td>
