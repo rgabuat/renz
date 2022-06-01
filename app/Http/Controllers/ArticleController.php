@@ -35,6 +35,7 @@ class ArticleController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255|unique:table_article,title',
             'url' => 'required|max:255|unique:table_article,url',
+            'publish_date' => 'required',
             'category' => 'required|max:255',
             'author' => 'required|max:255',
         ]);
@@ -63,11 +64,17 @@ class ArticleController extends Controller
             'author' => $request->author,
             'featured_image' => $featured_image,
             'created_by' => auth()->user()->id,
-            'publishing_date' => 'null',
+            'publishing_date' => $request->publish_date,
             'status' => 'draft',
         ]);
 
         return redirect()->back()->with('status','New Article Created');
+    }
+
+    public function show($aid)
+    {
+        $article = Article::where('id',$aid)->get();
+        return view('articles.View',compact('article'));
     }
 
     public function edit($aid)

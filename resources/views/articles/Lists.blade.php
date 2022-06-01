@@ -46,7 +46,10 @@
                     <span class="fas fa-align-right"></span>
                     </button>
                     <div class="dropdown-menu" role="menu" style="">
+                            @role('system admin|system editor|system user')
                             <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#publish{{ $article['id'] }}"><span class="fas fa-newspaper mr-2"></span>Publish Article</a>
+                            @endrole
+                            <a class="dropdown-item" href="{{ url('article/view/'.$article['id'])}}"><span class="fas fa-eye mr-2"></span>View Post</a>
                             <a class="dropdown-item" href="{{ url('article/edit/'.$article['id'])}}"><span class="fas fa-pen mr-2"></span>Edit Post</a>
                             <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#delete{{ $article['id'] }}"><span class="fas fa-trash mr-2"></span>Delete Post</a>
                     </div>

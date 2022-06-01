@@ -33,6 +33,14 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="publish_date">Publish Date <span class="text-danger">*</span></label>
+                    <input type="date" name="publish_date" class="form-control @error('publish_date') is-invalid @enderror" value="{{ old('publish_date') }}">
+                    @error('publish_date')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
                     <label for="body">Body</label>
                     <textarea name="body" id="tinymce" cols="30" rows="10" class="form-control">{{ old('body') }}</textarea>
                     @error('body')

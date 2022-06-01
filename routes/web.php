@@ -129,6 +129,7 @@ Route::group(['middleware' => 'auth'],function(){
 
                 Route::post('/order/{uid}/{cid}', [ArticleController::class,'make_order'])->name('article/order/{uid}/{cid}');
                 Route::get('/edit/{aid}', [ArticleController::class,'edit'])->name('article/edit/{aid}');
+                Route::get('/view/{aid}', [ArticleController::class,'show'])->name('article/view/{aid}');
             });
     });
 
