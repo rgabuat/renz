@@ -284,4 +284,23 @@ class ArticleController extends Controller
         return view('articles.Completed',compact('completeorders'));
     }
 
+    public function delete_order($aid)
+    {
+        $destroy = ArticleOrder::where('id',$aid)->delete();
+
+        if($destroy)
+        {
+            return redirect()->back()->with('status','Article Order Deleted!');
+        }
+    }
+
+    public function show_order($aid)
+    {
+        
+    }
+
+    public function update_order($aid)
+    {
+
+    }
 }

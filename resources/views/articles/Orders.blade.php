@@ -57,8 +57,10 @@
                             @endrole
                             @role('company admin|company user')
                                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#view{{ $order['id'] }}"><span class="fas fa-eye mr-2"></span>View Order</a>
-                                <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#edit{{ $order['id'] }}"><span class="fas fa-pen mr-2"></span>Edit Order</a>
-                                <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#delete{{ $order['id'] }}"><span class="fas fa-trash mr-2"></span>Delete Order</a>
+                                @if($order['status'] == 'pending')
+                                    <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#edit{{ $order['id'] }}"><span class="fas fa-pen mr-2"></span>Edit Order</a>
+                                    <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#delete{{ $order['id'] }}"><span class="fas fa-trash mr-2"></span>Delete Order</a>
+                                @endif
                             @endrole
                     </div>
                 </div>
@@ -72,7 +74,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="edit">Approve Article Request</h5>
+                            <h5 class="modal-title" id="edit">Edit Order</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
@@ -80,7 +82,33 @@
                         <div class="modal-body">
                             <form action="{{ url('article/order/'.$order['id'].'/approve') }}" method="post">
                                 @csrf
-                                <p>Edit article  <span><b>{{ $order['company_name'] }}</b></span></p>
+                                <p>Edit order  <span><b>{{ $order['id'] }}</b></span></p>
+                                <div class="form-group">
+                                    <label for="type">Type</label>
+                                    <select name="type" id="type" class="form-control">
+                                        <option  value="">Select type</option>
+                                        <option {{ $order['type'] == 'h1' ? 'selected' : '' }} value="h1">H1</option>
+                                        <option {{ $order['type'] == 'anchor1' ? 'selected' : '' }} value="anchor1">Anchor1</option>
+                                        <option {{ $order['type'] == 'link2' ? 'selected' : '' }} value="link2">Link2</option>
+                                        <option {{ $order['type'] == 'anchor2' ? 'selected' : ''}} value="anchor2">Anchor2</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="offer">Offer</label>
+                                    <select name="offer" id="offer" class="form-control">
+                                        <option  value="">Select type</option>
+                                        <option {{ $order['offer'] == 'standard' ? 'selected' : '' }} value="standard">Standard: 15 euro for 4 - 500 words</option>
+                                        <option {{ $order['offer'] == 'premium' ? 'selected' : '' }} value="premium">Premium: 30 euro for 750 words</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="url">Url</label>
+                                    <input type="text" name="url" class="form-control" value="{{ $order['url'] }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="date">Publishing Date</label>
+                                    <input type="date" name="publish_date" class="form-control" value="{{ $order['publishing_date'] }}">
+                                </div>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <input type="submit" class="btn btn-primary" value="UPDATE">
                             </form>
@@ -94,18 +122,38 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="delete">Approve Article Request</h5>
+                            <h5 class="modal-title" id="delete">Delete Order</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ url('article/order/'.$order['id'].'/approve') }}" method="post">
+                            <form action="{{ url('article/ordr/'.$order['id'].'/delete') }}" method="post">
                                 @csrf
-                                <p>Edit article  <span><b>{{ $order['company_name'] }}</b></span></p>
+                                <p>Are you sure you want to Delete order: <span><b>{{ $order['id'] }}</b></span></p>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <input type="submit" class="btn btn-danger" value="DELETE">
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- view order Modal -->
+            <div class="modal fade" id="view{{ $order['id'] }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="delete">View Order</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Type: <span><b>{{ $order['type'] }}</b></span></p>
+                            <p>Offer: <span><b>{{ $order['offer'] }}</b></span></p>
+                            <p>Url: <span><b>{{ url('/'.$order['url']) }}</b></span></p>
+                            <p>Publishing Date: <span><b>{{ $order['publishing_date'] }}</b></span></p>
                         </div>
                     </div>
                 </div>
@@ -114,8 +162,8 @@
 
         
             @role('system admin|system editor|system user')
-<!-- aprrove request Modal -->
-<div class="modal fade" id="approve{{ $order['id'] }}" aria-hidden="true">
+            <!-- aprrove request Modal -->
+            <div class="modal fade" id="approve{{ $order['id'] }}" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">

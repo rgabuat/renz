@@ -17,7 +17,7 @@
             <p>Category:{{ $article[0]['categories'] }}</p>
             <p>Author:{{ $article[0]['author'] }}</p>
             <p>Status:{{ $article[0]['status'] }}</p>
-            </div>
+        </div>
         </div>
     </div>
   </div>
