@@ -197,6 +197,8 @@
                     </p>
                   </a>
                 </li>
+                @endrole
+                @role('company admin|company user|system admin|system user|system editor')
                 <li class="nav-item">
                   <a href="{{ route('article/orders') }}" class="nav-link {{ Request::is('article/orders*') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-file-signature"></i>
@@ -205,6 +207,8 @@
                     </p>
                   </a>
                 </li>
+                @endrole
+                @role('company admin|company user')
                 <li class="nav-item">
                   <a href="{{ route('article/completed') }}" class="nav-link {{ Request::is('article/completed*') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-file-signature"></i>
@@ -214,7 +218,7 @@
                   </a>
                 </li>
                 @endrole
-                @role('system admin|company user|system admin|system user')
+                <!-- @role('system admin|company user|system admin|system user')
                 <li class="nav-item">
                   <a href="{{ route('article/requests') }}" class="nav-link {{ Request::is('article/requests*') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-file-signature"></i>
@@ -223,7 +227,7 @@
                     </p>
                   </a>
                 </li>
-                @endrole
+                @endrole -->
               </ul>
             @endrole
             <!-- @role('company admin|system admin')
