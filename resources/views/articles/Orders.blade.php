@@ -55,8 +55,9 @@
                                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#publish{{ $order['id'] }}"><span class="fas fa-newspaper mr-2"></span>Publish Article</a>
                                 @endif
                             @endrole
-                            @role('company admin|company user')
                                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#view{{ $order['id'] }}"><span class="fas fa-eye mr-2"></span>View Order</a>
+                            @role('company admin|company user')
+                                
                                 @if($order['status'] == 'pending')
                                     <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#edit{{ $order['id'] }}"><span class="fas fa-pen mr-2"></span>Edit Order</a>
                                     <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#delete{{ $order['id'] }}"><span class="fas fa-trash mr-2"></span>Delete Order</a>
@@ -138,6 +139,7 @@
                     </div>
                 </div>
             </div>
+            @endrole
 
             <!-- view order Modal -->
             <div class="modal fade" id="view{{ $order['id'] }}" aria-hidden="true">
@@ -158,8 +160,6 @@
                     </div>
                 </div>
             </div>
-            @endrole
-
         
             @role('system admin|system editor|system user')
             <!-- aprrove request Modal -->
