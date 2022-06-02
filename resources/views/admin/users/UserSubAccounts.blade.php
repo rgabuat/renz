@@ -10,10 +10,7 @@
                     <th>S/N</th>
                     <th>Firstname</th>
                     <th>Lastname</th>
-                    <th>Address</th>
-                    <th>Phone</th>
                     <th>Email</th>
-                    <th>Username</th>
                     <th>Role</th>
                     <th>Actions</th>
                 </tr>

@@ -37,9 +37,9 @@
                 <td>{{ $package['credits'] }}</td>
                 <td>{{ $package['payment_method'] }}</td>
                 <td>{{ $package['duration'] }}</td>
-                <td>{{ $package['created_by'] }}</td>
-                <td>{{ $package['created_at'] }}</td>
-                <td>{{ $package['updated_at'] }}</td>
+                <td>{{ $package['user'][0]['first_name'] }}</td>
+                <td>{{  Carbon\Carbon::parse($package['created_at'])->format('Y-m-d') }}</td>
+                <td>{{  Carbon\Carbon::parse($package['updated_at'])->format('Y-m-d')}}</td>
                 <td>
                 <div class="btn-group">
                     <button type="button" class="btn btn-warning " data-toggle="dropdown" aria-expanded="false">
@@ -95,7 +95,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group ">
                                             <label for="desecription">Description</label>
-                                            <textarea name="description" id=""  cols="30" rows="5" class="form-control @error('description') is-invalid @enderror">{{ $package['description'] }}</textarea>
+                                            <textarea name="description" id=""  cols="" rows="5" class="form-control @error('description') is-invalid @enderror">{{ $package['description'] }}</textarea>
                                         </div>
                                         @error('description')
                                             <span class="error invalid-feedback"> {{ $message }}</span>

@@ -12,9 +12,9 @@
                     <th>Company</th>
                     <th>Reg No.</th>
                     <th>Creator</th>
-                    <th>Status</th>
                     <th>Created</th>
                     <th>Updated</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -36,9 +36,9 @@
                                 @endrole
                             @endrole
                         </td>
-                    <td>{{ $company['status']}}</td>
                     <td>{{ $company['created_at']}}</td>
                     <td>{{ $company['updated_at']}}</td>
+                    <td>{{ $company['status']}}</td>
                     <td>
                     <div class="btn-group">
                         <button type="button" class="btn btn-warning " data-toggle="dropdown" aria-expanded="false">

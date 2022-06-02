@@ -19,9 +19,9 @@
                 <th>Company</th>
                 <th>Credits</th>
                 <th>Package</th>
-                <th>Status</th>
                 <th>Created At</th>
                 <th>Updated At</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -31,10 +31,10 @@
                 <td><span>{{ $mysubs['user'][0]['first_name'] }} {{ $mysubs['user'][0]['last_name'] }}</span></td>
                 <td><span>{{ $mysubs['user'][0]['company'][0]['company_name'] }}</span></td>
                 <td><span>{{ $mysubs['avail_credits']}}</span></td>
-                <td><span class="badge {{ $mysubs['status'] == 0 ? 'badge-warning' : 'badge-success' }}">{{ $mysubs['status'] == 0 ? 'Pending' : 'Approved'}}</span></td>
                 <td><span>{{ $mysubs['package'][0]['name']}}</span></td>
-                <td><span>{{ $mysubs['created_at'] }}</span></td>
-                <td><span>{{ $mysubs['updated_at'] }}</span></td>
+                <td><span>{{ Carbon\Carbon::parse($mysubs['created_at'])->format('Y-m-d') }}</span></td>
+                <td><span>{{ Carbon\Carbon::parse($mysubs['updated_at'])->format('Y-m-d')}}</span></td>
+                <td><span class="badge {{ $mysubs['status'] == 0 ? 'badge-warning' : 'badge-success' }}">{{ $mysubs['status'] == 0 ? 'Pending' : 'Approved'}}</span></td>
             </tr>
             @endforeach
         </tbody>

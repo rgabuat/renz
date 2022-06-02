@@ -21,10 +21,7 @@
                     <th>S/N</th>
                     <th>Firstname</th>
                     <th>Lastname</th>
-                    <th>Address</th>
-                    <th>Phone</th>
                     <th>Email</th>
-                    <th>Username</th>
                     <th>Role</th>
                     <th>Status</th>
                     <th>Actions</th>
@@ -36,10 +33,7 @@
                     <td>{{ $company['id'] }}</td>
                     <td>{{ $company['first_name']}}</td>
                     <td>{{ $company['last_name']}}</td>
-                    <td>{{ $company['address']}}</td>
-                    <td>{{ $company['phone_number']}}</td>
                     <td>{{ $company['email']}}</td>
-                    <td>{{ $company['username']}}</td>
                     <td>{{ $company['role']}}</td>
                   
                     <td> <h5><span class="badge {{ $company['is_activated'] == 1 ? 'badge-success' : 'badge-danger'  }}">{{ $company['is_activated'] == 1 ? 'Active' : 'Deactivated'  }}</span></h5></td>

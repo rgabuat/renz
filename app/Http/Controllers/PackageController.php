@@ -11,7 +11,7 @@ class PackageController extends Controller
 {
     public function index()
     {
-        $packages = Package::all();
+        $packages = Package::with('user')->get();
         return view('packages.Lists',compact('packages'));
     }
 
@@ -62,7 +62,7 @@ class PackageController extends Controller
     public function update(Request $request,$pid)
     {
         $this->validate($request, [
-            'name' => 'required|max:255|unique:tbl_package,name',
+            'name' => 'required|max:255|unique:tbl_package,name,'.$pid,
             'price' => 'required|max:255',
             'credits' => 'required|max:255',
             'payment_method' => 'required|max:255',

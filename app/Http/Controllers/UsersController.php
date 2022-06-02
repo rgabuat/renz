@@ -75,6 +75,7 @@ class UsersController extends Controller
             'username' => Str::lower($request->username),
             'email' => Str::lower($request->email),
             'password' => Hash::make('default123'),
+            'is_activated' => 1,
             'role' => $request->role
         ]);
         $user->assignRole($request->role);
@@ -96,8 +97,8 @@ class UsersController extends Controller
             'lastname' => 'required|max:255',
             'address' => 'required|max:255',
             'phone_number' => 'required|max:255',
-            'username' => 'required|max:255|unique:users,username',
-            'email' => 'required|email|max:255|unique:users,email',
+            'username' => 'required|max:255|unique:users,username,'.$uid,
+            'email' => 'required|email|max:255|unique:users,email,'.$uid,
             'role' => 'required',
         ]);
 

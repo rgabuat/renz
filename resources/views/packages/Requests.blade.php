@@ -19,9 +19,9 @@
                 <th>Company</th>
                 <th>Credits</th>
                 <th>Package</th>
-                <th>Status</th>
                 <th>Created At</th>
                 <th>Updated At</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -33,9 +33,9 @@
                 <td><span>{{ $request['user'][0]['company'][0]['company_name'] }}</span></td>
                 <td><span>{{ $request['avail_credits']}}</span></td>
                 <td><span>{{ $request['package'][0]['name']}}</span></td>
+                <td><span>{{ Carbon\Carbon::parse($request['created_at'])->format('Y-m-d') }}</span></td>
+                <td><span>{{ Carbon\Carbon::parse($request['updated_at'])->format('Y-m-d') }}</span></td>
                 <td><span class="badge {{ $request['status'] == 0 ? 'badge-warning' : 'badge-success' }}">{{ $request['status'] == 0 ? 'Pending' : 'Active'}}</span></td>
-                <td><span>{{ $request['created_at'] }}</span></td>
-                <td><span>{{ $request['updated_at'] }}</span></td>
                 <td>
                 <div class="btn-group">
                     <button type="button" class="btn btn-warning " data-toggle="dropdown" aria-expanded="false">

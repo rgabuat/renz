@@ -11,7 +11,20 @@
                 {{ session('status') }}
             </div>
         @endif
+        
         <table class="table" id="article_tbl">
+        <div class="col-4">
+			<div class="btn-group submitter-group float-left" style="z-index:10">
+				<div class="input-group-prepend">
+						<div class="input-group-text form-control-sm  rounded-0">Status Filter</div>
+				</div>
+				<select class="form-control form-control-sm status-dropdown rounded-0">
+					<option value="">All</option>
+					<option value="published">Published</option>
+					<option value="draft">Draft</option>
+				</select>
+			</div>
+		</div>
         <thead>
             <tr>
                 <th>S/N</th>
@@ -20,10 +33,10 @@
                 <th>Url</th>
                 <th>Author</th>
                 <th>Categories</th>
-                <th>Status</th>
                 <th>Publish Date</th>
                 <th>Created At</th>
                 <th>Updated At</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -32,14 +45,14 @@
             <tr>
                 <td>{{ $article['id'] }}</td>
                 <td><img src="{{ $article['featured_image'] != NULL ? asset('storage/'.$article['featured_image']) : '/vendors/dist/img/AdminLTELogo.png' }}" alt="{{ $article['title'] }}_featured_image" class="img-fluid" style="width: 80px;height:82px;object-fit: contain;"></td>
-                <td>{{ $article['title'] }}</td>
-                <td>{{ $article['url'] }}</td>
+                <td>{!! Str::limit($article['title'],10, ' ...') !!}</td>
+                <td>{!! Str::limit($article['url'],10, ' ...') !!}</td>
                 <td>{{ $article['author'] }}</td>
                 <td>{{ $article['categories'] }}</td>
+                <td>{{ $article['publishing_date'] != 'null' ? Carbon\Carbon::parse($article['publishing_date'])->format('Y-m-d') : '--' }}</td>
+                <td>{{ Carbon\Carbon::parse($article['created_at'])->format('Y-m-d') }}</td>
+                <td>{{ Carbon\Carbon::parse($article['updated_at'])->format('Y-m-d') }}</td>
                 <td><span class="badge {{ $article['status'] == 'draft' ? 'badge-warning' : 'badge-success' }}">{{ $article['status'] }}</span></td>
-                <td>{{ $article['publishing_date'] != 'null' ? $article['publishing_date'] : '--' }}</td>
-                <td>{{ $article['created_at'] }}</td>
-                <td>{{ $article['updated_at'] }}</td>
                 <td>
                 <div class="btn-group">
                     <button type="button" class="btn btn-warning " data-toggle="dropdown" aria-expanded="false">

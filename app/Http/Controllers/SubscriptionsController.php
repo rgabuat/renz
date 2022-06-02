@@ -25,12 +25,12 @@ class SubscriptionsController extends Controller
         $has_current = Company::where('id',$cid)->where('package_id','!=','null')->get();
         $subsciption = str_replace(' ', '', $package[0]['duration']);
         $credits = str_replace(' ', '', $package[0]['credits']);
+
         
-        if($has_current)
+        if(!$has_current->isEmpty())
         {
             $current_sub = Carbon::createFromFormat('Y-m-d H:i:s',$has_current[0]->expires_at)->addMonths($subsciption);
             $current_credits = $has_current[0]->avail_credits + $credits;
-
             $update_sub = Subscriptions::where('id',$rid)->update(['status' => 1]);
             if($update_sub)
             {
@@ -85,9 +85,9 @@ class SubscriptionsController extends Controller
 
     public function my_subscriptions()
     {
-        $auth = auth()->user()->id;
+        $auth = auth()->user()->company_id;
         
-        $subscriptions = Subscriptions::with('user.company','package')->where('user_id',$auth)->get();
+        $subscriptions = Subscriptions::with('user.company','package')->where('company_id',$auth)->get();
 
         if($subscriptions)
         {

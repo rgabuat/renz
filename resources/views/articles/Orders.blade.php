@@ -5,24 +5,41 @@
 <div class="table-responsive-sm py-3">
 <div class="card">
     <div class="card-body">
-        <h2 class="text-primary"><b>Article Requests</b></h2>
+        <h2 class="text-primary"><b>Article Orders</b></h2>
         @if (session('status'))
             <div class="bg-success text-center text-white py-2 mb-3">
                 {{ session('status') }}
             </div>
         @endif
         <table class="table" id="article_tbl">
+        <div class="col-4">
+			<div class="btn-group submitter-group float-left" style="z-index:10">
+				<div class="input-group-prepend">
+						<div class="input-group-text form-control-sm  rounded-0">Status Filter</div>
+				</div>
+				<select class="form-control form-control-sm status-dropdown rounded-0">
+					<option value="">All</option>
+					<option value="pending">Pending</option>
+					<option value="processing">Processing</option>
+                    <option value="completed">Completed</option>
+				</select>
+			</div>
+		</div>
         <thead>
             <tr>
                 <th>S/N</th>
+                @role('system admin|system editor|system user')
                 <th>Account name</th>
+                @endrole
                 <th>Company</th>
                 <th>Type</th>
                 <th>Offer</th>
                 <th>Url</th>
                 <th>Publishing date</th>
                 <th>Created At</th>
+                @role('system admin|system editor|system user')
                 <th>Completed At</th>
+                @endrole
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -31,14 +48,18 @@
             @foreach($orders as $order)
             <tr>
                 <td><span>{{ $order['id'] }}</span></td>
-                <td><span>{{ $order['user'][0]['username'] }}</span></td>
+                @role('system admin|system editor|system user')
+                    <td><span>{{ $order['user'][0]['username'] }}</span></td>
+                @endrole
                 <td><span>{{ $order['company'][0]['company_name'] }}</span></td>
                 <td><span>{{ $order['type'] }}</span></td>
                 <td><span>{{ $order['offer'] }}</span></td>
-                <td><span>{{ $order['url'] }}</span></td>
-                <td><span>{{ $order['publishing_date'] }} </span></td>
-                <td><span>{{ $order['created_at'] }} </span></td>
-                <td><span>{{ $order['completed_at'] }} </span></td>
+                <td><span>{!! Str::limit($order['url'],20, ' ...') !!}</span></td>
+                <td><span>{{ Carbon\Carbon::parse($order['publishing_date'])->format('Y-m-d') }} </span></td>
+                <td><span>{{ Carbon\Carbon::parse($order['created_at'])->format('Y-m-d')}} </span></td>
+                @role('system admin|system editor|system user')
+                    <td><span>{{ $order['completed_at'] != 'null' ? Carbon\Carbon::parse($order['completed_at'])->format('Y-m-d') : '----' }} </span></td>
+                @endrole
                 <td><span class="badge {{ $order['status'] == 'pending' ? 'badge-warning' : (($order['status'] == 'processing') ? 'badge-primary' : 'badge-success') }}">{{ $order['status'] }} </span></td>
                 <td>
                 <div class="btn-group">
@@ -67,7 +88,6 @@
                 </div>
                 </td>
             </tr>
-
 
             @role('company admin|company user')
             <!-- edit order Modal -->

@@ -119,6 +119,7 @@ class CompanyController extends Controller
                 'username' => Str::lower($request->username),
                 'email' => Str::lower($request->email),
                 'password' => Hash::make('default123'),
+                'is_activated' => 1,
                 'role' => $request->role,
             ]);
             $user->assignRole($request->role);

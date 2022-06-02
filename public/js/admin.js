@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 
 
-    $('#sub_accounts_tbl,#article_tbl,#company_tbl,#domain_tbl,#subs_table').DataTable({
+    $('#sub_accounts_tbl,#company_tbl,#domain_tbl,#subs_table').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": true,
@@ -34,6 +34,27 @@ $(document).ready(function() {
       "responsive": true,
   });
 
+
+    dataTable = $("#article_tbl").DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+        "columnDefs": [
+            {
+                "targets": '_all',
+                "visible": true
+            }
+        ]
+    });
+    $('.status-dropdown').on('change', function(e){
+        var status = $(this).val();
+        $('.status-dropdown').val(status)
+        dataTable.column(9).search(status).draw();
+    });
 
     // tiny mce plugin
     tinymce.init({

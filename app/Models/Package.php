@@ -19,4 +19,10 @@ class Package extends Model
         'duration',
         'created_by',
     ];
+
+    public function user()
+    {
+        return $this->hasMany(User::class,'id','created_by');
+    }
+    
 }

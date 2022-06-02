@@ -37,8 +37,8 @@
                 <td><span>{{ $completeorder['offer'] }}</span></td>
                 <td><span>{{ $completeorder['url'] }}</span></td>
                 <td><span>{{ $completeorder['publishing_date'] }} </span></td>
-                <td><span>{{ $completeorder['created_at'] }} </span></td>
-                <td><span>{{ $completeorder['completed_at'] }} </span></td>
+                <td><span>{{ Carbon\Carbon::parse($completeorder['created_at'])->format('Y-m-d') }} </span></td>
+                <td><span>{{ Carbon\Carbon::parse($completeorder['completed_at'])->format('Y-m-d') }} </span></td>
                 <td><span class="badge {{ $completeorder['status'] == 'pending' ? 'badge-warning' : (($completeorder['status'] == 'processing') ? 'badge-primary' : 'badge-success') }}">{{ $completeorder['status'] }} </span></td>
                 <td class="d-none">
                 <div class="btn-group">

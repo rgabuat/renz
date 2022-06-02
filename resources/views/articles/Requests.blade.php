@@ -36,7 +36,7 @@
                 <td><span>{{ $request['offer'] }}</span></td>
                 <td><span>{{ $request['url'] }}</span></td>
                 <td><span>{{ $request['publishing_date'] }} </span></td>
-                <td><span>{{ $request['created_at'] }} </span></td>
+                <td><span>{{  Carbon\Carbon::parse($order['created_at'])->format('Y-m-d') }} </span></td>
                 <td><span class="badge {{ $request['status'] == 'pending' ? 'badge-warning' : (($request['status'] == 'processing') ? 'badge-primary' : 'badge-success') }}">{{ $request['status'] }} </span></td>
                 <td>
                 <div class="btn-group">

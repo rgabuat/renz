@@ -10,13 +10,11 @@
         <thead>
             <tr>
                 <th>S/N</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Address</th>
-                <th>Phone</th>
+                <th>Full name</th>
                 <th>Email</th>
                 <th>Username</th>
                 <th>Role</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -24,13 +22,11 @@
             @foreach($users as $user)
             <tr>
                 <td>{{ $user['id'] }}</td>
-                <td>{{ $user['first_name']}}</td>
-                <td>{{ $user['last_name']}}</td>
-                <td>{{ $user['address']}}</td>
-                <td>{{ $user['phone_number']}}</td>
+                <td>{{ $user['first_name']}} {{ $user['last_name']}}</td>
                 <td>{{ $user['email']}}</td>
-                <td>{{ $user['username']}}</td>
                 <td>{{ $user['role']}}</td>
+                <td>{{ $user['username']}}</td>
+                <td><span class="badge {{ $user['is_activated'] == 1 ? 'badge-success' : 'badge-danger'  }}">{{ $user['is_activated'] == 1 ? 'Active' : 'Deactivated'  }}</span></td>
                 <td>
                 <div class="btn-group">
                     <button type="button" class="btn btn-warning " data-toggle="dropdown" aria-expanded="false">
