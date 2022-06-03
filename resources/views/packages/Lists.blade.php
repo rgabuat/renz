@@ -21,7 +21,6 @@
                 <th>Credits</th>
                 <th>Payment method</th>
                 <th>Duration</th>
-                <th>Created by</th>
                 <th>Created At</th>
                 <th>Updated At</th>
                 <th>Actions</th>
@@ -31,21 +30,21 @@
             @foreach($packages as $package)
             <tr>
                 <td>{{ $package['id'] }}</td>
-                <td>{{ $package['name'] }}</td>
+                <td>{!! Str::limit($package['name'],8, ' ...') !!}</td>
                 <td>{{ $package['price'] }}</td>
-                <td>{!! $package['description'] !!}</td>
+                <td>{!! Str::limit($package['description'],20, ' ...') !!}</td>
                 <td>{{ $package['credits'] }}</td>
                 <td>{{ $package['payment_method'] }}</td>
-                <td>{{ $package['duration'] }}</td>
-                <td>{{ $package['user'][0]['first_name'] }}</td>
+                <td>{{ $package['duration'] }} {{ Str::plural('Month', $package['duration']) }}</td>
                 <td>{{  Carbon\Carbon::parse($package['created_at'])->format('Y-m-d') }}</td>
-                <td>{{  Carbon\Carbon::parse($package['updated_at'])->format('Y-m-d')}}</td>
+                <td>{{  Carbon\Carbon::parse($package['updated_at'])->format('Y-m-d') }}</td>
                 <td>
                 <div class="btn-group">
                     <button type="button" class="btn btn-warning " data-toggle="dropdown" aria-expanded="false">
                     <span class="fas fa-align-right"></span>
                     </button>
                     <div class="dropdown-menu" role="menu" style="">
+                    <a class="dropdown-item" href="javacsript:void(0);" data-toggle="modal" data-target="#view{{ $package['id'] }}"><span class="fas fa-eye mr-2"></span>View Packge</a>
                         @role('company admin|company user')
                             <a class="dropdown-item" href="javacsript:void(0);" data-toggle="modal" data-target="#buy{{ $package['id'] }}"><span class="fas fa-shopping-cart mr-2"></span>Buy Packge</a>
                         @endrole
@@ -59,6 +58,32 @@
                 </div>
                 </td>
             </tr>
+
+            <!-- view Package Modal -->
+            <div class="modal fade" id="view{{ $package['id'] }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="view">View Package Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Name: <b>{{ $package['name'] }}</b></p>
+                            <p>Price: <b>{{ $package['price'] }}</b></p>
+                            <p>Credits: <b>{{ $package['credits'] }}</b></p>
+                            <p>Payment: <b>{{ $package['payment_method'] }}</b></p>
+                            @role('system admin|system editor|system user')
+                                <p>Duration: <b>{{ $package['duration'] }} {{ Str::plural('Month', $package['duration']) }}</b></p>
+                                <p>Date created: <b>{{ Carbon\Carbon::parse($package['created_at'])->format('Y-m-d') }}</b></p>
+                            @endrole
+                            <p>Date Updated: <b>{{ Carbon\Carbon::parse($package['updated_at'])->format('Y-m-d') }}</b></p>
+                            <p>Description: <b>{!! $package['description'] !!}</b></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         
             <!-- edit Package Modal -->
             <div class="modal fade" id="edit{{ $package['id'] }}" aria-hidden="true">
@@ -128,11 +153,11 @@
                                         <div class="form-group ">
                                             <select name="duration" id="payment_method" class="form-control @error('duration') is-invalid @enderror">
                                                 <option value="">Select Duration</option>
-                                                <option {{ $package['duration'] == "1 month" ? 'selected' :'' }} value="1 month">1 Month</option>
-                                                <option {{ $package['duration'] == "3 months" ? 'selected' :'' }} value="3 months">3 Months</option>
-                                                <option {{ $package['duration'] == "6 months" ? 'selected' :'' }} value="6 months">6 Months</option>
-                                                <option {{ $package['duration'] == "12 months" ? 'selected' :'' }} value="12 months">12 Months</option>
-                                                <option {{ $package['duration'] == "24 months" ? 'selected' :'' }} value="24 months">24 Months</option>
+                                                <option {{ $package['duration'] == "1" ? 'selected' :'' }} value="1 ">1 Month</option>
+                                                <option {{ $package['duration'] == "3" ? 'selected' :'' }} value="3 ">3 Months</option>
+                                                <option {{ $package['duration'] == "6" ? 'selected' :'' }} value="6 ">6 Months</option>
+                                                <option {{ $package['duration'] == "12" ? 'selected' :'' }} value="12 ">12 Months</option>
+                                                <option {{ $package['duration'] == "24" ? 'selected' :'' }} value="24 ">24 Months</option>
                                             </select>
                                             @error('duration')
                                                 <span class="error invalid-feedback"> {{ $message }}</span>
@@ -171,6 +196,7 @@
                 </div>
             </div>
 
+            @role('company admin|company user')
             <!-- buy Package Modal -->
             <div class="modal fade" id="buy{{ $package['id'] }}" aria-hidden="true">
                 <div class="modal-dialog">
@@ -192,6 +218,7 @@
                     </div>
                 </div>
             </div>
+            @endrole
             @endforeach
         </tbody>
     </table>

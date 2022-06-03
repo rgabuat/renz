@@ -35,7 +35,6 @@
                 <th>Categories</th>
                 <th>Publish Date</th>
                 <th>Created At</th>
-                <th>Updated At</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -51,7 +50,6 @@
                 <td>{{ $article['categories'] }}</td>
                 <td>{{ $article['publishing_date'] != 'null' ? Carbon\Carbon::parse($article['publishing_date'])->format('Y-m-d') : '--' }}</td>
                 <td>{{ Carbon\Carbon::parse($article['created_at'])->format('Y-m-d') }}</td>
-                <td>{{ Carbon\Carbon::parse($article['updated_at'])->format('Y-m-d') }}</td>
                 <td><span class="badge {{ $article['status'] == 'draft' ? 'badge-warning' : 'badge-success' }}">{{ $article['status'] }}</span></td>
                 <td>
                 <div class="btn-group">
@@ -60,7 +58,9 @@
                     </button>
                     <div class="dropdown-menu" role="menu" style="">
                             @role('system admin|system editor|system user')
-                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#publish{{ $article['id'] }}"><span class="fas fa-newspaper mr-2"></span>Publish Article</a>
+                                @if($article['status'] != 'published')
+                                    <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#publish{{ $article['id'] }}"><span class="fas fa-newspaper mr-2"></span>Publish Article</a>
+                                @endif
                             @endrole
                             <a class="dropdown-item" href="{{ url('article/view/'.$article['id'])}}"><span class="fas fa-eye mr-2"></span>View Post</a>
                             <a class="dropdown-item" href="{{ url('article/edit/'.$article['id'])}}"><span class="fas fa-pen mr-2"></span>Edit Post</a>

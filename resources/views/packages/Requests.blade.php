@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title',"Users")
+@section('title',"Subscriptions Request")
 @section('content')
 <div class="table-responsive-sm py-3">
 <div class="card">
@@ -29,10 +29,10 @@
             @foreach($requests as $request)
             <tr>
                 <td><span>{{ $request['id'] }}</span></td>
-                <td><span>{{ $request['user'][0]['first_name'] }} {{ $request['user'][0]['last_name'] }}</span></td>
-                <td><span>{{ $request['user'][0]['company'][0]['company_name'] }}</span></td>
+                <td>{!! Str::limit($request['user'][0]['first_name'].' '.$request['user'][0]['last_name'],10, ' ...') !!}</td>
+                <td>{!! Str::limit($request['user'][0]['company'][0]['company_name'],10, ' ...') !!}</td>
                 <td><span>{{ $request['avail_credits']}}</span></td>
-                <td><span>{{ $request['package'][0]['name']}}</span></td>
+                <td>{!! Str::limit($request['package'][0]['name'],10, ' ...') !!}</td>
                 <td><span>{{ Carbon\Carbon::parse($request['created_at'])->format('Y-m-d') }}</span></td>
                 <td><span>{{ Carbon\Carbon::parse($request['updated_at'])->format('Y-m-d') }}</span></td>
                 <td><span class="badge {{ $request['status'] == 0 ? 'badge-warning' : 'badge-success' }}">{{ $request['status'] == 0 ? 'Pending' : 'Active'}}</span></td>

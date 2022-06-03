@@ -140,7 +140,7 @@ class CompanyController extends Controller
     {   
  
             $this->validate($request, [
-                'company' => 'required|max:255|unique:company,company_name',
+                'company' => 'required|max:255|unique:company,company_name,'.$uid,
                 'reg_number' => 'required|max:255',
             ]);
 

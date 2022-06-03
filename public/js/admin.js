@@ -35,7 +35,7 @@ $(document).ready(function() {
   });
 
 
-    dataTable = $("#article_tbl").DataTable({
+    dataTable = $("#article_tbl,#article_ords_tbl").DataTable({
         "paging": true,
         "lengthChange": false,
         "searching": true,
@@ -51,6 +51,12 @@ $(document).ready(function() {
         ]
     });
     $('.status-dropdown').on('change', function(e){
+        var status = $(this).val();
+        $('.status-dropdown').val(status)
+        dataTable.column(8).search(status).draw();
+    });
+
+    $('.ord_status-dropdown').on('change', function(e){
         var status = $(this).val();
         $('.status-dropdown').val(status)
         dataTable.column(9).search(status).draw();

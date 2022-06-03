@@ -11,26 +11,25 @@
                 {{ session('status') }}
             </div>
         @endif
-        <table class="table" id="article_tbl">
+        <table class="table" id="article_ords_tbl">
         <div class="col-4">
 			<div class="btn-group submitter-group float-left" style="z-index:10">
 				<div class="input-group-prepend">
 						<div class="input-group-text form-control-sm  rounded-0">Status Filter</div>
 				</div>
-				<select class="form-control form-control-sm status-dropdown rounded-0">
+				<select class="form-control form-control-sm ord_status-dropdown rounded-0">
 					<option value="">All</option>
 					<option value="pending">Pending</option>
 					<option value="processing">Processing</option>
-                    <option value="completed">Completed</option>
+                    @role('system admin|system editor|system user')
+                        <option value="completed">Completed</option>
+                    @endrole
 				</select>
 			</div>
 		</div>
         <thead>
             <tr>
                 <th>S/N</th>
-                @role('system admin|system editor|system user')
-                <th>Account name</th>
-                @endrole
                 <th>Company</th>
                 <th>Type</th>
                 <th>Offer</th>
@@ -48,10 +47,7 @@
             @foreach($orders as $order)
             <tr>
                 <td><span>{{ $order['id'] }}</span></td>
-                @role('system admin|system editor|system user')
-                    <td><span>{{ $order['user'][0]['username'] }}</span></td>
-                @endrole
-                <td><span>{{ $order['company'][0]['company_name'] }}</span></td>
+                <td>{!! Str::limit($order['company'][0]['company_name'],10, ' ...') !!}</td>
                 <td><span>{{ $order['type'] }}</span></td>
                 <td><span>{{ $order['offer'] }}</span></td>
                 <td><span>{!! Str::limit($order['url'],20, ' ...') !!}</span></td>
@@ -172,10 +168,16 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            <p>Account: <span><b>{{ $order['user'][0]['first_name'].' '.$order['user'][0]['last_name'] }}</b></p>
+                            <p>Company: <span><b>{{ $order['company'][0]['company_name'] }}</b></p>
                             <p>Type: <span><b>{{ $order['type'] }}</b></span></p>
                             <p>Offer: <span><b>{{ $order['offer'] }}</b></span></p>
                             <p>Url: <span><b>{{ url('/'.$order['url']) }}</b></span></p>
                             <p>Publishing Date: <span><b>{{ $order['publishing_date'] }}</b></span></p>
+                            <p>Created at: <span><b>{{ $order['created_at'] }}</b></span></p>
+                            <p>Updated at: <span><b>{{ $order['updated_at'] }}</b></span></p>
+                            <p>Completed at: <span><b>{{ $order['completed_at'] }}</b></span></p>
+                            <p>Status: <span><b>{{ $order['status'] }}</b></span></p>
                         </div>
                     </div>
                 </div>

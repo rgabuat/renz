@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title',"Users")
+@section('title',"Subscription Requests")
 @section('content')
 <div class="table-responsive-sm py-3">
 <div class="card">
@@ -28,10 +28,10 @@
             @foreach($subscriptions as $mysubs)
             <tr>
                 <td><span>{{ $mysubs['id'] }}</span></td>
-                <td><span>{{ $mysubs['user'][0]['first_name'] }} {{ $mysubs['user'][0]['last_name'] }}</span></td>
-                <td><span>{{ $mysubs['user'][0]['company'][0]['company_name'] }}</span></td>
+                <td>{!! Str::limit($mysubs['user'][0]['first_name'].' '.$mysubs['user'][0]['last_name'],10, ' ...') !!}</td>
+                <td>{!! Str::limit($mysubs['user'][0]['company'][0]['company_name'],10, ' ...') !!}</td>
                 <td><span>{{ $mysubs['avail_credits']}}</span></td>
-                <td><span>{{ $mysubs['package'][0]['name']}}</span></td>
+                <td>{!! Str::limit($mysubs['package'][0]['name'],10, ' ...') !!}</td>
                 <td><span>{{ Carbon\Carbon::parse($mysubs['created_at'])->format('Y-m-d') }}</span></td>
                 <td><span>{{ Carbon\Carbon::parse($mysubs['updated_at'])->format('Y-m-d')}}</span></td>
                 <td><span class="badge {{ $mysubs['status'] == 0 ? 'badge-warning' : 'badge-success' }}">{{ $mysubs['status'] == 0 ? 'Pending' : 'Approved'}}</span></td>

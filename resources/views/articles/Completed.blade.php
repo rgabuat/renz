@@ -32,10 +32,10 @@
             <tr>
                 <td><span>{{ $completeorder['id'] }}</span></td>
                 <td><span>{{ $completeorder['user'][0]['username'] }}</span></td>
-                <td><span>{{ $completeorder['company'][0]['company_name'] }}</span></td>
+                <td>{!! Str::limit($completeorder['company'][0]['company_name'],10, ' ...') !!}</td>
                 <td><span>{{ $completeorder['type'] }}</span></td>
                 <td><span>{{ $completeorder['offer'] }}</span></td>
-                <td><span>{{ $completeorder['url'] }}</span></td>
+                <td>{!! Str::limit($completeorder['url'],10, ' ...') !!}</td>
                 <td><span>{{ $completeorder['publishing_date'] }} </span></td>
                 <td><span>{{ Carbon\Carbon::parse($completeorder['created_at'])->format('Y-m-d') }} </span></td>
                 <td><span>{{ Carbon\Carbon::parse($completeorder['completed_at'])->format('Y-m-d') }} </span></td>

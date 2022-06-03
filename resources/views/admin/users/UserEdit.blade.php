@@ -8,7 +8,7 @@
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <h2 class="login-box-msg h2 text-left text-primary px-0"><b>Edit User id : {{ $user->id }}</b></h2>
+          <h2 class="login-box-msg h2 text-left text-primary px-0"><b>Edit User</b></h2>
                 @if (session('status'))
                     <div class="bg-success text-center text-white py-2 mb-3">
                         {{ session('status') }}
