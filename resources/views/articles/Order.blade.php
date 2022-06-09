@@ -16,16 +16,11 @@
                         {{ session('status') }}
                     </div>
                 @endif
+                <input type="hidden" name="did" value="{{ Request::segment(2) }}">
                 <div class="form-group">
-                    <label for="type">Type <span class="text-danger">*</span></label>
-                    <select name="type" id="type" class="form-control">
-                        <option value="">Select type</option>
-                        <option value="h1">H1</option>
-                        <option value="anchor1">Anchor1</option>
-                        <option value="link2">Link2</option>
-                        <option value="anchor2">Anchor2</option>
-                    </select>
-                    @error('type')
+                    <label for="heading">Heading<span class="text-danger">*</span></label>
+                    <input type="text" name="heading" class="form-control @error('heading') is-invalid @enderror" value="{{ old('heading') }}"  placeholder="Heading">
+                    @error('heading')
                         <span class="error invalid-feedback"> {{ $message }}</span>
                     @enderror
                 </div>
@@ -43,9 +38,33 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="url">Url <span class="text-danger">*</span></label>
-                    <input type="text" name="url" class="form-control @error('url') is-invalid @enderror" value="{{ old('url') }}"  placeholder="Article url">
-                    @error('url')
+                    <label for="link1">Link Url 1 <span class="text-danger">*</span></label>
+                    <input type="text" name="link_url_1" class="form-control @error('link_url_1') is-invalid @enderror" value="{{ old('link_url_1') }}"  placeholder="Link Url 1">
+                    @error('link_url_1')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="link2">Link Url 2 </label>
+                    <input type="text" name="link_url_2" class="form-control @error('link_url_2') is-invalid @enderror" value="{{ old('link_url_2') }}"  placeholder="Link Url 2">
+                    @error('link_url_1')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="anchor1">Anchor Text 1<span class="text-danger">*</span></label>
+                    <input type="text" name="anchor_1" class="form-control @error('anchor_1') is-invalid @enderror" value="{{ old('anchor_1') }}"  placeholder="Anchor 1">
+                    @error('anchor_1')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="anchor2">Anchor Text 2</label>
+                    <input type="text" name="anchor_2" class="form-control @error('anchor_2') is-invalid @enderror" value="{{ old('anchor_2') }}"  placeholder="Anchor 2">
+                    @error('anchor_2')
                         <span class="error invalid-feedback"> {{ $message }}</span>
                     @enderror
                 </div>

@@ -15,13 +15,17 @@ class ArticleOrder extends Model
     protected $fillable = [
         'user_id',
         'company_id',
-        'type',
         'offer',
-        'url',
         'publishing_date',
         'accepted_at',
         'completed_at',
         'status',
+        'domain_id',
+        'heading',
+        'link_url_1',
+        'link_url_2',
+        'anchor_1',
+        'anchor_2',
     ];
 
     public function company()

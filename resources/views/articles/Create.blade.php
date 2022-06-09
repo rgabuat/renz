@@ -16,6 +16,7 @@
                         {{ session('status') }}
                     </div>
                 @endif
+                <input type="hidden" name="did" value="{{ Request::segment(2) }}">
                 <div class="form-group">
                     <label for="title">Title <span class="text-danger">*</span></label>
                     <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}"  placeholder="Article Title">

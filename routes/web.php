@@ -85,6 +85,11 @@ Route::group(['middleware' => 'auth'],function(){
             Route::post('/import', [DataImportController::class,'store'])->name('domain/import');
         });
         Route::get('/list', [DataImportController::class,'index'])->name('domain/list');
+        Route::get('/{did}/article/create', [ArticleController::class,'create'])->name('domain/{did}/article/create');
+        Route::post('/{did}/article/store', [ArticleController::class,'store'])->name('domain/{did}/article/store');
+
+        Route::get('/{did}/article/order', [ArticleController::class,'order'])->name('domain/{did}/article/order');
+
     });
 
     Route::group(['prefix' => 'company'],function(){

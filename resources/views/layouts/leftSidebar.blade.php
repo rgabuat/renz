@@ -89,7 +89,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{ route('domain/list') }}" class="nav-link {{ Request::is('domain/list*') ? 'active' : '' }}">
+                  <a href="{{ route('domain/list') }}" class="nav-link {{ Request::is('domain/list*') || Request::is('domain*') ? 'active' : '' }}">
                     <i class="pl-3 nav-icon fas fa-eye"></i>
                     <p class="pl-3">
                       View All Domains
@@ -180,7 +180,7 @@
                     </p>
                   </a>
                 </li>
-                @role('company admin|company user')
+                @role(' admin| user')
                 <li class="nav-item">
                   <a href="{{ route('article/order') }}" class="nav-link {{ Request::is('article/order') ? 'active open' : '' }}">
                     <i class="pl-3 nav-icon fas fa-shopping-cart"></i>

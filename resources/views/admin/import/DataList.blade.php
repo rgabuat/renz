@@ -43,6 +43,10 @@
                             <span class="fas fa-align-right"></span>
                             </button>
                             <div class="dropdown-menu" role="menu" style="">
+                                @role('company admin|company user')
+                                <a class="dropdown-item" href="{{ url('domain/'.$domain_data['id'].'/article/create')}}"><span class="fas fa-newspaper mr-2"></span>Create Article</a>
+                                <a class="dropdown-item" href="{{ url('domain/'.$domain_data['id'].'/article/order')}}"><span class="fas fa-shopping-cart mr-2"></span>Order Article</a>
+                                @endrole
                                 @role('system admin|system editor')
                                 <a class="dropdown-item" href="{{ url('domain/edit/'.$domain_data['id'])}}"><span class="fas fa-pen mr-2"></span>Edit Domain</a>
                                 @endrole

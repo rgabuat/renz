@@ -31,7 +31,6 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-        
         $this->validate($request, [
             'title' => 'required|max:255|unique:table_article,title',
             'url' => 'required|max:255|unique:table_article,url',
@@ -66,6 +65,7 @@ class ArticleController extends Controller
             'created_by' => auth()->user()->id,
             'publishing_date' => $request->publish_date,
             'status' => 'draft',
+            'domain_id' => $request->did,
         ]);
 
         return redirect()->back()->with('status','New Article Created');
@@ -153,22 +153,27 @@ class ArticleController extends Controller
     public function make_order(Request $request,$uid,$cid)
     {   
         $this->validate($request, [
-            'type' => 'required|max:255',
             'offer' => 'required|max:255|unique:table_article,url',
-            'url' => 'required|max:255',
+            'heading' => 'required|max:255',
+            'link_url_1' => 'required|max:255',
+            'anchor_1' => 'required|max:255',
             'publish_date' => 'required|max:255',
         ]);
 
         $order = ArticleOrder::create([
-            'type' => $request->type,
             'offer' => $request->offer,
-            'url' => $request->url,
+            'heading' => $request->heading,
+            'link_url_1' => $request->link_url_1,
+            'link_url_2' => $request->link_url_2,
+            'anchor_1' => $request->anchor_1,
+            'anchor_2' => $request->anchor_2,
             'user_id' => $uid,
             'company_id' => $cid,
             'accepted_at' => 'null',
             'completed_at' => 'null',
             'publishing_date' => $request->publish_date,
             'status' => 'pending',
+            'domain_id' => $request->did,
         ]);
 
         if($order)
