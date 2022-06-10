@@ -85,6 +85,11 @@ class CompanyController extends Controller
             'username' => 'required|unique:users,username|max:255',
             'email' => 'required|email|unique:users,email|max:255',
             'role' => 'required',
+            'city' => 'required|max:255',
+            'state' => 'required|max:255',
+            'country' => 'required|max:255',
+            'zip' => 'required|min:4|max:5',
+
         ]);
 
             if(auth()->user()->hasRole(['system admin','system editor']))
@@ -95,6 +100,10 @@ class CompanyController extends Controller
                     'created_by_owner' => 'null',
                     'created_by_admin' => 'null',
                     'status' => 'pending',
+                    'city' => Str::ucfirst(Str::lower($request->city)),
+                    'state' => Str::ucfirst(Str::lower($request->state)),
+                    'country' => Str::ucfirst(Str::lower($request->country)),
+                    'zip' => $request->zip,
                 ]);
                 if($company)
                 {
@@ -142,11 +151,19 @@ class CompanyController extends Controller
             $this->validate($request, [
                 'company' => 'required|max:255|unique:company,company_name,'.$uid,
                 'reg_number' => 'required|max:255',
+                'city' => 'required|max:255',
+                'state' => 'required|max:255',
+                'country' => 'required|max:255',
+                'zip' => 'required|min:4|max:5',
             ]);
 
             $company_data = [
                 'company_name' => Str::ucfirst(Str::lower($request->company)),
                 'reg_number' => $request->reg_number,
+                'city' => Str::ucfirst(Str::lower($request->city)),
+                'state' => Str::ucfirst(Str::lower($request->state)),
+                'country' => Str::ucfirst(Str::lower($request->country)),
+                'zip' => $request->zip,
             ];
 
             $company_update = Company::where('id',$uid)->update($company_data);
@@ -181,6 +198,15 @@ class CompanyController extends Controller
         if($response)
         {
             return redirect()->back()->with('status','User Deactivated');
+        }
+    }
+
+    public function companyDetails($cid)
+    {
+        if($cid != '')
+        {
+            $compDetails = Company::where('id',$cid)->get();
+            return view('company.CompanyShow', compact('compDetails'));
         }
     }
 }

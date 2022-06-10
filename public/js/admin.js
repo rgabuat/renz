@@ -59,7 +59,7 @@ $(document).ready(function() {
     $('.ord_status-dropdown').on('change', function(e){
         var status = $(this).val();
         $('.status-dropdown').val(status)
-        dataTable.column(9).search(status).draw();
+        dataTable.column(8).search(status).draw();
     });
 
     // tiny mce plugin

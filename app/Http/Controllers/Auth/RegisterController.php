@@ -23,8 +23,6 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request->only('email', 'password'));
-
         $captchaResult = $request->captchaResult;
         $captcha = md5($request->captcha);
         
@@ -38,7 +36,11 @@ class RegisterController extends Controller
             'username' => 'required|unique:users,username|max:255',
             'email' => 'required|unique:users,email|email|max:255',
             'password' => 'required|confirmed',
-            'captcha' => 'required'
+            'captcha' => 'required',
+            'city' => 'required|max:255',
+            'state' => 'required|max:255',
+            'country' => 'required|max:255',
+            'zip' => 'required|min:4|max:5',
         ]);
 
         if($captcha == $captchaResult)
@@ -58,6 +60,10 @@ class RegisterController extends Controller
                     'created_by_owner' => 'null',
                     'created_by_admin' => 'null',
                     'status' => 'pending',
+                    'city' => Str::ucfirst(Str::lower($request->city)),
+                    'state' => Str::ucfirst(Str::lower($request->state)),
+                    'country' => Str::ucfirst(Str::lower($request->country)),
+                    'zip' => $request->zip,
                 ]);
                 
                 if($company)

@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 @section('title',"Register")
 @section('content')
-<div class="login-page">
+<div class="page">
   <div class="container">
     <div class="col-lg-8 m-auto">
       <div class="login-logo">
@@ -76,6 +76,65 @@
                     <span class="error invalid-feedback"> {{ $message }}</span>
                 @enderror
             </div>
+            <div class="row">
+              <div class="col-lg-6">
+              <label for="city">City<span class="text-danger">*</span> </label>
+                <div class="input-group mb-3">
+                  <input type="text" name="city" class="form-control @error('city') is-invalid @enderror" value="{{ old('city') }}" placeholder="City">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-city"></span>
+                    </div>
+                  </div>
+                    @error('city')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <label for="state">State<span class="text-danger">*</span> </label>
+                <div class="input-group mb-3">
+                  <input type="text" name="state" class="form-control @error('state') is-invalid @enderror" value="{{ old('state') }}" placeholder="State">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-landmark"></span>
+                    </div>
+                  </div>
+                    @error('state')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <label for="country">Country<span class="text-danger">*</span> </label>
+                <div class="input-group mb-3">
+                  <input type="text" name="country" class="form-control @error('country') is-invalid @enderror" value="{{ old('country') }}" placeholder="Country">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-flag"></span>
+                    </div>
+                  </div>
+                    @error('country')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <label for="zip">Zip code<span class="text-danger">*</span> </label>
+                <div class="input-group mb-3">
+                  <input type="tel" name="zip" class="form-control @error('zip') is-invalid @enderror" value="{{ old('zip') }}" placeholder="Zip code">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-map-pin"></span>
+                    </div>
+                  </div>
+                    @error('zip')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+              </div>
+            </div>
+
             <div class="row">
               <div class="col-lg-6">
               <label for="reg_number">Registered/VAT Number <span class="text-danger">*</span> </label>

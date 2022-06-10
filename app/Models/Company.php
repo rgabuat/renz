@@ -28,6 +28,10 @@ class Company extends Model
         'started_at',
         'expires_at',
         'avail_credits',
+        'city',
+        'state',
+        'country',
+        'zip',
     ];
 
     public function admin_sub_accounts()

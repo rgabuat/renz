@@ -79,20 +79,6 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6">
-              <label for="address">Address <span class="text-danger">*</span></label>
-                <div class="input-group mb-3">
-                  <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Address">
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <span class="fas fa-map-marker-alt"></span>
-                    </div>
-                  </div>
-                    @error('address')
-                        <span class="error invalid-feedback"> {{ $message }}</span>
-                    @enderror
-                </div>
-              </div>
               <div class="col-lg-6">
               <label for="phone">Phone Number <span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
@@ -107,9 +93,81 @@
                     @enderror
                 </div>
               </div>
+              <div class="col-md-6">
+              <label for="address">Address <span class="text-danger">*</span></label>
+                <div class="input-group mb-3">
+                  <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Address">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-map-marker-alt"></span>
+                    </div>
+                  </div>
+                    @error('address')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+              </div>
               @role('system admin|system editor')
               
               @endrole
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+              <label for="city">City</label>
+                <div class="input-group mb-3">
+                  <input type="text" name="city" class="form-control @error('city') is-invalid @enderror" value="{{ old('city') }}" placeholder="City">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-city"></span>
+                    </div>
+                  </div>
+                    @error('city')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <label for="state">State</label>
+                <div class="input-group mb-3">
+                  <input type="text" name="state" class="form-control @error('state') is-invalid @enderror" value="{{ old('state') }}" placeholder="State">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-landmark"></span>
+                    </div>
+                  </div>
+                    @error('state')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <label for="country">Country</label>
+                <div class="input-group mb-3">
+                  <input type="text" name="country" class="form-control @error('country') is-invalid @enderror" value="{{ old('country') }}" placeholder="Country">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-flag"></span>
+                    </div>
+                  </div>
+                    @error('country')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <label for="zip">Zip code</label>
+                <div class="input-group mb-3">
+                  <input type="tel" name="zip" class="form-control @error('zip') is-invalid @enderror" value="{{ old('zip') }}" placeholder="Zip code">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-map-pin"></span>
+                    </div>
+                  </div>
+                    @error('zip')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+              </div>
             </div>
             <label for="username">Username <span class="text-danger">*</span></label>
             <div class="input-group mb-3">

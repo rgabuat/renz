@@ -45,9 +45,9 @@
                         <span class="fas fa-align-right"></span>
                         </button>
                         <div class="dropdown-menu" role="menu" style="">
-                        
+                            <a class="dropdown-item" href="{{ url('company/'.$company['id'].'/details')}}"><span class="fas fa-eye mr-2"></span>View company</a>
                             @role('system admin|system editor|company admin')
-                            <a class="dropdown-item" href="{{ url('company/edit/'.$company['id'])}}"><span class="fas fa-pen mr-2"></span>Edit company</a>
+                                <a class="dropdown-item" href="{{ url('company/edit/'.$company['id'])}}"><span class="fas fa-pen mr-2"></span>Edit company</a>
                             @endrole
                                 <a class="dropdown-item" href="{{ url('company/'.$company['company_name'].'/users/'.$company['id'])}}"><span class="fas fa-users mr-2"></span>View Users</a>
                             @role('system admin')
