@@ -1,27 +1,76 @@
 @extends('layouts.app')
 
-@section('title',"Dashboard")
-
+@section('title',"My Dashboard")
 @section('content')
+<div class="py-3">
+    <div class="row">
+        
+        @role('system admin|system editor|system user')
+        <div class="col-lg-3 col-md-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>{{ $domains }}</h3>
+                    <p>Domains</p>
+                </div>
+                <!-- <div class="icon">
+                    <i class="ion ion-globe"></i>
+                </div>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-globe"></i></a> -->
+            </div>
+        </div>
 
-    @role('system-admin')
-        <p>I'm a Systen Admin</p>
-    @endrole
+        <div class="col-lg-3 col-md-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>{{ $articledPublished }}</h3>
+                    <p>Artcile Published</p>
+                </div>
+                <!-- <div class="icon">
+                    <i class="ion ion-globe"></i>
+                </div>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-globe"></i></a> -->
+            </div>
+        </div>
 
-    @role('system-editor')
-        <p>I'm Editor</p>
-    @endrole
+        <div class="col-lg-3 col-md-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>{{ $articleOrderedPublished }}</h3>
+                    <p>Article Order Published</p>
+                </div>
+                <!-- <div class="icon">
+                    <i class="ion ion-globe"></i>
+                </div>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-globe"></i></a> -->
+            </div>
+        </div>
+        @endrole
 
-    @role('system-user')
-        <p>I'm system user</p>
-    @endrole
+        <div class="col-lg-3 col-md-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>{{ $articleCreated }}</h3>
+                    <p>Article Created</p>
+                </div>
+                <!-- <div class="icon">
+                    <i class="ion ion-globe"></i>
+                </div>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-globe"></i></a> -->
+            </div>
+        </div>
 
-    @role('company-admin')
-        <p>I'm User</p>
-    @endrole
-
-    @role('company-user')
-        <p>I'm Company user</p>
-    @endrole
-
+        <div class="col-lg-3 col-md-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>{{ $articleOrdered }}</h3>
+                    <p>Article Ordered</p>
+                </div>
+                <!-- <div class="icon">
+                    <i class="ion ion-globe"></i>
+                </div>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-globe"></i></a> -->
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
