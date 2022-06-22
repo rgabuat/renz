@@ -37,7 +37,7 @@ class DashboardController extends Controller
         }
         else
         {
-            $articleOrdered = ArticleOrder::where('company_id',auth()->user()->id)->count();
+            $articleOrdered = ArticleOrder::where('company_id',auth()->user()->company_id)->count();
         }
 
 

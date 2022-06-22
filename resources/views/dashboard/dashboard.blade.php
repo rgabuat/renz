@@ -5,8 +5,7 @@
 <div class="py-3">
     <div class="row">
         
-        @role('system admin|system editor|system user')
-        <div class="col-lg-3 col-md-6">
+    <div class="col-lg-3 col-md-6">
             <div class="small-box bg-info">
                 <div class="inner">
                     <h3>{{ $domains }}</h3>
@@ -18,7 +17,7 @@
                     <a href="#" class="small-box-footer">More info <i class="fas fa-globe"></i></a> -->
             </div>
         </div>
-
+        @role('system admin|system editor|system user')
         <div class="col-lg-3 col-md-6">
             <div class="small-box bg-info">
                 <div class="inner">
