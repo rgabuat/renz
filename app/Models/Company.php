@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 Use App\Models\User;
 Use App\Models\Package;
+Use App\Models\Subscriptions;
 
 class Company extends Model
 {
@@ -48,4 +49,5 @@ class Company extends Model
     {
         return $this->hasMany(Package::class,'id','package_id');
     }
+
 }

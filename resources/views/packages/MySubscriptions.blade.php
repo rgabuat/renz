@@ -25,6 +25,7 @@
             </tr>
         </thead>
         <tbody>
+
             @foreach($subscriptions as $mysubs)
             <tr>
                 <td><span>{{ $mysubs['id'] }}</span></td>
@@ -34,7 +35,7 @@
                 <td>{!! Str::limit($mysubs['package'][0]['name'],10, ' ...') !!}</td>
                 <td><span>{{ Carbon\Carbon::parse($mysubs['created_at'])->format('Y-m-d') }}</span></td>
                 <td><span>{{ Carbon\Carbon::parse($mysubs['updated_at'])->format('Y-m-d')}}</span></td>
-                <td><span class="badge {{ $mysubs['status'] == 0 ? 'badge-warning' : 'badge-success' }}">{{ $mysubs['status'] == 0 ? 'Pending' : 'Approved'}}</span></td>
+                <td><span class="badge {{ $mysubs['status'] == 0 ? 'badge-warning' : 'badge-success' }}">{{ $mysubs['status'] == 0 ? 'Pending' : 'Approved'}}</span> <span>{{ $mysubs['status'] != 0 ? $currSub[0]->package_id == $mysubs['id']  ? '(active)' : ($mysubs['expire_at'] == Carbon\Carbon::now() ? 'ended' : '') : '' }} </span></td>
             </tr>
             @endforeach
         </tbody>

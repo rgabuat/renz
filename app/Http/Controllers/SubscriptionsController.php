@@ -31,11 +31,17 @@ class SubscriptionsController extends Controller
         {
             $current_sub = Carbon::createFromFormat('Y-m-d H:i:s',$has_current[0]->expires_at)->addMonths($subsciption);
             $current_credits = $has_current[0]->avail_credits + $credits;
-            $update_sub = Subscriptions::where('id',$rid)->update(['status' => 1]);
+
+            $params = [
+                'started_at' => Carbon::now(),
+                'expires_at' => Carbon::now()->addMonths($subsciption),
+                'status' => 1
+            ];
+
+            $update_sub = Subscriptions::where('id',$rid)->update($params);
             if($update_sub)
             {
                 $subscription_update = [
-                    'package_id' => $request->package_id,
                     'expires_at' => $current_sub,
                     'avail_credits' => $current_credits,
                 ];
@@ -48,12 +54,18 @@ class SubscriptionsController extends Controller
         {
             if($package)
             {
-                $update = Subscriptions::where('id',$rid)->update(['status' => 1]);
+                $subs_param = [
+                    'started_at' => Carbon::now(),
+                    'expires_at' => Carbon::now()->addMonths($subsciption),
+                    'status' => 1,
+                ];
+
+                $update = Subscriptions::where('id',$rid)->update($subs_param);
 
                 if($update)
                 {
                     $params = [
-                        'package_id' => $package[0]['id'],
+                        'package_id' => $request->subs_id,
                         'avail_credits' => $package[0]['credits'],
                         'started_at' => Carbon::now(),
                         'expires_at' => Carbon::now()->addMonths($subsciption),
@@ -86,14 +98,15 @@ class SubscriptionsController extends Controller
     public function my_subscriptions()
     {
         $auth = auth()->user()->company_id;
+
+        $currSub = Company::where('id',$auth)->get();
         
         $subscriptions = Subscriptions::with('user.company','package')->where('company_id',$auth)->get();
 
         if($subscriptions)
         {
-            return view('packages.MySubscriptions',compact('subscriptions'));
+            return view('packages.MySubscriptions',compact('subscriptions','currSub'));
         }
-
     }
     
 }

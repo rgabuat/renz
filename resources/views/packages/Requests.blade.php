@@ -66,6 +66,7 @@
                                 @csrf
                                 <p>Approve Package Subscription</p>
                                 <input type="hidden" name="package_id" value="{{ $request['package'][0]['id'] }}">
+                                <input type="hidden" name="subs_id" value="{{ $request['id'] }}">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <input type="submit" class="btn btn-primary" value="UPDATE">
                             </form>
