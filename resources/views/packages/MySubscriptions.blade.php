@@ -35,8 +35,33 @@
                 <td>{!! Str::limit($mysubs['package'][0]['name'],10, ' ...') !!}</td>
                 <td><span>{{ Carbon\Carbon::parse($mysubs['created_at'])->format('Y-m-d') }}</span></td>
                 <td><span>{{ Carbon\Carbon::parse($mysubs['updated_at'])->format('Y-m-d')}}</span></td>
-                <td><span class="badge {{ $mysubs['status'] == 0 ? 'badge-warning' : 'badge-success' }}">{{ $mysubs['status'] == 0 ? 'Pending' : 'Approved'}}</span> <span>{{ $mysubs['status'] != 0 ? $currSub[0]->package_id == $mysubs['id']  ? '(active)' : ($mysubs['expire_at'] == Carbon\Carbon::now() ? 'ended' : '') : '' }} </span></td>
+                <td><span class="badge {{ $mysubs['status'] == 0 ? 'badge-warning' : ($mysubs['status'] == 1 ? 'badge-success' : 'badge-danger') }}">{{ $mysubs['status'] == 0 ? 'Pending' : ($mysubs['status'] == 1 ? 'Approved' : 'Unsubscribed') }}</span> <span>{!! $mysubs['status'] != 0 ? $currSub[0]->package_id == $mysubs['id']  ? '(active)' : ($mysubs['expire_at'] == Carbon\Carbon::now() ? 'ended' : $mysubs['status'] != 2 ? '<a class="badge badge-danger" href="javacsript:void(0);" data-toggle="modal" data-target="#cancel'.$mysubs['id'].'">Unsubscribe Packge</a>' : '') : '' !!} </span></td>
             </tr>
+
+
+             <!-- cancel Package Modal -->
+             <div class="modal fade" id="cancel{{ $mysubs['id'] }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="Cancel">Cancel Package</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url('package/cancel/'.$mysubs['id']) }}" method="post">
+                                @csrf
+                                <input type="hidden" name="sub_duration" value="{{ $mysubs['package'][0]['duration'] }}">
+                                <input type="hidden" name="sub_credits" value="{{ $mysubs['package'][0]['credits'] }}">
+                                <p>Are you sure you want to cancel Package: <span><b>{{ $mysubs['id'] }}</b></span></p>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-danger" value="SUBMIT">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             @endforeach
         </tbody>
     </table>

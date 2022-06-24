@@ -176,7 +176,7 @@
 
         @if(isset($subscriptions) && !$subscriptions->isEmpty())
           @foreach($subscriptions as $subs)
-            <p><span class="font-weight-bold">Package:</span>{{ $subs['package'][0]['name'] }}</p>
+            <p><span class="font-weight-bold">Current Active Package:</span>{{ $subs['subscription'][0]['package'][0]['name'] }}</p>
             <p><span class="font-weight-bold">Avail Credits:</span>{{ $subs['avail_credits'] }}</p>
             <p><span class="font-weight-bold">Started at:</span>{{ $subs['started_at'] }}</p>
             <p><span class="font-weight-bold">Expires at:</span>{{ $subs['expires_at'] }}</p>

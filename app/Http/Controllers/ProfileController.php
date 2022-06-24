@@ -21,7 +21,7 @@ class ProfileController extends Controller
     {
         $roles = Role::all();
         // $subscriptions = Subscriptions::with('package')->where('user_id',auth()->user()->id)->where('status',1)->get()->where('expires_at','!=','null');
-        $subscriptions = Company::with('package')->where('package_id','!=','null')->where('id',auth()->user()->company_id)->get();
+        $subscriptions = Company::with('subscription.package')->where('package_id','!=','null')->where('id',auth()->user()->company_id)->get();
         return view('admin.profile.ViewProfile', compact('roles','subscriptions'));
     }
 
@@ -83,8 +83,6 @@ class ProfileController extends Controller
         {
             return redirect()->back()->with('status', 'Profile Successfully Update');
         }
-
-        
     }
     
 }

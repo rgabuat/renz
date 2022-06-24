@@ -108,5 +108,33 @@ class SubscriptionsController extends Controller
             return view('packages.MySubscriptions',compact('subscriptions','currSub'));
         }
     }
+
+    public function cancel(Request $request,$sid)
+    {
+        $cid = auth()->user()->company_id;
+        $cancelSub = Subscriptions::with('user.company','package')->where('company_id',$cid)->get();
+
+        $subsciption =  $request->sub_duration;
+        $credits = $request->sub_credits;
+
+        $package = Subscriptions::where('id',$sid)->get();
+
+        $has_current = Company::where('id',$cid)->where('package_id','!=','null')->get();
+        $current_sub = Carbon::createFromFormat('Y-m-d H:i:s',$has_current[0]->expires_at)->subMonths($subsciption);
+        $current_credits = $has_current[0]->avail_credits - $credits;
+
+        $updateCancel = Subscriptions::where('id',$sid)->update(['status' => 2]);
+
+        if($updateCancel)
+        {
+            $subscription_update = [
+                'expires_at' => $current_sub,
+                'avail_credits' => $current_credits,
+            ];
+            $update = Company::where('id',$cid)->update($subscription_update);
+        }
+
+        return redirect()->back()->with('status','Subscription Canceled');
+    }
     
 }

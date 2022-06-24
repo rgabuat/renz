@@ -147,6 +147,7 @@ Route::group(['middleware' => 'auth'],function(){
         Route::get('/requests', [SubscriptionsController::class,'package_requests'])->name('package/requests');
         Route::post('/approve/{pid}/{uid}', [SubscriptionsController::class,'approve'])->name('package/approve/{pid}/{uid}');
         Route::post('/decline/{pid}', [SubscriptionsController::class,'approve'])->name('package/decline/{pid}');
+        Route::post('/cancel/{sid}', [SubscriptionsController::class,'cancel'])->name('package/cancel/{sid}');
         Route::get('/my-subscriptions',[SubscriptionsController::class,'my_subscriptions'])->name('package/my-subscriptions');
     });
 
