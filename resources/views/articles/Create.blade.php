@@ -19,7 +19,7 @@
                 <input type="hidden" name="did" value="{{ Request::segment(2) }}">
                 <div class="form-group">
                     <label for="title">Title <span class="text-danger">*</span></label>
-                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}"  placeholder="Article Title">
+                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title')  }}"  placeholder="Article Title">
                     @error('title')
                         <span class="error invalid-feedback"> {{ $message }}</span>
                     @enderror
@@ -27,7 +27,7 @@
 
                 <div class="form-group">
                     <label for="url">Url <span class="text-danger">*</span></label>
-                    <input type="text" name="url" class="form-control @error('url') is-invalid @enderror" value="{{ old('url') }}"  placeholder="Article url">
+                    <input type="text" name="url" class="form-control @error('url') is-invalid @enderror" value="{{ $params[0]['domain'] != '' ? $params[0]['domain'] : '' }}" readonly  placeholder="Article url">
                     @error('url')
                         <span class="error invalid-feedback"> {{ $message }}</span>
                     @enderror

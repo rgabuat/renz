@@ -3,11 +3,11 @@
 @section('content')
 
 <div class="py-3">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <h2 class="login-box-msg text-left text-primary px-0"><b>Edit User {{ $user->id }}</b></h2>
+          <h2 class="login-box-msg text-center text-primary px-0"><b>Edit User {{ $user->username }}</b></h2>
                 @if (session('status'))
                     <div class="bg-success text-center text-white py-2 mb-3">
                         {{ session('status') }}
@@ -46,7 +46,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-12">
               <label for="address">Address<span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
                     <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" value="{{ $user->address }}" placeholder="Address">
@@ -56,20 +56,6 @@
                       </div>
                     </div>
                       @error('address')
-                          <span class="error invalid-feedback"> {{ $message }}</span>
-                      @enderror
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                <label for="phone">Phone number<span class="text-danger">*</span></label>
-                  <div class="input-group mb-3">
-                    <input type="tel" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ $user->phone_number }}" placeholder="Phone Number">
-                    <div class="input-group-append">
-                      <div class="input-group-text">
-                        <span class="fas fa-phone-alt"></span>
-                      </div>
-                    </div>
-                      @error('phone_number')
                           <span class="error invalid-feedback"> {{ $message }}</span>
                       @enderror
                   </div>
@@ -105,17 +91,35 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="exampleSelectRounded0">Role <span class="text-danger">*</span></label>
-                <select class="custom-select" name="role" id="role" required >
-                  <option value="">Select Role</option>
-                  @foreach($roles as $role)
-                    <option value="{{$role['name']}}" {{ ($user->role == $role['name']) ? 'selected' : '' }}>{{$role['name']}}</option>
-                  @endforeach
-                </select>
-                 @error('role')
-                     <span class="error invalid-feedback"> {{ $message }}</span>
-                 @enderror
+              <div class="row">
+                <div class="col-md-6 col-sm-12">
+                  <div class="form-group">
+                      <label for="exampleSelectRounded0">Role <span class="text-danger">*</span></label>
+                      <select class="custom-select" name="role" id="role" required >
+                        <option value="">Select Role</option>
+                        @foreach($roles as $role)
+                          <option value="{{$role['name']}}" {{ ($user->role == $role['name']) ? 'selected' : '' }}>{{$role['name']}}</option>
+                        @endforeach
+                      </select>
+                      @error('role')
+                          <span class="error invalid-feedback"> {{ $message }}</span>
+                      @enderror
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <label for="phone">Phone number<span class="text-danger">*</span></label>
+                    <div class="input-group mb-3">
+                      <input type="tel" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ $user->phone_number }}" placeholder="Phone Number">
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-phone-alt"></span>
+                        </div>
+                      </div>
+                        @error('phone_number')
+                            <span class="error invalid-feedback"> {{ $message }}</span>
+                        @enderror
+                    </div>
+                  </div>
               </div>
             <div class="row">
               <div class="col-12">

@@ -154,7 +154,7 @@
                     <a href="{{ route('company/create') }}" class="nav-link {{ Request::is('company/create*') ? 'active' : '' }}">
                       <i class="pl-3 nav-icon fas fa-plus"></i>
                       <p class="pl-3">
-                        Add Company Accounts
+                        Create  Account
                       </p>
                     </a>
                   </li>

@@ -30,8 +30,7 @@
         <thead>
             <tr>
                 <th>S/N</th>
-                <th>Company</th>
-                <th>Type</th>
+                <th>Article Title</th>
                 <th>Offer</th>
                 <th>Url</th>
                 <th>Publishing date</th>
@@ -47,10 +46,9 @@
             @foreach($orders as $order)
             <tr>
                 <td><span>{{ $order['id'] }}</span></td>
-                <td>{!! Str::limit($order['company'][0]['company_name'],10, ' ...') !!}</td>
-                <td><span>{{ $order['type'] }}</span></td>
+                <td>{!! $order['heading'] != '' ? Str::limit($order['heading'],10, ' ...') : 'no title' !!}</td>
                 <td><span>{{ $order['offer'] }}</span></td>
-                <td><span>{!! Str::limit($order['url'],20, ' ...') !!}</span></td>
+                <td><span>{!!$order['domain_id'] != '' ? Str::limit($order['domain_id'],20, ' ...') : 'no url' !!}</span></td>
                 <td><span>{{ Carbon\Carbon::parse($order['publishing_date'])->format('Y-m-d') }} </span></td>
                 <td><span>{{ Carbon\Carbon::parse($order['created_at'])->format('Y-m-d')}} </span></td>
                 @role('system admin|system editor|system user')

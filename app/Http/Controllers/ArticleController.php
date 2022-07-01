@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Article;
 use App\Models\ArticleOrder;
+use App\Models\Domain;
 use Carbon\Carbon;
 
 class ArticleController extends Controller
@@ -24,9 +25,11 @@ class ArticleController extends Controller
         return view('articles.Lists',compact('articles'));
     }
 
-    public function create()
+    public function create($did)
     {
-        return view('articles.Create');
+
+        $params = Domain::where('id',$did)->get();
+        return view('articles.Create',compact('params'));
     }
 
     public function store(Request $request)
@@ -145,9 +148,10 @@ class ArticleController extends Controller
         }
     }
 
-    public function order()
+    public function order($did)
     {
-        return view('articles.Order');
+        $params = Domain::where('id',$did)->get();
+        return view('articles.Order',compact('params'));
     }
 
     public function make_order(Request $request,$uid,$cid)
