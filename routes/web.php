@@ -133,6 +133,7 @@ Route::group(['middleware' => 'auth'],function(){
                 
                 Route::get('/edit/{aid}', [ArticleController::class,'edit'])->name('article/edit/{aid}');
                 Route::get('/view/{aid}', [ArticleController::class,'show'])->name('article/view/{aid}');
+                Route::get('/view-completed-order/{aid}', [ArticleController::class,'show_order'])->name('article/view-completed-order/{aid}');
             });
     });
 

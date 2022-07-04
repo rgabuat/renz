@@ -48,7 +48,7 @@
                 <td><span>{{ $order['id'] }}</span></td>
                 <td>{!! $order['heading'] != '' ? Str::limit($order['heading'],10, ' ...') : 'no title' !!}</td>
                 <td><span>{{ $order['offer'] }}</span></td>
-                <td><span>{!!$order['domain_id'] != '' ? Str::limit($order['domain_id'],20, ' ...') : 'no url' !!}</span></td>
+                <td><span>{!! !Empty($order['domains'][0]) ? Str::limit($order['domains'][0]['domain'],20, ' ...') : 'no url' !!}</span></td>
                 <td><span>{{ Carbon\Carbon::parse($order['publishing_date'])->format('Y-m-d') }} </span></td>
                 <td><span>{{ Carbon\Carbon::parse($order['created_at'])->format('Y-m-d')}} </span></td>
                 @role('system admin|system editor|system user')
@@ -166,16 +166,86 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Account: <span><b>{{ $order['user'][0]['first_name'].' '.$order['user'][0]['last_name'] }}</b></p>
-                            <p>Company: <span><b>{{ $order['company'][0]['company_name'] }}</b></p>
-                            <p>Type: <span><b>{{ $order['type'] }}</b></span></p>
-                            <p>Offer: <span><b>{{ $order['offer'] }}</b></span></p>
-                            <p>Url: <span><b>{{ url('/'.$order['url']) }}</b></span></p>
-                            <p>Publishing Date: <span><b>{{ $order['publishing_date'] }}</b></span></p>
-                            <p>Created at: <span><b>{{ $order['created_at'] }}</b></span></p>
-                            <p>Updated at: <span><b>{{ $order['updated_at'] }}</b></span></p>
-                            <p>Completed at: <span><b>{{ $order['completed_at'] }}</b></span></p>
-                            <p>Status: <span><b>{{ $order['status'] }}</b></span></p>
+                            <form action="">
+                                <div class="form-group row">
+                                    <label for="account" class="col-sm-3 col-form-label">Account:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="{{ $order['user'][0]['first_name'].' '.$order['user'][0]['last_name'] }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="company" class="col-sm-3 col-form-label">Company:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="{{ $order['company'][0]['company_name'] }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="offer" class="col-sm-3 col-form-label">Offer:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="{{ $order['offer'] }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="domain_url" class="col-sm-3 col-form-label">Domain url:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="{{ !Empty($order['domains'][0]) ? $order['domains'][0]['domain'] : 'no url' }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="publish_date" class="col-sm-3 col-form-label">Publishing date:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="{{ $order['publishing_date'] }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="created" class="col-sm-3 col-form-label">Created At:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="{{ $order['created_at'] }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="updated" class="col-sm-3 col-form-label">Updated At:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="{{ $order['updated_at'] }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="completed" class="col-sm-3 col-form-label">Completed At:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="{{ $order['completed_at'] }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="status" class="col-sm-3 col-form-label">Status</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="{{ $order['status'] }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="link_1" class="col-sm-3 col-form-label">Url 1:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="{{ $order['link_url_1'] != '' ? $order['link_url_1'] : 'null' }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="anchor_1" class="col-sm-3 col-form-label">Anchor 1:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="{{ $order['anchor_1'] != '' ? $order['anchor_1'] : 'null' }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="link_2" class="col-sm-3 col-form-label">Url 2:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="{{ $order['link_url_2'] != '' ? $order['link_url_2'] : 'null' }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="anchor_2" class="col-sm-3 col-form-label">Anchor 2:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="{{ $order['anchor_2'] != '' ? $order['anchor_2'] : 'null' }}" disabled>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

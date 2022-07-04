@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="py-3">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">

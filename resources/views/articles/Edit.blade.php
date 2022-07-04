@@ -60,7 +60,8 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <input type="submit" name="submit" class="btn btn-primary form-control" value="Update Article" >
+                    <input type="submit" name="submit" class="btn btn-primary form-control my-1" value="Update Article" >
+                    <a href="javascript:void(0);"  class="btn btn-danger form-control my-1" data-toggle="modal" data-target="#cancel{{ $article[0]['id'] }}" >Cancel</a>
                 </div>
             </div>
         </div>
@@ -79,6 +80,25 @@
             </div>
         </div>
     </div>
+
+    <!-- cancel edit post Modal -->
+    <div class="modal fade" id="cancel{{ $article[0]['id'] }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="Delete">Cancel Edit Post</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to Cancel edit?</p>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            <a href="{{ url('article/view/'.$article[0]['id']) }}" class="btn btn-success">Confirm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
     
   </div>
 </div>

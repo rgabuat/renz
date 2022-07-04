@@ -2,7 +2,7 @@
 @section('title',"Change my Password")
 @section('content')
   <div class="container-fluid">
-    <div class="col-lg-8 pt-5">
+    <div class="col-lg-12 pt-5">
       <div class="card">
         <div class="card-body ">
           <h2 class="login-box-msg text-left text-primary px-0"><b>Change Password</b></h2>

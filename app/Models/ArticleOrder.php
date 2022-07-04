@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 Use App\Models\User;
 Use App\Models\Company;
+Use App\Models\Domain;
 class ArticleOrder extends Model
 {
     use HasFactory;
@@ -36,5 +37,10 @@ class ArticleOrder extends Model
     public function user()
     {
         return $this->hasMany(User::class,'id','user_id');
+    }
+    
+    public function domains()
+    {
+        return $this->hasMany(Domain::class,'id','domain_id');
     }
 }

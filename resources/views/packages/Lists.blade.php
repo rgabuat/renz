@@ -17,12 +17,9 @@
                 <th>S/N</th>
                 <th>Name</th>
                 <th>Price</th>
-                <th>Description</th>
                 <th>Credits</th>
                 <th>Payment method</th>
                 <th>Duration</th>
-                <th>Created At</th>
-                <th>Updated At</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -32,12 +29,9 @@
                 <td>{{ $package['id'] }}</td>
                 <td>{!! Str::limit($package['name'],8, ' ...') !!}</td>
                 <td>{{ $package['price'] }}</td>
-                <td>{!! Str::limit($package['description'],20, ' ...') !!}</td>
                 <td>{{ $package['credits'] }}</td>
                 <td>{{ $package['payment_method'] }}</td>
                 <td>{{ $package['duration'] }} {{ Str::plural('Month', $package['duration']) }}</td>
-                <td>{{  Carbon\Carbon::parse($package['created_at'])->format('Y-m-d') }}</td>
-                <td>{{  Carbon\Carbon::parse($package['updated_at'])->format('Y-m-d') }}</td>
                 <td>
                 <div class="btn-group">
                     <button type="button" class="btn btn-warning " data-toggle="dropdown" aria-expanded="false">
@@ -61,25 +55,67 @@
 
             <!-- view Package Modal -->
             <div class="modal fade" id="view{{ $package['id'] }}" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="view">View Package Details</h5>
+                            <h5 class="modal-title text-primary" id="view"><strong>View Package Details</strong></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Name: <b>{{ $package['name'] }}</b></p>
-                            <p>Price: <b>{{ $package['price'] }}</b></p>
-                            <p>Credits: <b>{{ $package['credits'] }}</b></p>
-                            <p>Payment: <b>{{ $package['payment_method'] }}</b></p>
-                            @role('system admin|system editor|system user')
-                                <p>Duration: <b>{{ $package['duration'] }} {{ Str::plural('Month', $package['duration']) }}</b></p>
-                                <p>Date created: <b>{{ Carbon\Carbon::parse($package['created_at'])->format('Y-m-d') }}</b></p>
-                            @endrole
-                            <p>Date Updated: <b>{{ Carbon\Carbon::parse($package['updated_at'])->format('Y-m-d') }}</b></p>
-                            <p>Description: <b>{!! $package['description'] !!}</b></p>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="package_name">Name:</label>
+                                        <input type="text" class="form-control" readonly value="{{ $package['name'] }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="package_payment_method">Payment method:</label>
+                                        <input type="text" class="form-control" readonly value="{{ $package['payment_method'] }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="package_price">Price:</label>
+                                        <input type="text" class="form-control" readonly value="{{ $package['price'] }}">
+                                    </div>
+                                </div>
+                                @role('system admin|system editor|system user')
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="package_duration">Duration:</label>
+                                        <input type="text" class="form-control" readonly value="{{ $package['duration'] }}">
+                                    </div>
+                                </div>
+                                @endrole
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="package_credits">Credits:</label>
+                                        <input type="text" class="form-control" readonly value="{{ $package['credits'] }}">
+                                    </div>
+                                </div>
+                                @role('system admin|system editor|system user')
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="package_credits">Created at:</label>
+                                        <input type="text" class="form-control" readonly value="{{ Carbon\Carbon::parse($package['created_at'])->format('Y-m-d') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="package_credits">Updated at:</label>
+                                        <input type="text" class="form-control" readonly value="{{ Carbon\Carbon::parse($package['updated_at'])->format('Y-m-d') }}">
+                                    </div>
+                                </div>
+                                @endrole
+                                <div class="col-12">
+                                    <label for="package_description">Description</label>
+                                    <textarea name="pkg_desc"  >{!! $package['description'] !!}</textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

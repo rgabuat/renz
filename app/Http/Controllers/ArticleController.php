@@ -208,7 +208,7 @@ class ArticleController extends Controller
         }
         else 
         {
-            $orders = ArticleOrder::where('status','!=','completed')->where('company_id',auth()->user()->company_id)->get();
+            $orders = ArticleOrder::with('domains')->where('status','!=','completed')->where('company_id',auth()->user()->company_id)->get();
         }
 
         return view('articles.Orders',compact('orders'));
@@ -290,6 +290,9 @@ class ArticleController extends Controller
         {
             $completeorders = ArticleOrder::where('status','completed')->where('company_id',auth()->user()->company_id)->get();
         }
+
+
+
         return view('articles.Completed',compact('completeorders'));
     }
 
@@ -305,7 +308,8 @@ class ArticleController extends Controller
 
     public function show_order($aid)
     {
-        
+        $viewSingleOrder = ArticleOrder::where('status','completed')->where('id',$aid)->get();
+        return view('articles.ViewOrder',compact('viewSingleOrder'));
     }
 
     public function update_order($aid)
