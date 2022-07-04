@@ -38,14 +38,14 @@
                         </td>
                     <td>{{ $company['created_at']}}</td>
                     <td>{{ $company['updated_at']}}</td>
-                    <td>{{ $company['status']}}</td>
+                    <td><span class="badge {{ $company['status'] == 'active' ? 'badge-success' : 'badge-warning'}}">{{ $company['status']}}</span></td>
                     <td>
                     <div class="btn-group">
                         <button type="button" class="btn btn-warning " data-toggle="dropdown" aria-expanded="false">
                         <span class="fas fa-align-right"></span>
                         </button>
                         <div class="dropdown-menu" role="menu" style="">
-                            <a class="dropdown-item" href="{{ url('company/'.$company['id'].'/details')}}"><span class="fas fa-eye mr-2"></span>View company</a>
+                            <a class="dropdown-item" href="{{ url('company/'.$company['id'].'/company-details')}}"><span class="fas fa-eye mr-2"></span>View company</a>
                             @role('system admin|system editor|company admin')
                                 <a class="dropdown-item" href="{{ url('company/edit/'.$company['id'])}}"><span class="fas fa-pen mr-2"></span>Edit company</a>
                             @endrole

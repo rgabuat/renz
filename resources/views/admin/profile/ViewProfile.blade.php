@@ -5,7 +5,7 @@
 @section('content')
 <div class="py-3">
    <div class="row">
-   <div class="col-lg-8">
+   <div class=" @role('system admin|system user|system editor') col-lg-12 @endrole col-lg-8">
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">

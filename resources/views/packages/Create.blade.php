@@ -2,7 +2,7 @@
 
 @section('title',"Package Create")
 @section('content')
-    <div class="col-lg-6 py-3">
+    <div class="col-12 py-3">
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
@@ -23,13 +23,53 @@
                     @enderror
                 </div>
             </div>
-            <div class="col-md-12">
-                <label for="price">Price<span class="text-danger">*</span> </label>
-                <div class="form-group ">
-                    <input type="number" name="price" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}" >
-                    @error('price')
-                        <span class="error invalid-feedback"> {{ $message }}</span>
-                    @enderror
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="price">Price<span class="text-danger">*</span> </label>
+                    <div class="form-group ">
+                        <input type="number" name="price" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}" >
+                        @error('price')
+                            <span class="error invalid-feedback"> {{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="payment_method">Payment method<span class="text-danger">*</span> </label>
+                    <div class="form-group ">
+                        <select name="payment_method" id="payment_method" class="form-control @error('payment_method') is-invalid @enderror">
+                            <option value="">Select Payment method</option>
+                            <option value="credit card">Credit Card</option>
+                            <option value="invoice">invoice</option>
+                        </select>
+                        @error('payment_method')
+                            <span class="error invalid-feedback"> {{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="credits">Credits<span class="text-danger">*</span> </label>
+                    <div class="form-group ">
+                        <input type="number" name="credits" class="form-control @error('credits') is-invalid @enderror" value="{{ old('credits') }}" >
+                        @error('credits')
+                            <span class="error invalid-feedback"> {{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="duration">Duration<span class="text-danger">*</span> </label>
+                    <div class="form-group ">
+                        <select name="duration" id="payment_method" class="form-control @error('duration') is-invalid @enderror">
+                            <option value="">Select Duration</option>
+                            <option value="1">1 Month</option>
+                            <option value="3">3 Months</option>
+                            <option value="6">6 Months</option>
+                            <option value="12">12 Months</option>
+                            <option value="24">24 Months</option>
+                        </select>
+                        @error('duration')
+                            <span class="error invalid-feedback"> {{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
             </div>
             <div class="col-md-12">
@@ -41,47 +81,12 @@
                     <span class="error invalid-feedback"> {{ $message }}</span>
                 @enderror
             </div>
-            <div class="col-md-12">
-                <label for="credits">Credits<span class="text-danger">*</span> </label>
-                <div class="form-group ">
-                    <input type="number" name="credits" class="form-control @error('credits') is-invalid @enderror" value="{{ old('credits') }}" >
-                    @error('credits')
-                        <span class="error invalid-feedback"> {{ $message }}</span>
-                    @enderror
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <button type="submit" class="btn btn-primary btn-block mb-3">CREATE PACKAGE</button>
                 </div>
             </div>
-            <div class="col-md-12">
-                <label for="payment_method">Payment method<span class="text-danger">*</span> </label>
-                <div class="form-group ">
-                    <select name="payment_method" id="payment_method" class="form-control @error('payment_method') is-invalid @enderror">
-                        <option value="">Select Payment method</option>
-                        <option value="credit card">Credit Card</option>
-                        <option value="invoice">invoice</option>
-                    </select>
-                    @error('payment_method')
-                        <span class="error invalid-feedback"> {{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-            <div class="col-md-12">
-                <label for="duration">Duration<span class="text-danger">*</span> </label>
-                <div class="form-group ">
-                    <select name="duration" id="payment_method" class="form-control @error('duration') is-invalid @enderror">
-                        <option value="">Select Duration</option>
-                        <option value="1">1 Month</option>
-                        <option value="3">3 Months</option>
-                        <option value="6">6 Months</option>
-                        <option value="12">12 Months</option>
-                        <option value="24">24 Months</option>
-                    </select>
-                    @error('duration')
-                        <span class="error invalid-feedback"> {{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-              <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block mb-3">CREATE PACKAGE</button>
-              </div>
+              
           </form>
         </div>
   </div>

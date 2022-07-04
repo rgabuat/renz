@@ -3,7 +3,7 @@
 @section('title',"Domain Import")
 @section('content')
 <div class="py-3">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
@@ -13,15 +13,15 @@
                         {{ session('status') }}
                     </div>
                 @endif
-          <form action="/domain/parse_import" method="post" enctype="multipart/form-data">
+          <form action="/domain/parse_import" method="post" enctype="multipart/form-data" >
               @csrf
               <div class="form-group">
-                  <input type="file" name="file">
+                  <input type="file" name="file" required>
               </div>
             <div class="row">
               <!-- /.col -->
-              <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block mb-3">IMPORT NOW</button>
+              <div class="col-12 text-center">
+                <button type="submit" class="btn btn-primary form-control w-25 mb-3">IMPORT NOW</button>
               </div>
               <!-- /.col -->
             </div>

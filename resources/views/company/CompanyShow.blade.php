@@ -4,18 +4,56 @@
 @section('content')
 
 <div class="py-3">
-    <div class="col-lg-6">
+    <div class="col-12">
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <h2 class="login-box-msg  text-left text-primary px-0"><b>Company Details</b></h2>
-            <p>Company Name: <span class="font-weight-bold">{{ $compDetails[0]['company_name'] }}</span></p>
-            <p>Registered Number: <span class="font-weight-bold">{{ $compDetails[0]['reg_number'] }}</span></p>
-            <p>Status: <span class="font-weight-bold">{{ $compDetails[0]['status'] }}</span></p>
-            <p>City: <span class="font-weight-bold">{{ $compDetails[0]['city'] }}</span></p>
-            <p>State: <span class="font-weight-bold">{{ $compDetails[0]['state'] }}</span></p>
-            <p>Country: <span class="font-weight-bold">{{ $compDetails[0]['country'] }}</span></p>
-            <p>Zip: <span class="font-weight-bold">{{ $compDetails[0]['zip'] }}</span></p>
+          <h2 class="login-box-msg  text-center text-primary px-0"><b>Company Details</b></h2>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                    <label for="company_name" class="form-label">Company Name:</label>
+                    <input type="text" class="form-control" readonly value="{{ $compDetails[0]['company_name'] }}">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                      <label for="company_reg_number" class="form-label">Registered number:</label>
+                      <input type="text" class="form-control" readonly value="{{ $compDetails[0]['reg_number'] }}">
+                  </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                      <label for="company_status" class="form-label">Status:</label>
+                      <br>
+                      <span class=" badge p-2 {{ $compDetails[0]['status'] != 'pending' ? 'badge-success' : 'badge-warning' }}">{{ $compDetails[0]['status']  }}</span>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                      <label for="company_city" class="form-label">City:</label>
+                      <input type="text" class="form-control" readonly value="{{ $compDetails[0]['city'] }}">
+                  </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                      <label for="company_state" class="form-label">State:</label>
+                      <input type="text" class="form-control" readonly value="{{ $compDetails[0]['state'] }}">
+                  </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                      <label for="company_country" class="form-label">Country:</label>
+                      <input type="text" class="form-control" readonly value="{{ $compDetails[0]['country'] }}">
+                  </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                      <label for="company_zip" class="form-label">Zip code:</label>
+                      <input type="text" class="form-control" readonly value="{{ $compDetails[0]['zip'] }}">
+                  </div>
+              </div>
+            </div>
         </div>
   </div>
 </div>
