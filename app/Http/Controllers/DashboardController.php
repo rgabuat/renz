@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Article;
 use App\Models\ArticleOrder;
 use App\Models\Domain;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -19,6 +20,22 @@ class DashboardController extends Controller
     
     public function index()
     {
+        $date = Carbon::now();
+        $domainUsed = ArticleOrder::select('id','created_at')->get()->groupBy(function($date) {
+            //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
+            return Carbon::parse($date->created_at)->format('m'); // grouping by months
+        });
+       
+        $domainUsedCount = [];
+        $domainArray = [];
+
+        foreach ($domainUsed as $key => $value) {
+            $domainUsedCount[$key] = $value;
+        }
+
+        dd($domainUsedCount);
+
+        
         $domains = Domain::all()->count();
 
         if(auth()->user()->hasRole(['system admin','system editor','system user']))

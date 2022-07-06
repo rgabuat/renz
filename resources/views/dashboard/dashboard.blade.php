@@ -3,8 +3,120 @@
 @section('title',"My Dashboard")
 @section('content')
 <div class="py-3">
+    <!-- domains -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center text-primary"><b>Domains</b></h2>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2><b>40</b></h2>
+                                <p>Total Domains</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2><b>40</b></h2>
+                                <p>Added Domains</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2><b>40</b></h2>
+                                <p>Used Domains</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- created articles -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center text-primary"><b>Created Articles</b></h2>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2><b>40</b></h2>
+                                <p>Total Domains</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2><b>40</b></h2>
+                                <p>Added Domains</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2><b>40</b></h2>
+                                <p>Used Domains</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ordered articles -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center text-primary"><b>Ordered Articles</b></h2>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-12 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2><b>40</b></h2>
+                                <p>Total Domains</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2><b>40</b></h2>
+                                <p>Added Domains</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2><b>40</b></h2>
+                                <p>Used Domains</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2><b>40</b></h2>
+                                <p>Used Domains</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
-        
     <div class="col-lg-3 col-md-6">
             <div class="small-box bg-info">
                 <div class="inner">
