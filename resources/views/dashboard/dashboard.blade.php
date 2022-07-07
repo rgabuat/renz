@@ -8,28 +8,41 @@
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center text-primary"><b>Domains</b></h2>
+                   
+                
+                        
+
+                        @foreach($arrayMonths['name'] as $names)
+                            {{ $names }}
+                        @endforeach
+                  
+                <select name="filter_date" id="filter_date">
+                    <option value="@foreach($arrayMonths['digits'] as $digits)
+                            {{ $digits }}
+                        @endforeach"></option>  
+                </select>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-12 text-center">
                         <div class="card">
                             <div class="card-body">
-                                <h2><b>40</b></h2>
-                                <p>Total Domains</p>
+                                <h2 class="text-success"><b>{{ $domainTotal }}</b></h2>
+                                <span class="text-primary font-weight-bold">Total</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12 text-center">
                         <div class="card">
                             <div class="card-body">
-                                <h2><b>40</b></h2>
-                                <p>Added Domains</p>
+                                <h2 class="text-success"><b>{{ $domainsAdded }}</b></h2>
+                                <span class="text-primary font-weight-bold">Added</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12 text-center">
                         <div class="card">
                             <div class="card-body">
-                                <h2><b>40</b></h2>
-                                <p>Used Domains</p>
+                                <h2 class="text-success"><b>{{ $domainUsedSum }}</b></h2>
+                                <span class="text-primary font-weight-bold">Used</span>
                             </div>
                         </div>
                     </div>
@@ -47,24 +60,24 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 text-center">
                         <div class="card">
                             <div class="card-body">
-                                <h2><b>40</b></h2>
-                                <p>Total Domains</p>
+                                <h2 class="text-success"><b>{{ $articleCreated }}</b></h2>
+                                <span class="text-primary font-weight-bold">Total</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12 text-center">
                         <div class="card">
                             <div class="card-body">
-                                <h2><b>40</b></h2>
-                                <p>Added Domains</p>
+                                <h2 class="text-success"><b>{{ $articlePublished }}</b></h2>
+                                <span class="text-primary font-weight-bold">Published</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12 text-center">
                         <div class="card">
                             <div class="card-body">
-                                <h2><b>40</b></h2>
-                                <p>Used Domains</p>
+                                <h2 class="text-success"><b>{{ $articlePending }}</b></h2>
+                                <span class="text-primary font-weight-bold">Pending</span>
                             </div>
                         </div>
                     </div>
@@ -77,37 +90,38 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h2 class="text-center text-primary"><b>Ordered Articles</b></h2>
+                <h2 class="text-center text-primary mb-3"><b>Ordered Articles</b></h2>
+                <hr>
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-12 text-center">
                         <div class="card">
                             <div class="card-body">
-                                <h2><b>40</b></h2>
-                                <p>Total Domains</p>
+                                 <h2 class="text-dark"><b>{{ $articleOrdered }}</b></h2>
+                                <span class="text-primary font-weight-bold">Total</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 text-center">
                         <div class="card">
                             <div class="card-body">
-                                <h2><b>40</b></h2>
-                                <p>Added Domains</p>
+                                <h2 class="text-success"><b>{{ $articleOrderedCompleted }}</b></h2>
+                                <span class="text-primary font-weight-bold">Published</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 text-center">
                         <div class="card">
                             <div class="card-body">
-                                <h2><b>40</b></h2>
-                                <p>Used Domains</p>
+                                <h2 class="text-primary"><b>{{ $articleOrderedProcessing }}</b></h2>
+                                <span class="text-primary font-weight-bold">Processing</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 text-center">
                         <div class="card">
                             <div class="card-body">
-                                <h2><b>40</b></h2>
-                                <p>Used Domains</p>
+                                <h2 class="text-warning"><b>{{ $articleOrderedPending }}</b></h2>
+                                <span class="text-primary font-weight-bold">Pending</span>
                             </div>
                         </div>
                     </div>
@@ -115,73 +129,4 @@
             </div>
         </div>
     </div>
-
-    <div class="row">
-    <div class="col-lg-3 col-md-6">
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3>{{ $domains }}</h3>
-                    <p>Domains</p>
-                </div>
-                <!-- <div class="icon">
-                    <i class="ion ion-globe"></i>
-                </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-globe"></i></a> -->
-            </div>
-        </div>
-        @role('system admin|system editor|system user')
-        <div class="col-lg-3 col-md-6">
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3>{{ $articledPublished }}</h3>
-                    <p>Artcile Published</p>
-                </div>
-                <!-- <div class="icon">
-                    <i class="ion ion-globe"></i>
-                </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-globe"></i></a> -->
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6">
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3>{{ $articleOrderedPublished }}</h3>
-                    <p>Article Order Published</p>
-                </div>
-                <!-- <div class="icon">
-                    <i class="ion ion-globe"></i>
-                </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-globe"></i></a> -->
-            </div>
-        </div>
-        @endrole
-
-        <div class="col-lg-3 col-md-6">
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3>{{ $articleCreated }}</h3>
-                    <p>Article Created</p>
-                </div>
-                <!-- <div class="icon">
-                    <i class="ion ion-globe"></i>
-                </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-globe"></i></a> -->
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6">
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3>{{ $articleOrdered }}</h3>
-                    <p>Article Ordered</p>
-                </div>
-                <!-- <div class="icon">
-                    <i class="ion ion-globe"></i>
-                </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-globe"></i></a> -->
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
