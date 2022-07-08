@@ -22,30 +22,28 @@ class DashboardController extends Controller
     {
         
         //get months 
-        $monthsDigit = [];
-        $monthsName = [];
-
-        for ($m=1; $m<=12; $m++) {
-            $monthsDigit[] = date('m', mktime(0,0,0,$m, 1, date('Y')));
+        $dataMonths = array();
+        for ($i = 11; $i >= 0; $i--) {
+            $month = Carbon::today()->startOfMonth()->subMonth($i)->format('F');
+            $digit = Carbon::today()->startOfMonth()->subMonth($i)->format('m');
+            $year = Carbon::today()->startOfMonth()->subMonth($i)->format('Y');
+            array_push($dataMonths, array(
+                'month' => $month,
+                'year' => $year,
+                'digit' => $digit
+            ));
         }
-        for ($m=1; $m<=12; $m++) {
-            $monthsName[] = date('F', mktime(0,0,0,$m, 1, date('Y')));
-        }
+        //sort months
+        $monthsArray = collect($dataMonths)->sortBy('digit')->toArray();
 
-        $arrayMonths = [
-            'digits' => $monthsDigit,
-            'name' => $monthsName,
-        ];
-        
-        
         if($request->filter_date != '')
         {
-                $month = $request->filter_date;
+                $month = $request->filter_date;    
         }
         else 
         {
                 $extractMonth = Carbon::now();
-                $month = $extractMonth;
+                $month = $extractMonth->month;
         }
             
         // domains
@@ -61,8 +59,8 @@ class DashboardController extends Controller
         if(auth()->user()->hasRole(['system admin','system editor','system user']))
         {
             $articleCreated = Article::whereMonth('created_at',$month)->get()->count();
-            $articlePublished = Article::all()->whereMonth('created_at',$month)->where('status','published')->count();
-            $articlePending = Article::all()->whereMonth('created_at',$month)->where('status','draft')->count();
+            $articlePublished = Article::whereMonth('created_at',$month)->where('status','published')->count();
+            $articlePending = Article::whereMonth('created_at',$month)->where('status','draft')->count();
         }
         else 
         {
@@ -75,7 +73,7 @@ class DashboardController extends Controller
 
         if(auth()->user()->hasRole(['system admin','system editor','system user']))
         {
-            $articleOrdered = ArticleOrder::all()->whereMonth('created_at',$month)->get()->count();
+            $articleOrdered = ArticleOrder::whereMonth('created_at',$month)->get()->count();
             $articleOrderedPending = ArticleOrder::where('status','pending')->whereMonth('created_at',$month)->get()->count();
             $articleOrderedCompleted = ArticleOrder::where('status','completed')->whereMonth('created_at',$month)->get()->count();
             $articleOrderedProcessing = ArticleOrder::where('status','processing')->whereMonth('created_at',$month)->get()->count();
@@ -92,7 +90,7 @@ class DashboardController extends Controller
         $articledPublished = Article::where('status','published')->count();
         $articleOrderedPublished = ArticleOrder::where('status','completed')->count();
 
-        return view('dashboard.dashboard',compact('domainTotal','domainsAdded','domainUsedSum','articleCreated','articlePublished','articlePending','articleOrdered','articleOrderedPending','articleOrderedCompleted','articleOrderedProcessing','arrayMonths'));
+        return view('dashboard.dashboard',compact('domainTotal','domainsAdded','domainUsedSum','articleCreated','articlePublished','articlePending','articleOrdered','articleOrderedPending','articleOrderedCompleted','articleOrderedProcessing','monthsArray','month'));
     }
 }
 

@@ -41,7 +41,7 @@ Route::post('/login', [LoginController::class, 'store']);
 
 Route::get('/logout', [LogoutController::class, 'store'])->name('logout');
 
-// Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
+
 
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);
@@ -50,6 +50,7 @@ Route::post('/changePassword', [ChangePasswordController::class, 'changePassword
 
 Route::group(['middleware' => 'auth'],function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/filter', [DashboardController::class, 'index'])->name('filter');
     Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordGet'])->name('change-password');
     Route::get('/view-profile', [ProfileController::class, 'index'])->name('view-profile');
     Route::get('/edit-profile', [ProfileController::class, 'edit'])->name('edit-profile');
@@ -152,7 +153,7 @@ Route::group(['middleware' => 'auth'],function(){
         Route::get('/my-subscriptions',[SubscriptionsController::class,'my_subscriptions'])->name('package/my-subscriptions');
     });
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+   
 
 });
 

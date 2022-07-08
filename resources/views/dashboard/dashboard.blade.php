@@ -3,24 +3,29 @@
 @section('title',"My Dashboard")
 @section('content')
 <div class="py-3">
+    <div class="col-12">
+        <form action="{{ route('filter') }}" method="post">
+            @csrf
+            <label for="filter_date" class="form-label">Filter by month :</label>
+            <div class="form-inline">
+                <div class="form-group mx-0 mb-2">
+                    <select name="filter_date" id="filter_date" class="form-control">
+                        @foreach($monthsArray as $m)
+                            <option {{ $m['digit'] == $month ? "selected" : "" }} value="{{ $m['digit'] }}">{{ $m['month'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            <div class="form-group mx-0 ml-sm-2 mb-2">
+                <input type="submit" class="btn btn-success " value="Filter">
+            </div>
+            </div>
+        </form>
+    </div>
     <!-- domains -->
     <div class="col-12">
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center text-primary"><b>Domains</b></h2>
-                   
-                
-                        
-
-                        @foreach($arrayMonths['name'] as $names)
-                            {{ $names }}
-                        @endforeach
-                  
-                <select name="filter_date" id="filter_date">
-                    <option value="@foreach($arrayMonths['digits'] as $digits)
-                            {{ $digits }}
-                        @endforeach"></option>  
-                </select>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-12 text-center">
                         <div class="card">
@@ -76,7 +81,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 text-center">
                         <div class="card">
                             <div class="card-body">
-                                <h2 class="text-success"><b>{{ $articlePending }}</b></h2>
+                                <h2 class="text-warning"><b>{{ $articlePending }}</b></h2>
                                 <span class="text-primary font-weight-bold">Pending</span>
                             </div>
                         </div>
@@ -91,7 +96,6 @@
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center text-primary mb-3"><b>Ordered Articles</b></h2>
-                <hr>
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-12 text-center">
                         <div class="card">
