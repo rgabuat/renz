@@ -10,99 +10,120 @@
             </div>
         @endif
         <h2 class="text-left text-primary"><b>Domains</b></h2>
-        <table class="table" id="domain_tbl">
-            <thead>
-                <tr>
-                    <th>S/N</th>
-                    <th>Domain</th>
-                    <th>Country</th>
-                    <th>Domaint Rating</th>
-                    <th>Traffic</th>
-                    <th>Reference Domain</th>
-                    <th>Token Cost</th>
-                    <th class="d-none">Remarks</th>
-                    <th>Last updated</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($domain_datas as $domain_data)
-                <tr>
-                    <td>{{ $domain_data['id']}}</td>
-                    <td>{{ $domain_data['domain']}}</td>
-                    <td>{{ $domain_data['country']}}</td>
-                    <td>{{ $domain_data['domain_rating']}}</td>
-                    <td>{{ $domain_data['traffic']}}</td>
-                    <td>{{ $domain_data['ref_domain']}}</td>
-                    <td>{{ $domain_data['token_cost']}}</td>
-                    <td class="d-none">{{ $domain_data['remarks']}}</td>
-                    <td>{{ date('m/d/Y', strtotime($domain_data['last_updated']))}}</td>
-                    <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-warning " data-toggle="dropdown" aria-expanded="false">
-                            <span class="fas fa-align-right"></span>
-                            </button>
-                            <div class="dropdown-menu" role="menu" style="">
-                                @role('company admin|company user')
-                                <a class="dropdown-item" href="{{ url('domain/'.$domain_data['id'].'/article/create')}}"><span class="fas fa-newspaper mr-2"></span>Create Article</a>
-                                <a class="dropdown-item" href="{{ url('domain/'.$domain_data['id'].'/article/order')}}"><span class="fas fa-shopping-cart mr-2"></span>Order Article</a>
-                                @endrole
-                                @role('system admin|system editor')
-                                <a class="dropdown-item" href="{{ url('domain/edit/'.$domain_data['id'])}}"><span class="fas fa-pen mr-2"></span>Edit Domain</a>
-                                @endrole
-                                @role('system admin')
-                                <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#deactivate{{ $domain_data['id'] }}"><span class="fas fa-trash mr-2"></span>Delete Domain</a>
-                                @endrole
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            
-                <!-- deactivate Modal -->
-                <div class="modal fade" id="deactivate{{ $domain_data['id'] }}" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="deactivateModal">Delete Domain</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+        <div id="domain_tbl_wrapper" class="dt_warpper">
+            <table class="table" id="domain_tbl">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Domain</th>
+                        <th>Country</th>
+                        <th>Domaint Rating</th>
+                        <th>Traffic</th>
+                        <th>Reference Domain</th>
+                        <th>Token Cost</th>
+                        <th class="d-none">Remarks</th>
+                        <th>Last updated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($domain_datas as $domain_data)
+                    <tr>
+                        <td>{{ $domain_data['id']}}</td>
+                        <td>{{ $domain_data['domain']}}</td>
+                        <td>{{ $domain_data['country']}}</td>
+                        <td>{{ $domain_data['domain_rating']}}</td>
+                        <td>{{ $domain_data['traffic']}}</td>
+                        <td>{{ $domain_data['ref_domain']}}</td>
+                        <td>{{ $domain_data['token_cost']}}</td>
+                        <td class="d-none">{{ $domain_data['remarks']}}</td>
+                        <td>{{ date('m/d/Y', strtotime($domain_data['last_updated']))}}</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-warning " data-toggle="dropdown" aria-expanded="false">
+                                <span class="fas fa-align-right"></span>
                                 </button>
+                                <div class="dropdown-menu" role="menu" style="">
+                                    @role('company admin|company user')
+                                    <a class="dropdown-item" href="{{ url('domain/'.$domain_data['id'].'/article/create')}}"><span class="fas fa-newspaper mr-2"></span>Create Article</a>
+                                    <a class="dropdown-item" href="{{ url('domain/'.$domain_data['id'].'/article/order')}}"><span class="fas fa-shopping-cart mr-2"></span>Order Article</a>
+                                    @endrole
+                                    @role('system admin|system editor')
+                                    <a class="dropdown-item" href="{{ url('domain/edit/'.$domain_data['id'])}}"><span class="fas fa-pen mr-2"></span>Edit Domain</a>
+                                    @endrole
+                                    @role('system admin')
+                                    <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#deactivate{{ $domain_data['id'] }}"><span class="fas fa-trash mr-2"></span>Delete Domain</a>
+                                    @endrole
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <form action="{{ url('domain/delete/'.$domain_data['id']) }}" method="post">
-                                    @csrf
-                                    <h3 class="text-center">Delete Domain</h3>
-                                    <p class="text-center"><input type="submit" class="btn btn-danger" value="Delete Domain"></p>
-                                </form>
+                        </td>
+                    </tr>
+                
+                    <!-- deactivate Modal -->
+                    <div class="modal fade" id="deactivate{{ $domain_data['id'] }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deactivateModal">Delete Domain</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url('domain/delete/'.$domain_data['id']) }}" method="post">
+                                        @csrf
+                                        <h3 class="text-center">Delete Domain</h3>
+                                        <p class="text-center"><input type="submit" class="btn btn-danger" value="Delete Domain"></p>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- activate Modal -->
-                <div class="modal fade" id="activate{{ $domain_data['id'] }}" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="activateModal">Deactivate company</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            {{$domain_data['id']}}
-                            <div class="modal-body">
-                                <form action="{{ url('company/activate/'.$domain_data['id']) }}" method="post">
-                                    @csrf
-                                    <input type="submit" class="btn btn-danger" value="Activate company">
-                                </form>
+                    <!-- activate Modal -->
+                    <div class="modal fade" id="activate{{ $domain_data['id'] }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="activateModal">Deactivate company</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                {{$domain_data['id']}}
+                                <div class="modal-body">
+                                    <form action="{{ url('company/activate/'.$domain_data['id']) }}" method="post">
+                                        @csrf
+                                        <input type="submit" class="btn btn-danger" value="Activate company">
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                @endforeach
-            </tbody>
-        </table>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         </div>
     </div>        
 <div>
 @endsection
+
+@section('javascript')
+<script src="{{ asset('vendors/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('vendors/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('vendors/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('vendors/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('vendors/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('vendors/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('vendors/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('vendors/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+<script>
+    $("#domain_tbl").DataTable({
+        "responsive": true, "lengthChange": false, "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#domain_tbl_wrapper .col-md-6:eq(0)');
+
+</script>
+@stop

@@ -38,7 +38,6 @@ Route::get('/', function () {
 
 Route::get('/login', [LoginController::class,'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
-
 Route::get('/logout', [LogoutController::class, 'store'])->name('logout');
 
 
@@ -46,6 +45,12 @@ Route::get('/logout', [LogoutController::class, 'store'])->name('logout');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);
 Route::post('/changePassword', [ChangePasswordController::class, 'changePasswordPost'])->name('changePassword');
+Route::get('/forgot-password', [ChangePasswordController::class,'forgot_password'])->name('forgot-password');
+Route::post('forgot-password', [ChangePasswordController::class,'forgot_password_submit'])->name('send-forgot-password');
+Route::get('reset-password/{token}', [ChangePasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ChangePasswordController::class, 'resetPassword'])->name('reset-password');
+
+
 
 
 Route::group(['middleware' => 'auth'],function(){

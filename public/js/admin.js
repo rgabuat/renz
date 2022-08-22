@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 
 
-    $('#sub_accounts_tbl,#company_tbl,#domain_tbl,#subs_table').DataTable({
+    $('#sub_accounts_tbl,#company_tbl,#subs_table').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": true,
