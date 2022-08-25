@@ -6,18 +6,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Cashier\Billable;
 
-class Package extends Model
+use App\Models\Users;
+
+class PlanModel extends Model
 {
     use HasFactory,Billable;
 
-    protected $table = 'tbl_package';
+    protected $table = 'tbl_plans';
     protected $fillable = [
+        'plan_id',
         'name',
-        'price' ,
+        'amount' ,
+        'billing_method',
+        'interval_count',
+        'price',
+        'currency',
         'description',
         'credits',
         'payment_method',
-        'duration',
         'created_by',
     ];
 
@@ -25,5 +31,5 @@ class Package extends Model
     {
         return $this->hasMany(User::class,'id','created_by');
     }
-    
+
 }

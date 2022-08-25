@@ -56,15 +56,22 @@
                     </div>
                 </div>
                 <div class="col-md-6">
+                    <label for="credits">Interval Cont<span class="text-danger">*</span> </label>
+                    <div class="form-group ">
+                        <input type="number" name="interval_count" class="form-control @error('interval_count') is-invalid @enderror" value="{{ old('interval_count') }}" >
+                        @error('interval_count')
+                            <span class="error invalid-feedback"> {{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <label for="duration">Duration<span class="text-danger">*</span> </label>
                     <div class="form-group ">
                         <select name="duration" id="payment_method" class="form-control @error('duration') is-invalid @enderror">
                             <option value="">Select Duration</option>
-                            <option value="1">1 Month</option>
-                            <option value="3">3 Months</option>
-                            <option value="6">6 Months</option>
-                            <option value="12">12 Months</option>
-                            <option value="24">24 Months</option>
+                            <option value="week">Weekly</option>
+                            <option value="month">Monthly</option>
+                            <option value="year">Yearly</option>
                         </select>
                         @error('duration')
                             <span class="error invalid-feedback"> {{ $message }}</span>

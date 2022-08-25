@@ -14,6 +14,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\SubscriptionsController;
+use App\Http\Controllers\PlanController;
 
 
 /*
@@ -109,7 +110,7 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/update/{uid}', [CompanyController::class, 'update'])->name('company/update/{uid}');
         Route::post('/deactivate/{uid}', [CompanyController::class, 'deactivateUser'])->name('company/deactivate/{uid}');
         Route::post('/activate/{uid}', [CompanyController::class, 'activateUser'])->name('company/activate/{uid}');
-        Route::get('{cid}/company-details', [CompanyController::class, 'companyDetails'])->name('company/{cid}/company-details');
+        Route::get('/company-details', [CompanyController::class, 'company_details'])->name('company/company-details');
         // Route::post('/activate/{uid}', [CompanyController::class, 'activateUser'])->name('company/activate/{uid}');
     });
 
@@ -144,12 +145,20 @@ Route::group(['middleware' => 'auth'],function(){
     });
 
     Route::group(['prefix' => 'package'],function(){
-        Route::get('/lists', [PackageController::class,'index'])->name('package/lists');
-        Route::get('/create', [PackageController::class,'create'])->name('package/create');
-        Route::post('/store', [PackageController::class,'store'])->name('package/store');
+        Route::get('/lists', [PlanController::class,'index'])->name('package/lists');
+        Route::get('/create', [PlanController::class,'create'])->name('package/create');
+        Route::post('/store', [PlanController::class,'store'])->name('package/store');
         Route::get('/edit/{aid}', [PackageController::class,'edit'])->name('package/edit/{aid}');
         Route::post('/update/{pid}', [PackageController::class,'update'])->name('package/update/{pid}');
         Route::post('/delete/{aid}', [PackageController::class,'delete'])->name('package/delete/{aid}');
+        Route::get('/checkout/{planid}', [PlanController::class,'checkout'])->name('package/checkout/{planid}');
+        Route::post('/process', [PlanController::class,'processPlan'])->name('package/process');
+        // Route::get('/lists', [PackageController::class,'index'])->name('package/lists');
+        // Route::get('/create', [PackageController::class,'create'])->name('package/create');
+        // Route::post('/store', [PackageController::class,'store'])->name('package/store');
+        // Route::get('/edit/{aid}', [PackageController::class,'edit'])->name('package/edit/{aid}');
+        // Route::post('/update/{pid}', [PackageController::class,'update'])->name('package/update/{pid}');
+        // Route::post('/delete/{aid}', [PackageController::class,'delete'])->name('package/delete/{aid}');
         Route::post('/buy/{aid}', [PackageController::class,'buy'])->name('package/buy/{aid}');
         Route::get('/requests', [SubscriptionsController::class,'package_requests'])->name('package/requests');
         Route::post('/approve/{pid}/{uid}', [SubscriptionsController::class,'approve'])->name('package/approve/{pid}/{uid}');
