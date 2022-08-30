@@ -82,8 +82,6 @@ class PlanController extends Controller
         $plan = PlanModel::where('plan_id',$planId)->first();
         $start_date = Carbon::now();
 
-       
-
         if(!$plan)
         {
             return redirect()->back()->with('status','Plan not Found');
@@ -117,9 +115,10 @@ class PlanController extends Controller
     public function processPlan(Request $request)
     {
 
-        
         $user = auth()->user();
         $user->createOrGetStripeCustomer();
+        $start_date = Carbon::now();
+        $anchor = Carbon::parse('first day of next month');
         $paymentMethod = $request->payment_method;
         $plan = $request->plan_id;
 
@@ -128,17 +127,17 @@ class PlanController extends Controller
             $paymentMethod = $user->addPaymentMethod($paymentMethod);
         }
         
-        $resp = $user->newSubscription(
-            'default', $plan
-        )->create($paymentMethod != null ? $paymentMethod->id : '',[
-            'email' => $user->email
-        ]); 
+        $resp = $user->newSubscription('default', $plan)
+                            ->anchorBillingCycleOn($anchor->startOfDay())
+                            ->backdateStartDate($start_date)
+                            ->create($paymentMethod != null ? $paymentMethod->id : '',['email' => $user->email]);
+                            
         
 
-        // if($resp)
-        // {
-        //     return redirect()->with('status','New Package Created');
-        // }
+        if($resp)
+        {
+            return redirect()->back()->with('status','Payment Success');
+        }
 
     }
 }
