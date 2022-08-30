@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Cashier\Cashier;
+use Laravel\Cashier\Invoice;
+use \Stripe\Stripe;
+use \Stripe\Plan;
+
 use App\Models\User;
 use App\Models\Subscriptions;
 use App\Models\Company;
 
+
+use App\Models\PlanModel; 
 
 class ProfileController extends Controller
 {
@@ -30,8 +37,6 @@ class ProfileController extends Controller
         $roles = Role::all();
         return view('admin.profile.EditProfile', compact('roles'));
     }
-
-
 
     public function update(Request $request,$uid)
     {
@@ -65,7 +70,7 @@ class ProfileController extends Controller
             ];
 
             $update_profile = User::where('id',$uid)->update($param);
-            return redirect()->back()->with('status', 'Profile Successfully Update');
+            return redirect()->back()->with('status', 'Profile Successfully Updated');
         }
 
         $param = [
@@ -78,9 +83,14 @@ class ProfileController extends Controller
         ];
 
         $update_profile = User::where('id',$uid)->update($param);
-
         if($update_profile)
         {
+            $user = auth()->user();
+            $options = [
+                'email' => $request->email
+            ];
+            
+            $stripeCustomer = $user->updateStripeCustomer($options);
             return redirect()->back()->with('status', 'Profile Successfully Update');
         }
     }

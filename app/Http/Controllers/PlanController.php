@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Cashier\Cashier;
 use Laravel\Cashier\Invoice;
+use Carbon\Carbon;
 use \Stripe\Stripe;
 use \Stripe\Plan;
 
@@ -79,6 +80,9 @@ class PlanController extends Controller
     public function checkout($planId)
     {
         $plan = PlanModel::where('plan_id',$planId)->first();
+        $start_date = Carbon::now();
+
+       
 
         if(!$plan)
         {
@@ -87,15 +91,17 @@ class PlanController extends Controller
 
         if($plan->payment_method == 'invoice')
         {
+            $anchor = Carbon::parse('first day of next month');
             $user = auth()->user();
             $user->createOrGetStripeCustomer();
-            $resp = $user->newSubscription('default', $plan->plan_id)->createAndSendInvoice();
+            $resp = $user->newSubscription('default', $plan->plan_id)
+                                        ->anchorBillingCycleOn($anchor->startOfDay())
+                                        ->backdateStartDate($start_date)
+                                        ->createAndSendInvoice();
             
-            
-
             if($resp)
             {
-                return redirect()->back()->with('status','Invoice Sent to '.auth()->user()->first_name);
+                return redirect()->back()->with('status','Invoice Sent to '.auth()->user()->email);
             }
         }
         else 
@@ -114,8 +120,6 @@ class PlanController extends Controller
         
         $user = auth()->user();
         $user->createOrGetStripeCustomer();
-        
-
         $paymentMethod = $request->payment_method;
         $plan = $request->plan_id;
 
