@@ -16,6 +16,7 @@ class ArticleOrder extends Model
     protected $fillable = [
         'user_id',
         'company_id',
+        'price',
         'offer',
         'publishing_date',
         'accepted_at',

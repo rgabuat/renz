@@ -34,7 +34,14 @@ class ProfileController extends Controller
 
     public function edit()
     {
-        $roles = Role::all();
+        if(auth()->user()->hasRole(['system admin','system editor','system user']))
+        {
+            $roles = Role::all();
+        }
+        else 
+        {
+            $roles = Role::whereNotIn('name', ['system admin','system editor','system user'])->get();
+        }
         return view('admin.profile.EditProfile', compact('roles'));
     }
 

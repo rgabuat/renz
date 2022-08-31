@@ -15,6 +15,11 @@ class PlanController extends Controller
 {
     public function index()
     {
+        // ** key to get all plans/products
+        $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
+        $plan = $stripe->prices->all();
+
+        // dd($plan);
         $packages = PlanModel::with('user')->get();
         return view('packages.Lists',compact('packages'));
     }
@@ -27,6 +32,7 @@ class PlanController extends Controller
     public function store(Request $request)
     {
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+        
 
         $this->validate($request, [
             'name' => 'required|max:255|unique:tbl_package,name',

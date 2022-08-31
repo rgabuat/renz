@@ -89,7 +89,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{ route('domain/list') }}" class="nav-link {{ Request::is('domain/list*') || Request::is('domain*') ? 'active' : '' }}">
+                  <a href="{{ route('domain/list') }}" class="nav-link {{ Request::is('domain/list*') ? 'active' : '' }}">
                     <i class="pl-3 nav-icon fas fa-eye"></i>
                     <p class="pl-3">
                       View All Domains

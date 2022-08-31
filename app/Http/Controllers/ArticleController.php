@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Laravel\Cashier\Cashier;
+use Laravel\Cashier\Invoice;
+use Carbon\Carbon;
+use \Stripe\Stripe;
+use \Stripe\Plan;
 use App\Models\Article;
 use App\Models\ArticleOrder;
 use App\Models\Domain;
-use Carbon\Carbon;
+
 
 class ArticleController extends Controller
 {
@@ -157,14 +161,26 @@ class ArticleController extends Controller
     public function make_order(Request $request,$uid,$cid)
     {   
         $this->validate($request, [
-            'offer' => 'required|max:255|unique:table_article,url',
-            'heading' => 'required|max:255',
+            'heading' => 'required|max:255|unique:table_article,url',
+            'offer' => 'required|max:255',
             'link_url_1' => 'required|max:255',
             'anchor_1' => 'required|max:255',
             'publish_date' => 'required|max:255',
         ]);
 
+        $offer_price = 0;
+
+        if($request->offer == 'standard')
+        {
+            $offer_price = 15;
+        }
+        else 
+        {
+            $offer_price = 30;
+        }
+
         $order = ArticleOrder::create([
+            'price' => $offer_price,
             'offer' => $request->offer,
             'heading' => $request->heading,
             'link_url_1' => $request->link_url_1,
@@ -315,5 +331,19 @@ class ArticleController extends Controller
     public function update_order($aid)
     {
 
+    }
+
+    public function transactions()
+    {
+        
+        $user = auth()->user();
+        $user->createOrGetStripeCustomer();
+
+        $invoices = ArticleOrder::where('created_at', '>=', Carbon::now()->startOfMonth()->subMonth()->toDateString())->get();
+        $invSum = $invoices->sum('price');
+        if($invSum)
+        {
+            $user->invoiceFor('One Time Fee', $invSum * 100);
+        }
     }
 }

@@ -94,7 +94,6 @@ Route::group(['middleware' => 'auth'],function(){
         Route::get('/list', [DataImportController::class,'index'])->name('domain/list');
         Route::get('/{did}/article/create', [ArticleController::class,'create'])->name('domain/{did}/article/create');
         Route::post('/{did}/article/store', [ArticleController::class,'store'])->name('domain/{did}/article/store');
-
         Route::get('/{did}/article/order', [ArticleController::class,'order'])->name('domain/{did}/article/order');
 
     });
@@ -141,6 +140,7 @@ Route::group(['middleware' => 'auth'],function(){
                 Route::get('/edit/{aid}', [ArticleController::class,'edit'])->name('article/edit/{aid}');
                 Route::get('/view/{aid}', [ArticleController::class,'show'])->name('article/view/{aid}');
                 Route::get('/view-completed-order/{aid}', [ArticleController::class,'show_order'])->name('article/view-completed-order/{aid}');
+                Route::get('/transactions', [ArticleController::class,'transactions'])->name('article/transactions');
             });
     });
 
