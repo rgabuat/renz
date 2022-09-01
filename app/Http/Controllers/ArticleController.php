@@ -335,15 +335,38 @@ class ArticleController extends Controller
 
     public function transactions()
     {
-        
+
+        $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
+
         $user = auth()->user();
         $user->createOrGetStripeCustomer();
 
         $invoices = ArticleOrder::where('created_at', '>=', Carbon::now()->startOfMonth()->subMonth()->toDateString())->get();
         $invSum = $invoices->sum('price');
-        if($invSum)
-        {
-            $user->invoiceFor('One Time Fee', $invSum * 100);
-        }
+
+         $user = auth()->user();
+        $invoicesLogs = $user->invoices();
+
+        // dd($invoicesLogs);
+
+        
+
+        // $test = $stripe->invoices->create(
+        //     [
+        //       'customer' => 'cus_MLc092AGp14eLi',
+        //       'collection_method' => 'send_invoice',
+        //       'days_until_due' => 30,
+        //       'custom_fields' => [
+        //         ['name' => 'PO number', 'value' => '12345'],
+        //         ['name' => 'VAT', 'value' => '123ABC'],
+        //       ],
+        //     ]
+        //   );
+
+    
+        // if($invSum)
+        // {
+        //     $user->invoiceFor('One Time Fee', $invSum * 100);
+        // }
     }
 }

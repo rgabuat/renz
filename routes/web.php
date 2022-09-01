@@ -15,6 +15,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\SubscriptionsController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\InvoiceController;
 
 
 /*
@@ -167,8 +168,9 @@ Route::group(['middleware' => 'auth'],function(){
         Route::get('/my-subscriptions',[SubscriptionsController::class,'my_subscriptions'])->name('package/my-subscriptions');
     });
 
-   
-
+    Route::group(['prefix' => 'invoice'],function(){
+        Route::get('/lists', [InvoiceController::class,'index'])->name('invoice/lists');
+    });
 });
 
 Route::group(['prefix' => 'user'],function(){

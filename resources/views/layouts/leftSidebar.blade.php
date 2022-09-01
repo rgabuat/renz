@@ -308,6 +308,14 @@
             @endrole
           </li>
           <li class="nav-item">
+            <a href="{{route('invoice/lists')}}" class="nav-link {{ Request::is('invoice/*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-folder"></i>
+              <p>
+                Invoices
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{route('view-profile')}}" class="nav-link {{ Request::is('view-profile*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-eye"></i>
               <p>
