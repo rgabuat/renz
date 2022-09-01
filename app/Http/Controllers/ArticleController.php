@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 use Laravel\Cashier\Cashier;
 use Laravel\Cashier\Invoice;
 use Carbon\Carbon;
 use \Stripe\Stripe;
 use \Stripe\Plan;
+
 use App\Models\Article;
 use App\Models\ArticleOrder;
 use App\Models\Domain;
@@ -179,7 +182,9 @@ class ArticleController extends Controller
             $offer_price = 30;
         }
 
+        $ord_id = 'ORD_'.str_pad(Str::random(16), 8, "0", STR_PAD_LEFT);
         $order = ArticleOrder::create([
+            'ord_id' => $ord_id,
             'price' => $offer_price,
             'offer' => $request->offer,
             'heading' => $request->heading,

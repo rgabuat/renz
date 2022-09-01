@@ -17,8 +17,9 @@ class CreateTblArticleOrder extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('company_id')->nullable()->constrained('company')->onDelete('cascade');
+            $table->string('ord_id')->nullable();
             $table->string('type');
-            $table->integer('price');
+            $table->decimal('price');
             $table->string('offer');
             $table->string('url');
             $table->string('publishing_date');

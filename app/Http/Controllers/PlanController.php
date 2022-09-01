@@ -99,8 +99,8 @@ class PlanController extends Controller
             $user = auth()->user();
             $user->createOrGetStripeCustomer();
             $resp = $user->newSubscription('default', $plan->plan_id)
-                                        ->anchorBillingCycleOn($anchor->startOfDay())
-                                        ->backdateStartDate($start_date)
+                                        // ->anchorBillingCycleOn($anchor->startOfDay())
+                                        // ->backdateStartDate($start_date)
                                         ->createAndSendInvoice();
             
             if($resp)
