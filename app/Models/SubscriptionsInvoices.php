@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Invoices extends Model
+class SubscriptionsInvoices extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbl_invoices';
+    protected $table = 'tbl_invoice_subscriptions';
     protected $fillable = [
-        'invoice_date_gen',
-        'created_by',
+        'subs_ord_id',
+        'inv_id',
     ];
 }

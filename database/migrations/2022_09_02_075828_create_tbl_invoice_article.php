@@ -15,6 +15,8 @@ class CreateTblInvoiceArticle extends Migration
     {
         Schema::create('tbl_invoice_article', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('art_ord_id')->nullable()->constrained('tbl_article_order')->onDelete('cascade');
+            $table->foreignId('inv_id')->nullable()->constrained('tbl_invoices')->onDelete('cascade');
             $table->timestamps();
         });
     }

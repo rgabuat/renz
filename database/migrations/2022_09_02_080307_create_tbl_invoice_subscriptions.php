@@ -15,18 +15,8 @@ class CreateTblInvoiceSubscriptions extends Migration
     {
         Schema::create('tbl_invoice_subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->string('inv_id');
-            $table->foreignId('customer')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->decimal('amount_due',12,2);
-            $table->string('billing_reason')->nullable();
-            $table->string('collection_method')->nullable();
-            $table->string('created')->nullable();
-            $table->string('due_date')->nullable();
-            $table->string('currency')->nullable();
-            $table->string('hosted_invoice_url')->nullable();
-            $table->string('invoice_pdf')->nullable();
-            $table->string('number')->nullable();
-            $table->string('status')->nullable();
+            $table->foreignId('subs_ord_id')->nullable()->constrained('tbl_subscriptions')->onDelete('cascade');
+            $table->foreignId('inv_id')->nullable()->constrained('tbl_invoices')->onDelete('cascade');
             $table->timestamps();
         });
     }

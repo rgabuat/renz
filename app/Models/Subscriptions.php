@@ -14,23 +14,31 @@ class Subscriptions extends Model
 
     protected $table = 'tbl_subscriptions';
     protected $fillable = [
-        'user_id',
-        'started_at' ,
-        'expires_at',
-        'avail_credits',
-        'package_id',
+        'inv_stripe_id',
+        'customer' ,
+        'amount_due',
+        'billing_reason',
+        'collection_method',
+        'created',
+        'due_date',
+        'currency',
+        'hosted_invoice_url',
+        'invoice_pdf',
+        'number',
         'status',
-        'company_id',
+        'inv_id',
+        'created_at',
+        'upated_at',
     ];
 
-    public function user()
-    {
-        return $this->hasMany(User::class,'id','user_id');
-    }
+    // public function user()
+    // {
+    //     return $this->hasMany(User::class,'id','user_id');
+    // }
 
-    public function package()
-    {
-        return $this->hasMany(Package::class,'id','package_id');
-    }
+    // public function package()
+    // {
+    //     return $this->hasMany(Package::class,'id','package_id');
+    // }
 }
 

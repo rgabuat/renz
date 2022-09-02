@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Invoices extends Model
+class ArticleOrderInvoices extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbl_invoices';
+    protected $table = 'tbl_invoice_article';
     protected $fillable = [
-        'invoice_date_gen',
-        'created_by',
+        'art_ord_id',
+        'inv_id',
     ];
 }

@@ -15,8 +15,6 @@ class CreateTblInvoices extends Migration
     {
         Schema::create('tbl_invoices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('cascade');
-            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->string('invoice_date_gen');
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
