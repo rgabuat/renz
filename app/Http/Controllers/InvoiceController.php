@@ -63,45 +63,46 @@ class InvoiceController extends Controller
             
             if($subscriptions_invoices->isNotEmpty())
             {
-                foreach($subscriptions_invoices as $sub_inv_itms)
+                $inv_subs_items_arr = [];
+                foreach($subscriptions_invoices as $key => $val)
                 {
-                    $inv_itms = [
-                        'inv_id' => $sub_inv_itms->inv_id ,
-                        'amonut_due' => $sub_inv_itms->amount_due,
-                        'billing_reason' => $sub_inv_itms->billing_reason,
-                        'collection_method' => $sub_inv_itms->collection_method,
-                        'due_date' => $sub_inv_itms->due_date,
-                        'number' => $sub_inv_itms->number,
+                    $inv_subs_items_arr[$key] = [
+                        'inv_id' => $val['inv_id'],
+                        'amonut_due' => $val['amount_due'],
+                        'billing_reason' => $val['billing_reason'],
+                        'collection_method' => $val['collection_method'],
+                        'due_date' => $val['due_date'],
+                        'number' => $val['number'],
                     ];
+
                 }
                 $sub_inv = $subscriptions_invoices->sum('amount_due');
             }
 
             $articleOrder = ArticleOrder::where('company_id',auth()->user()->company_id)->where('created_at', '>=', Carbon::now()->startOfMonth()->subMonth()->toDateString())->get();
-            foreach($articleOrder as $art_ord_itms)
+            
+            $inv_ords_items_arr = [];
+            foreach($articleOrder as $key => $val)
             {
-                $ord_itms = [
-                    'ord_id' => $art_ord_itms->ord_id,
-                    'price' => $art_ord_itms->price,
-                    'offer' => $art_ord_itms->offer,
-                    'completed_at' => $art_ord_itms->completed_at
+                $inv_ords_items_arr[$key] = [
+                    'ord_id' => $val['id'],
+                    'price' => $val['price'],
+                    'offer' => $val['offer'],
+                    'completed_at' => $val['completed_at']
                 ];
             }
 
+
+            dd($inv_ords_items_arr);
             $article_ord_sum = $articleOrder->sum('price');
             $total_invoice = $sub_inv + $article_ord_sum;
             
-
-
-            dd($total_invoice);
-
         }
         else 
         {
             echo 'no invoices';
         }
         
-
         // $invoices = Invoices::where('customer',$user->id)->get();
         // return view('invoice.lists',compact('invoices'));
     }
