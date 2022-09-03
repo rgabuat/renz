@@ -7,10 +7,12 @@ use Laravel\Cashier\Invoice;
 use Carbon\Carbon;
 use \Stripe\Stripe;
 use \Stripe\Plan;
+use Mail;
 
 use App\Models\ArticleOrder;
 use App\Models\Subscriptions;
 use App\Models\Invoices;
+use App\Models\User;
 use App\Models\ArticleOrderInvoices;
 use App\Models\SubscriptionsInvoices;
 
@@ -49,6 +51,18 @@ class SendInvoices extends Command
      */
     public function handle()
     {
-        return 0;
+        $users = User::all();
+
+        foreach($users as $user)
+        {
+            if($user->stripe_id != NULL)
+            {
+                Mail::send('email.invoiceTemplate',$user->toArray(),function($message) use($user){
+                    $message->to($user->email);
+                    $message->subject('Reset Password');
+                });
+            }
+        }
+
     }
 }

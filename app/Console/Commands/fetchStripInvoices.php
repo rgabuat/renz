@@ -16,6 +16,7 @@ use App\Models\Subscriptions;
 use App\Models\Invoices;
 use App\Models\ArticleOrderInvoices;
 use App\Models\SubscriptionsInvoices;
+use App\Models\User;
 
 
 class fetchStripInvoices extends Command
@@ -52,42 +53,42 @@ class fetchStripInvoices extends Command
     public function handle()
     {
         //fetch data from stripe api
-        $user = auth()->user();
-        dd($user);
-        $invoicesApi= $user->invoicesIncludingPending();
+        $users = User::all();
         
-        
-
-        /*Check if user has a subscription */
-        if($invoicesApi->isNotEmpty())
+        foreach($users as $user)
         {
-            foreach($invoicesApi as $inv)
+            $invoicesApi = $user->invoicesIncludingPending();
+            /*Check if user has a subscription */
+            if($invoicesApi->isNotEmpty())
             {
-                if($inv->collection_method == 'send_invoice')
+                foreach($invoicesApi as $inv)
                 {
-                    $valid8 = Subscriptions::where('inv_stripe_id',$inv->id)->first();
-                    $stripeParams = [
-                        'inv_stripe_id' => $inv->id,
-                        'customer' => $user->id,
-                        'amount_due' => $inv->amount_due,
-                        'billing_reason' => $inv->billing_reason,
-                        'collection_method' => $inv->collection_method,
-                        'created' => Carbon::createFromTimestamp($inv->created),
-                        'due_date' => $inv->due_date != '' ? Carbon::createFromTimestamp($inv->due_date)->format('Y-m-d') : 'null',
-                        'currency' => $inv->currency,
-                        'hosted_invoice_url' => $inv->hosted_invoice_url,
-                        'invoice_pdf' => $inv->invoice_pdf,
-                        'number' => $inv->number,
-                        // 'status' => $inv->status,
-                    ];
+                    if($inv->collection_method == 'send_invoice')
+                    {
+                        $valid8 = Subscriptions::where('inv_stripe_id',$inv->id)->first();
+                        $stripeParams = [
+                            'inv_stripe_id' => $inv->id,
+                            'customer' => $user->id,
+                            'amount_due' => $inv->amount_due,
+                            'billing_reason' => $inv->billing_reason,
+                            'collection_method' => $inv->collection_method,
+                            'created' => Carbon::createFromTimestamp($inv->created),
+                            'due_date' => $inv->due_date != '' ? Carbon::createFromTimestamp($inv->due_date)->format('Y-m-d') : 'null',
+                            'currency' => $inv->currency,
+                            'hosted_invoice_url' => $inv->hosted_invoice_url,
+                            'invoice_pdf' => $inv->invoice_pdf,
+                            'number' => $inv->number,
+                            // 'status' => $inv->status,
+                        ];
 
-                    if(!$valid8)
-                    {
-                        $insert = Subscriptions::create($stripeParams);
-                    }
-                    else 
-                    {
-                        $update = Subscriptions::where('inv_stripe_id',$inv->id)->update($stripeParams);
+                        if(!$valid8)
+                        {
+                            $insert = Subscriptions::create($stripeParams);
+                        }
+                        else 
+                        {
+                            $update = Subscriptions::where('inv_stripe_id',$inv->id)->update($stripeParams);
+                        }
                     }
                 }
             }

@@ -8,12 +8,14 @@ use Laravel\Cashier\Invoice;
 use Carbon\Carbon;
 use \Stripe\Stripe;
 use \Stripe\Plan;
+use Mail;
 
 use App\Models\ArticleOrder;
 use App\Models\Subscriptions;
 use App\Models\Invoices;
 use App\Models\ArticleOrderInvoices;
 use App\Models\SubscriptionsInvoices;
+use App\Models\User;
 
 
 class InvoiceController extends Controller
@@ -22,13 +24,13 @@ class InvoiceController extends Controller
 
     public function index()
     {
-       
+
         // dd(Carbon::createFromTimestamp()->format('Y-m-d'))
         
-        $createInv = Invoices::create([
-            'invoice_date_gen' => Carbon::now()->format('Y-m-d'),
-            'created_by' => auth()->user()->id,
-        ]);
+        // $createInv = Invoices::create([
+        //     'invoice_date_gen' => Carbon::now()->format('Y-m-d'),
+        //     'created_by' => auth()->user()->id,
+        // ]);
 
         /*Get Invoice Id*/
         $invID = $createInv->id;
@@ -82,8 +84,8 @@ class InvoiceController extends Controller
                 }
             }
             // dd($inv_ords_items_arr);
-            $article_ord_sum = $articleOrder->sum('price');
-            $total_invoice = $sub_inv + $article_ord_sum;
+            // $article_ord_sum = $articleOrder->sum('price');
+            // $total_invoice = $sub_inv + $article_ord_sum;
         }
             
     }
