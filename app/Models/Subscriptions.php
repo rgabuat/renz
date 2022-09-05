@@ -29,6 +29,7 @@ class Subscriptions extends Model
         'inv_id',
         'created_at',
         'upated_at',
+        'company_id',
     ];
 
     // public function user()

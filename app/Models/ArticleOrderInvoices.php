@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\ArticleOrder;
+
+
 class ArticleOrderInvoices extends Model
 {
     use HasFactory;
@@ -14,4 +17,9 @@ class ArticleOrderInvoices extends Model
         'art_ord_id',
         'inv_id',
     ];
+
+    public function articleOrder()
+    {
+        return $this->hasMany(ArticleOrder::class,'id','art_ord_id');
+    }
 }

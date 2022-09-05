@@ -170,6 +170,8 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::group(['prefix' => 'invoice'],function(){
         Route::get('/lists', [InvoiceController::class,'index'])->name('invoice/lists');
+        Route::get('/show/{id}', [InvoiceController::class,'show'])->name('invoice/show/{id}');
+        Route::get('/generate-pdf/{id}',[InvoiceController::class,'generateInvoicePdf'])->name('invoice/generate-pdf/{id}');
     });
 });
 

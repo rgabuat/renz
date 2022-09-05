@@ -10,16 +10,44 @@ use \Stripe\Stripe;
 use \Stripe\Plan;
 
 use App\Models\PlanModel; 
+use App\Models\Subscriptions; 
 
 class PlanController extends Controller
 {
     public function index()
     {
         // ** key to get all plans/products
-        $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
-        $plan = $stripe->prices->all();
+        // $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
+        // $plans = $stripe->prices->all();
 
-        // dd($plan);
+
+        // if($plans->data != '')
+        // {
+        //     foreach($plans->data as $plan)
+        //     {
+        //         $valid8 = Subscriptions::where('inv_stripe_id',$plan->id)->first();
+                
+        //         $recurring = $plan->recurring->toArray(true);
+
+        //        echo$recurring['interval'];
+
+        //         $stripePackageParams = [
+        //                 'plan_id' => $plan->id,
+        //                 'name' => $plan->product,
+        //                 'amount' => $plan->unit_amount,
+        //                 'price',
+        //                 'currency',
+        //                 'description',
+        //                 'credits',
+        //                 'payment_method',
+        //                 'created_by',
+        //             ];
+
+        //             print_r($stripePackageParams);
+        //     }
+
+            
+        // }
         $packages = PlanModel::with('user')->get();
         return view('packages.Lists',compact('packages'));
     }

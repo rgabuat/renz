@@ -72,12 +72,13 @@ class fetchStripInvoices extends Command
                             'amount_due' => $inv->amount_due,
                             'billing_reason' => $inv->billing_reason,
                             'collection_method' => $inv->collection_method,
-                            'created' => Carbon::createFromTimestamp($inv->created),
+                            'created' => Carbon::createFromTimestamp($inv->period_end)->format('Y-m-d'),
                             'due_date' => $inv->due_date != '' ? Carbon::createFromTimestamp($inv->due_date)->format('Y-m-d') : 'null',
                             'currency' => $inv->currency,
                             'hosted_invoice_url' => $inv->hosted_invoice_url,
                             'invoice_pdf' => $inv->invoice_pdf,
                             'number' => $inv->number,
+                            'company_id' => $user->company_id
                             // 'status' => $inv->status,
                         ];
 

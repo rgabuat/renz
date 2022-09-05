@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Subscriptions;
+
 class SubscriptionsInvoices extends Model
 {
     use HasFactory;
@@ -14,4 +16,10 @@ class SubscriptionsInvoices extends Model
         'subs_ord_id',
         'inv_id',
     ];
+    
+    public function subscription()
+    {
+        return $this->hasMany(Subscriptions::class,'id','subs_ord_id');
+    }
+
 }
