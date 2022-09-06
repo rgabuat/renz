@@ -99,13 +99,13 @@ class SubscriptionsController extends Controller
     {
         $auth = auth()->user()->company_id;
 
-        $currSub = Company::where('id',$auth)->get();
+        // $currSub = Company::where('id',$auth)->get();
         
-        $subscriptions = Subscriptions::with('user.company','package')->where('company_id',$auth)->get();
+        $subscriptions = Subscriptions::where('company_id',$auth)->get();
 
         if($subscriptions)
         {
-            return view('packages.MySubscriptions',compact('subscriptions','currSub'));
+            return view('packages.MySubscriptions',compact('subscriptions'));
         }
     }
 

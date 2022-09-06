@@ -163,11 +163,8 @@ class PlanController extends Controller
         
         $resp = $user->newSubscription('default', $plan)
                             ->anchorBillingCycleOn($anchor->startOfDay())
-                            ->backdateStartDate($start_date)
                             ->create($paymentMethod != null ? $paymentMethod->id : '',['email' => $user->email]);
                             
-        
-
         if($resp)
         {
             return redirect()->back()->with('status','Payment Success');

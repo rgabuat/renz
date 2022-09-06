@@ -32,14 +32,5 @@ class Subscriptions extends Model
         'company_id',
     ];
 
-    // public function user()
-    // {
-    //     return $this->hasMany(User::class,'id','user_id');
-    // }
-
-    // public function package()
-    // {
-    //     return $this->hasMany(Package::class,'id','package_id');
-    // }
 }
 
