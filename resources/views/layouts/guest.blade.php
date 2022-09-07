@@ -16,6 +16,17 @@
   <link rel="stylesheet" href="{{ asset('vendors/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('vendors/dist/css/adminlte.min.css') }}">
+
+  <style>
+    .login-page
+    {
+      background-image: url('{{ asset('vendors/dist/img/login_bg.jpg') }}');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size:cover;
+      height: 100vh;
+    }
+  </style>
 </head>
 <!--
 `body` tag options:

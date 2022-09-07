@@ -11,7 +11,7 @@
                 {{ session('status') }}
             </div>
         @endif
-        <table class="table">
+        <table class="table" id="packages_tbl">
         <thead>
             <tr>
                 <th>S/N</th>

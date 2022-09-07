@@ -4,29 +4,51 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Laravel\Cashier\Cashier;
+use Laravel\Cashier\Invoice;
+use \Stripe\Stripe;
+use \Stripe\Plan;
+
 use App\Models\Subscriptions;
 use App\Models\Package;
 use App\Models\User;
 use App\Models\Company;
+use App\Models\SubscriptionsRequests; 
 
 class SubscriptionsController extends Controller
 {
     //
     public function package_requests()
     {
-        $requests = Subscriptions::with('user.company','package')->get();
+        $requests = SubscriptionsRequests::with('user.company','plan')->get();
         return view('packages.requests',compact('requests'));
     }
 
     public function approve(Request $request,$rid,$cid)
     {
-        $package = Package::where('id',$request->package_id)->get();
-
-        $has_current = Company::where('id',$cid)->where('package_id','!=','null')->get();
-        $subsciption = str_replace(' ', '', $package[0]['duration']);
-        $credits = str_replace(' ', '', $package[0]['credits']);
-
+        $request = SubscriptionsRequests::with('plan')->where('id',$request->subs_id)->get();
+        $planId = $request[0]['plan'][0]['plan_id'];
+        $user = User::where('id',$cid)->first();
         
+        // $has_current = Company::where('id',$cid)->where('package_id','!=','null')->get();
+        // $subsciption = str_replace(' ', '', $package[0]['duration']);
+        // $credits = str_replace(' ', '', $package[0]['credits']);
+
+        $resp = $user->newSubscription('default', $planId)
+                                        // ->anchorBillingCycleOn($anchor->startOfDay())
+                                        // ->backdateStartDate($start_date)
+                                        ->createAndSendInvoice();
+        if($resp)
+        {
+            $update = SubscriptionsRequests::where('id',$rid)->update(['status' => 1]);
+            return redirect()->back()->with('status','Subscription Approved , Invoice Sent');
+        }
+        else 
+        {
+            return redirect()->back()->with('status','Subscription Err');
+        }
+        exit;
+
         if(!$has_current->isEmpty())
         {
             $current_sub = Carbon::createFromFormat('Y-m-d H:i:s',$has_current[0]->expires_at)->addMonths($subsciption);
@@ -87,8 +109,6 @@ class SubscriptionsController extends Controller
     {
         $subscriptions = Subscriptions::where('user_id',auth()->user()->id)->where('status',1)->where('expires_at !=','null');
         
-        dd($subsciptions);
-
         if($subscriptions)
         {
             return view('profile.ViewProfile',compact('subscriptions'));
@@ -98,11 +118,7 @@ class SubscriptionsController extends Controller
     public function my_subscriptions()
     {
         $auth = auth()->user()->company_id;
-
-        // $currSub = Company::where('id',$auth)->get();
-        
-        $subscriptions = Subscriptions::where('company_id',$auth)->get();
-
+        $subscriptions = SubscriptionsRequests::with('user.company','plan')->whereHas('user',function ($query) { $query->where('company_id',auth()->user()->company_id);})->get();
         if($subscriptions)
         {
             return view('packages.MySubscriptions',compact('subscriptions'));

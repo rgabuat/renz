@@ -11,43 +11,51 @@ use \Stripe\Plan;
 
 use App\Models\PlanModel; 
 use App\Models\Subscriptions; 
+use App\Models\SubscriptionsRequests; 
 
 class PlanController extends Controller
 {
     public function index()
     {
         // ** key to get all plans/products
-        // $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
-        // $plans = $stripe->prices->all();
+        $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
+        $products = $stripe->products->all(['limit' => 100]);
 
-
-        // if($plans->data != '')
-        // {
-        //     foreach($plans->data as $plan)
-        //     {
-        //         $valid8 = Subscriptions::where('inv_stripe_id',$plan->id)->first();
-                
-        //         $recurring = $plan->recurring->toArray(true);
-
-        //        echo$recurring['interval'];
-
-        //         $stripePackageParams = [
-        //                 'plan_id' => $plan->id,
-        //                 'name' => $plan->product,
-        //                 'amount' => $plan->unit_amount,
-        //                 'price',
-        //                 'currency',
-        //                 'description',
-        //                 'credits',
-        //                 'payment_method',
-        //                 'created_by',
-        //             ];
-
-        //             print_r($stripePackageParams);
-        //     }
-
-            
-        // }
+        if($products->data != '')
+        {
+            foreach($products as $product)
+            {
+               $prices = $stripe->prices->all(['product'=> $product->id]);
+               foreach($prices->data as $price)
+               {
+                    $valid8 = PlanModel::where('plan_id',$price->id)->first();
+                    
+                    $prodPrice = [
+                        'plan_id' => $price->id,
+                        'name' => $product->name,
+                        'amount' => $price->unit_amount,
+                        'billing_method' => $price->recurring->interval,
+                        'interval_count' => $price->recurring->interval_count,
+                        'currency' => $price->currency,
+                        'credits' => $price->metadata->credits,
+                        'payment_method' => $price->metadata->payment_method,
+                        'created_by' => auth()->user()->id,
+                    ];
+                    
+                    if(!$valid8)
+                    {
+                        $package = PlanModel::create($prodPrice);
+                    }
+                    else 
+                    {
+                        $update = PlanModel::where('plan_id',$price->id)->update($prodPrice);
+                    }
+                   
+               }
+    
+            }
+        }
+        
         $packages = PlanModel::with('user')->get();
         return view('packages.Lists',compact('packages'));
     }
@@ -116,6 +124,8 @@ class PlanController extends Controller
         $plan = PlanModel::where('plan_id',$planId)->first();
         $start_date = Carbon::now();
 
+
+
         if(!$plan)
         {
             return redirect()->back()->with('status','Plan not Found');
@@ -125,15 +135,27 @@ class PlanController extends Controller
         {
             $anchor = Carbon::parse('first day of next month');
             $user = auth()->user();
-            $user->createOrGetStripeCustomer();
-            $resp = $user->newSubscription('default', $plan->plan_id)
+            $cus_id = $user->createOrGetStripeCustomer();
+
+            // dd($cus_id->id);
+            // $resp = $user->newSubscription('default', $plan->plan_id)
                                         // ->anchorBillingCycleOn($anchor->startOfDay())
                                         // ->backdateStartDate($start_date)
-                                        ->createAndSendInvoice();
-            
-            if($resp)
+                                        // ->createAndSendInvoice();
+            if($cus_id)
             {
-                return redirect()->back()->with('status','Invoice Sent to '.auth()->user()->email);
+                $insert_request = [
+                    'cus_uid' => auth()->user()->id,
+                    'cus_sid' => $user->stripe_id,
+                    'plan_id' => $plan->id,
+                    'status' => 0
+                ]; 
+
+                if($insert_request)
+                {
+                    SubscriptionsRequests::create($insert_request);
+                    return redirect()->back()->with('status','Subscription request sent');
+                }
             }
         }
         else 

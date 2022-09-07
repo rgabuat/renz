@@ -12,19 +12,7 @@
             </div>
         @endif
         
-        <table class="table" id="article_tbl">
-        <div class="col-4">
-			<div class="btn-group submitter-group float-left" style="z-index:10">
-				<div class="input-group-prepend">
-						<div class="input-group-text form-control-sm  rounded-0">Status Filter</div>
-				</div>
-				<select class="form-control form-control-sm status-dropdown rounded-0">
-					<option value="">All</option>
-					<option value="published">Published</option>
-					<option value="draft">Draft</option>
-				</select>
-			</div>
-		</div>
+        <table class="table" id="invoices_tbl">
         <thead>
             <tr>
                 <th>S/N</th>
