@@ -25,17 +25,17 @@
             </tr>
         </thead>
         <tbody>
-
+            
             @foreach($subscriptions as $mysubs)
             <tr>
                 <td><span>{{ $mysubs['id'] }}</span></td>
                 <td>{!! Str::limit($mysubs['user'][0]['first_name'].' '.$mysubs['user'][0]['last_name'],10, ' ...') !!}</td>
                 <td>{!! Str::limit($mysubs['user'][0]['company'][0]['company_name'],10, ' ...') !!}</td>
-                <td><span>{{ $mysubs['avail_credits']}}</span></td>
-                <td>{!! Str::limit($mysubs['package'][0]['name'],10, ' ...') !!}</td>
+                <td><span>{{ $mysubs['plan'][0]['credits']}}</span></td>
+                <td>{!! Str::limit($mysubs['plan'][0]['name'],10, ' ...') !!}</td>
                 <td><span>{{ Carbon\Carbon::parse($mysubs['created_at'])->format('Y-m-d') }}</span></td>
                 <td><span>{{ Carbon\Carbon::parse($mysubs['updated_at'])->format('Y-m-d')}}</span></td>
-                <td><span class="badge {{ $mysubs['status'] == 0 ? 'badge-warning' : ($mysubs['status'] == 1 ? 'badge-success' : 'badge-danger') }}">{{ $mysubs['status'] == 0 ? 'Pending' : ($mysubs['status'] == 1 ? 'Approved' : 'Unsubscribed') }}</span> <span>{!! $mysubs['status'] != 0 ? $currSub[0]->package_id == $mysubs['id']  ? '(active)' : ($mysubs['expire_at'] == Carbon\Carbon::now() ? 'ended' : $mysubs['status'] != 2 ? '<a class="badge badge-danger" href="javacsript:void(0);" data-toggle="modal" data-target="#cancel'.$mysubs['id'].'">Unsubscribe Packge</a>' : '') : '' !!} </span></td>
+                <td><span class="badge {{ $mysubs['status'] == 0 ? 'badge-warning' : 'badge-success' }}">{{ $mysubs['status'] == 0 ? 'Pending' : 'Active'}}</span></td>
             </tr>
 
 
@@ -52,8 +52,8 @@
                         <div class="modal-body">
                             <form action="{{ url('package/cancel/'.$mysubs['id']) }}" method="post">
                                 @csrf
-                                <input type="hidden" name="sub_duration" value="{{ $mysubs['package'][0]['duration'] }}">
-                                <input type="hidden" name="sub_credits" value="{{ $mysubs['package'][0]['credits'] }}">
+                                <input type="hidden" name="sub_duration" value="{{ $mysubs['plan'][0]['duration'] }}">
+                                <input type="hidden" name="sub_credits" value="{{ $mysubs['plan'][0]['credits'] }}">
                                 <p>Are you sure you want to cancel Package: <span><b>{{ $mysubs['id'] }}</b></span></p>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <input type="submit" class="btn btn-danger" value="SUBMIT">

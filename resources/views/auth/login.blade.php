@@ -4,13 +4,13 @@
 @section('content')
 <div class="login-page">
 <div class="login-box">
-  <div class="login-logo">
-    <a href="{{ route('login') }}"><b>LOGIN SYSTEM</b></a>
-  </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <h2 class="login-box-msg text-center text-primary">Sign in</h2>
+      <div class="login-logo">
+        <h1><a href="{{ route('login') }}"><b>Link Building System</b></a></h1>
+      </div>
+      <h3 class="login-box-msg text-center text-primary">Sign in</h3>
             @if (session('status'))
                 <div class="bg-danger text-center text-white py-2 mb-3">
                     {{ session('status') }}

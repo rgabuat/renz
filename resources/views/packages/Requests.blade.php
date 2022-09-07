@@ -31,8 +31,8 @@
                 <td><span>{{ $request['id'] }}</span></td>
                 <td>{!! Str::limit($request['user'][0]['first_name'].' '.$request['user'][0]['last_name'],10, ' ...') !!}</td>
                 <td>{!! Str::limit($request['user'][0]['company'][0]['company_name'],10, ' ...') !!}</td>
-                <td><span>{{ $request['avail_credits']}}</span></td>
-                <td>{!! Str::limit($request['package'][0]['name'],10, ' ...') !!}</td>
+                <td><span>{{ $request['plan'][0]['credits']}}</span></td>
+                <td>{!! Str::limit($request['plan'][0]['name'],10, ' ...') !!}</td>
                 <td><span>{{ Carbon\Carbon::parse($request['created_at'])->format('Y-m-d') }}</span></td>
                 <td><span>{{ Carbon\Carbon::parse($request['updated_at'])->format('Y-m-d') }}</span></td>
                 <td><span class="badge {{ $request['status'] == 0 ? 'badge-warning' : 'badge-success' }}">{{ $request['status'] == 0 ? 'Pending' : 'Active'}}</span></td>
@@ -65,10 +65,10 @@
                             <form action="{{ url('package/approve/'.$request['id'].'/'.$request['user'][0]['company_id'] ) }}" method="post">
                                 @csrf
                                 <p>Approve Package Subscription</p>
-                                <input type="hidden" name="package_id" value="{{ $request['package'][0]['id'] }}">
+                                <input type="hidden" name="package_id" value="{{ $request['plan'][0]['id'] }}">
                                 <input type="hidden" name="subs_id" value="{{ $request['id'] }}">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <input type="submit" class="btn btn-primary" value="UPDATE">
+                                <input type="submit" class="btn btn-primary" value="APPROVE">
                             </form>
                         </div>
                     </div>
