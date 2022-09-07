@@ -75,6 +75,8 @@ class CompanyController extends Controller
 
     public function store(Request $request)
     {
+
+      
         $this->validate($request, [
             'company' => 'max:255',
             'firstname' => 'required|unique:users,first_name|max:255',
@@ -85,11 +87,6 @@ class CompanyController extends Controller
             'username' => 'required|unique:users,username|max:255',
             'email' => 'required|email|unique:users,email|max:255',
             'role' => 'required',
-            'city' => 'required|max:255',
-            'state' => 'required|max:255',
-            'country' => 'required|max:255',
-            'zip' => 'required|min:4|max:5',
-
         ]);
 
             if(auth()->user()->hasRole(['system admin','system editor']))
@@ -131,6 +128,8 @@ class CompanyController extends Controller
                 'is_activated' => 1,
                 'role' => $request->role,
             ]);
+
+            
             $user->assignRole($request->role);
             $user = company::where('id',$company_id)->update(['created_by_admin' => auth()->user()->id]);
             // $message = ['success' => 'Account Creation Success'];
