@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
+Use App\Models\User;
+
 class Invoices extends Model
 {
     use HasFactory;
@@ -14,4 +17,6 @@ class Invoices extends Model
         'invoice_date_gen',
         'created_by',
     ];
+
+
 }

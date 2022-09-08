@@ -24,8 +24,11 @@
       background-repeat: no-repeat;
       background-position: center;
       background-size:cover;
+      background-blend-mode:overlay;
       height: 100vh;
+      background-color:#333;
     }
+
   </style>
 </head>
 <!--

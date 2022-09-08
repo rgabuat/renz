@@ -116,6 +116,9 @@ class InvoiceController extends Controller
  
 
         $user = auth()->user();
+
+        // $subscriptions = SubscriptionsRequests::with('user.company','plan')->whereHas('user',function ($query) { $query->where('company_id',auth()->user()->company_id);})->get();
+
         $invoices = Invoices::where('created_by',auth()->user()->id)->distinct('created_by')->get();
         return view('invoice.Lists',compact('invoices'));
     }
