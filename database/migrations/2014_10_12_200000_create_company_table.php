@@ -17,6 +17,7 @@ class CreateCompanyTable extends Migration
             $table->id();
             $table->string('company_name');
             $table->string('reg_number');
+            $table->string('email');
             $table->string('created_by_owner')->nullable();
             $table->string('created_by_admin')->nullable();
             $table->string('status');

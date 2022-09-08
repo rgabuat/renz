@@ -29,15 +29,17 @@ class DatabaseSeeder extends Seeder
 
         $company = \App\Models\Company::create([
             'company_name'  => 'Quantum', 
-            'reg_number'  => '1397702389', 
+            'reg_number'  => '1397702389',
+            'email' => 'quantum@gmail.com',
             'created_by_owner'  => '1',
             'created_by_admin'  => 'null', 
             'status'  => 'active', 
         ]);
 
         $company = \App\Models\Company::create([
-            'company_name'  => 'Quantum', 
+            'company_name'  => 'TaksUks', 
             'reg_number'  => '1397702389', 
+            'email' => 'taksuks@gmail.com',
             'created_by_owner'  => 'null',
             'created_by_admin'  => '2', 
             'status'  => 'active', 

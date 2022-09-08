@@ -17,6 +17,7 @@ use App\Models\Company;
 
 use App\Models\PlanModel; 
 
+
 class ProfileController extends Controller
 {
     public function __construct()
@@ -26,32 +27,36 @@ class ProfileController extends Controller
 
     public function index()
     {
-        $roles = Role::all();
-        $user = auth()->user();
-
-        $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
-
-        if($user->stripe_id)
-        {
-            $subscription = $stripe->subscriptions->all(['customer' => $user->stripe_id]);
         
-            if(auth()->user()->subscribed('default')){
-               
-             }
-        }
-       
-       
-        //  dd($subscription);
-         // $user = User::find(1);
+        $roles = Role::all();
+        // $company = auth()->user();
 
-        // $subscriptionItem = $user->subscription('default')->items->all();;
-        // $stripePlan = $subscriptionItem->stripe_plan
+        // $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
+        $company = Company::find(1);
+
+
+
+    
+     
+        $subscriptionItem = $company->subscriptions;
+
+        dd($subscriptionItem);
+        $stripePlan = $subscriptionItem->stripe_plan;
         // $stripePlan = $subscriptionItem->stripe_plan;
         // $quantity = $subscriptionItem->quantity;
 
-        // dd($subscriptionItem);
-     
+        // $test = $company->asStripeCustomer()->subscriptions;
 
+        if($company->stripe_id)
+        {
+            $subscription = $stripe->subscriptions->all(['customer' => $user->stripe_id]);
+        
+            dd($subscription);
+            // if(auth()->user()->subscribed('default')){
+               
+            //  }
+        }
+       
         // $subscriptions = Subscriptions::with('package')->where('user_id',auth()->user()->id)->where('status',1)->get()->where('expires_at','!=','null');
         $subscriptions = Company::with('subscription.package')->where('package_id','!=','null')->where('id',auth()->user()->company_id)->get();
         return view('admin.profile.ViewProfile', compact('roles','subscriptions'));

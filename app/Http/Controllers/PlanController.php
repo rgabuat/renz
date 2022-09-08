@@ -10,6 +10,7 @@ use \Stripe\Stripe;
 use \Stripe\Plan;
 
 use App\Models\PlanModel; 
+use App\Models\Company;
 use App\Models\Subscriptions; 
 use App\Models\SubscriptionsRequests; 
 
@@ -123,8 +124,8 @@ class PlanController extends Controller
     {
         $plan = PlanModel::where('plan_id',$planId)->first();
         $start_date = Carbon::now();
-
-
+        $comp_id = auth()->user()->company_id;
+        $company = Company::find($comp_id);
 
         if(!$plan)
         {
@@ -134,9 +135,10 @@ class PlanController extends Controller
         if($plan->payment_method == 'invoice')
         {
             $anchor = Carbon::parse('first day of next month');
-            $user = auth()->user();
-            $cus_id = $user->createOrGetStripeCustomer();
-
+            
+           
+            $cus_id = $company->createOrGetStripeCustomer();
+         
             // dd($cus_id->id);
             // $resp = $user->newSubscription('default', $plan->plan_id)
                                         // ->anchorBillingCycleOn($anchor->startOfDay())
@@ -146,7 +148,7 @@ class PlanController extends Controller
             {
                 $insert_request = [
                     'cus_uid' => auth()->user()->id,
-                    'cus_sid' => $user->stripe_id,
+                    'cus_sid' => $company->stripe_id,
                     'plan_id' => $plan->id,
                     'status' => 0
                 ]; 
@@ -162,7 +164,7 @@ class PlanController extends Controller
         {
             return view('packages.Checkout',[
                 'plan' => $plan,
-                'intent' => auth()->user()->createSetupIntent(),
+                'intent' => $company->createSetupIntent(),
             ]);
             
         }
@@ -171,8 +173,11 @@ class PlanController extends Controller
     public function processPlan(Request $request)
     {
 
-        $user = auth()->user();
-        $user->createOrGetStripeCustomer();
+       
+
+        $comp_id = auth()->user()->company_id;
+        $company = Company::find($comp_id);
+        $company->createOrGetStripeCustomer();
         $start_date = Carbon::now();
         $anchor = Carbon::parse('first day of next month');
         $paymentMethod = $request->payment_method;
@@ -180,12 +185,12 @@ class PlanController extends Controller
 
         if($paymentMethod != null)
         {
-            $paymentMethod = $user->addPaymentMethod($paymentMethod);
+            $paymentMethod = $company->addPaymentMethod($paymentMethod);
         }
         
-        $resp = $user->newSubscription('default', $plan)
+        $resp = $company->newSubscription('default', $plan)
                             ->anchorBillingCycleOn($anchor->startOfDay())
-                            ->create($paymentMethod != null ? $paymentMethod->id : '',['email' => $user->email]);
+                            ->create($paymentMethod != null ? $paymentMethod->id : '',['email' => auth()->user()->email,'name' => $company->company_name]);
                             
         if($resp)
         {
