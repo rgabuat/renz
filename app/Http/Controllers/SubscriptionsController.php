@@ -28,36 +28,44 @@ class SubscriptionsController extends Controller
     {
 
         $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
-        $comp_id = auth()->user()->company_id;
-        $company = Company::find($comp_id);
-        
+    
         $request = SubscriptionsRequests::with('plan')->where('id',$request->subs_id)->get();
         $planId = $request[0]['plan'][0]['plan_id'];
         $company = Company::where('id',$cid)->first();
-        
-   
+
+    
+        if($company->stripe_id)
+        {
+            $subscriptionItems = $company->subscriptions;
+            $credits = 0;
+            foreach($subscriptionItems as $subscriptionItem)
+            {
+                $credits += $subscriptionItem->plan->credits;
+            }
+
+            $respUpdate = Company::where('id',$company->id)->update(['avail_credits' => $credits]);
+            if($respUpdate)
+            {
+                $resp = $company->newSubscription('default', $planId)
+                // ->anchorBillingCycleOn($anchor->startOfDay())
+                // ->backdateStartDate($start_date)
+                ->createAndSendInvoice();
+                if($resp)
+                {
+                    $update = SubscriptionsRequests::where('id',$rid)->update(['status' => 1]);
+                    return redirect()->back()->with('status','Subscription Approved , Invoice Sent');
+                }
+                else 
+                {
+                    return redirect()->back()->with('status','Subscription Err');
+                }
+            }
+        }
+
+        exit;
         // $has_current = Company::where('id',$cid)->where('package_id','!=','null')->get();
         // $subsciption = str_replace(' ', '', $package[0]['duration']);
         // $credits = str_replace(' ', '', $package[0]['credits']);
-
-        $resp = $company->newSubscription('default', $planId)
-                                        // ->anchorBillingCycleOn($anchor->startOfDay())
-                                        // ->backdateStartDate($start_date)
-                                        ->createAndSendInvoice();
-
-                                       
-        if($resp)
-        {
-            $update = SubscriptionsRequests::where('id',$rid)->update(['status' => 1]);
-
-
-
-            return redirect()->back()->with('status','Subscription Approved , Invoice Sent');
-        }
-        else 
-        {
-            return redirect()->back()->with('status','Subscription Err');
-        }
         exit;
 
         if(!$has_current->isEmpty())

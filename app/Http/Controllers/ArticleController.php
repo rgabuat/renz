@@ -14,6 +14,7 @@ use \Stripe\Plan;
 use App\Models\Article;
 use App\Models\ArticleOrder;
 use App\Models\Domain;
+use App\Models\Company;
 
 
 class ArticleController extends Controller
@@ -77,6 +78,7 @@ class ArticleController extends Controller
             'status' => 'draft',
             'domain_id' => $request->did,
         ]);
+        
 
         return redirect()->back()->with('status','New Article Created');
     }
@@ -200,7 +202,6 @@ class ArticleController extends Controller
             'status' => 'pending',
             'domain_id' => $request->did,
         ]);
-
         if($order)
         {
             return redirect()->back()->with('status','Order Created');
@@ -239,15 +240,21 @@ class ArticleController extends Controller
     {
         if($aid != '')
         {
+            $order = ArticleOrder::where('id',$aid)->first();
+            $company = Company::where('id',$order->company_id)->first();
             $params = [
                 'accepted_at' => Carbon::now(),
                 'status' => 'processing'
             ];
 
             $approve  = ArticleOrder::where('id',$aid)->update($params);
-
             if($approve)
             {
+                $company_curr_credit = $company->avail_credits;
+                $tokenPrice = 30;
+                $balance = $company_curr_credit - $tokenPrice;
+
+                $response = Company::where('id',$company->id)->update(['avail_credits' => $balance]);
                 return redirect()->back()->with('status','Order Accepted');
             }
         }
@@ -287,16 +294,27 @@ class ArticleController extends Controller
     {
         if($aid != '')
         {
+            $article = Article::with('created_by_company')->where('id',$aid)->first();
+            $company = Company::find($article->created_by_company[0]->company_id);
+            
             $params = [
                 'publishing_date' => Carbon::now(),
                 'status' => 'published'
             ];
 
-            $published  = Article::where('id',$aid)->update($params);
+            $resp  = Article::where('id',$aid)->update($params);
 
-            if($published)
+            if($resp)
             {
-                return redirect()->back()->with('status','Article Published');
+                $company_curr_credit = $company->avail_credits;
+                $tokenPrice = 30;
+                $balance = $company_curr_credit - $tokenPrice;
+
+                $response = Company::where('id',$company->id)->update(['avail_credits' => $balance]);
+                if($response)
+                {
+                    return redirect()->back()->with('status','Article Published');
+                }
             }
         }
     }

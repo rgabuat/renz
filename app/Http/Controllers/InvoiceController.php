@@ -24,99 +24,67 @@ class InvoiceController extends Controller
 {
     public function index()
     {
-        // $users = User::all();
-        // foreach($users as $usr)
-        // {
-        //     if($usr->stripe_id != NULL)
-        //     {
-        //         $hasInvoice = Invoices::all();
-        //         $subscriptions_invoices = Subscriptions::where('created', '=', Carbon::now()->format('Y-m-d'))->get();
-        //         $articleOrder = ArticleOrder::where('company_id',$usr->company_id)->where('created_at', '>=', Carbon::now()->startOfMonth()->subMonth()->toDateString())->get();
+        $company = Company::find(1);
 
-        //         // if(!$subscriptions_invoices || !$articleOrder->isNotEmpty())
-        //         // {
-        //         //     $createInv = Invoices::create([
-        //         //         'invoice_date_gen' => Carbon::now()->format('Y-m-d'),
-        //         //         'created_by' => $usr->id,
-        //         //     ]);
-    
-                    
-        //         // }
-
-        //         foreach($hasInvoice as $monthly_inv)
-        //         {
-        //             $date = Carbon::parse($monthly_inv->invoice_date_gen);
-        //             $currMonth = Carbon::now()->format('m');
-        //             $invMonth = $date->format('m');
-        //             if($invMonth != $currMonth)
-        //             {
-        //                 return 'has invoice';
-        //             }
-        //             else 
-        //             {
-        //                 $createInv = Invoices::create([
-        //                     'invoice_date_gen' => Carbon::now()->format('Y-m-d'),
-        //                     'created_by' => $usr->id,
-        //                 ]);
-        //                 /*Get Invoice Id*/
-        //                 $invID = $createInv->id;
-        //             }
-        //         }
+        if($company->stripe_id != NULL)
+            {
+                //check if has invoice generated this month
+                $hasInvoice = Invoices::all();
                 
-
-        //         if($createInv)
-        //         {
+                $createInv = Invoices::create([
+                    'invoice_date_gen' => Carbon::now()->format('Y-m-d'),
+                    'created_by' => $company->id,
+                ]);
     
-        //             if($subscriptions_invoices->isNotEmpty())
-        //             {
-        //                 $inv_subs_items_arr = [];
-        //                 foreach($subscriptions_invoices as $key => $val)
-        //                 {
-        //                     $inv_subs_items_arr = [
-        //                         'subs_ord_id' => $val['id'],
-        //                         'inv_id' => $invID,
-        //                     ];
-    
-        //                     $valid8 = SubscriptionsInvoices::where('subs_ord_id',$val['id'])->first();
-        //                     if(!$valid8)
-        //                     {
-        //                         SubscriptionsInvoices::create($inv_subs_items_arr);
-        //                     }
-        //                 }
-        //             }
+                /*Get Invoice Id*/
+                $invID = $createInv->id;
+                // dd($invoicesApi);
+                $subscriptions_invoices = Subscriptions::where('company_id',$company->id)->where('created', '=', Carbon::now()->format('Y-m-d'))->get();
+                if($subscriptions_invoices->isNotEmpty())
+                {
+                    $inv_subs_items_arr = [];
+                    foreach($subscriptions_invoices as $key => $val)
+                    {
+                        $inv_subs_items_arr = [
+                            'subs_ord_id' => $val['id'],
+                            'inv_id' => $invID,
+                        ];
 
-        //             $inv_ords_items_arr = [];
-        //             foreach($articleOrder as $key => $val)
-        //             {
-        //                 $inv_ords_items_arr = [
-        //                     'art_ord_id' => $val['id'],
-        //                     'inv_id' => $invID,
-        //                 ];
-        //                 $valid8 = ArticleOrderInvoices::where('art_ord_id',$val['id'])->first();
-        //                 if(!$valid8)
-        //                 {
-        //                     ArticleOrderInvoices::create($inv_ords_items_arr);
-        //                 }
-        //             }
-    
-        //         }
+                        $valid8 = SubscriptionsInvoices::where('subs_ord_id',$val['id'])->first();
+                        if(!$valid8)
+                        {
+                            SubscriptionsInvoices::create($inv_subs_items_arr);
+                        }
+                    }
+                    $sub_inv = $subscriptions_invoices->sum('amount_due');
+                }
 
-        //         // if($articleOrder)
-        //         // {
-                    
-        //         // }
+            
+            $articleOrder = ArticleOrder::where('company_id',$company->id)->where('created_at', '>=', Carbon::now()->startOfMonth()->subMonth()->toDateString())->get();
+            if($articleOrder)
+            {
+                $inv_ords_items_arr = [];
+                foreach($articleOrder as $key => $val)
+                {
+                    $inv_ords_items_arr = [
+                        'art_ord_id' => $val['id'],
+                        'inv_id' => $invID,
+                    ];
+                    $valid8 = ArticleOrderInvoices::where('art_ord_id',$val['id'])->first();
+                    if(!$valid8)
+                    {
+                        ArticleOrderInvoices::create($inv_ords_items_arr);
+                    }
+                }
+            }
 
-        //             // Mail::send('email.invoiceTemplate',$usr->toArray(),function($message) use($usr){
-        //             //     $message->to($usr->email);
-        //             //     $message->subject('Reset Password');
-        //             // });
-        //     }
-        // }
+                // Mail::send('email.invoiceTemplate',$usr->toArray(),function($message) use($usr){
+                //     $message->to($usr->email);
+                //     $message->subject('Reset Password');
+                // });
+            }
 
  
-
-        $user = auth()->user();
-
         // $subscriptions = SubscriptionsRequests::with('user.company','plan')->whereHas('user',function ($query) { $query->where('company_id',auth()->user()->company_id);})->get();
 
         $invoices = Invoices::where('created_by',auth()->user()->id)->distinct('created_by')->get();

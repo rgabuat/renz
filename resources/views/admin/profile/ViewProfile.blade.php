@@ -173,14 +173,13 @@
     <div class="card">
       <div class="card-body">
       <h2 class="login-box-msg text-primary text-left px-0"><b>Subscription</b></h2>
-
-        @if(isset($subscriptions) && !$subscriptions->isEmpty())
-          @foreach($subscriptions as $subs)
-            <p><span class="font-weight-bold">Current Active Package:</span>{{ $subs['subscription'][0]['package'][0]['name'] }}</p>
-            <p><span class="font-weight-bold">Avail Credits:</span>{{ $subs['avail_credits'] }}</p>
-            <p><span class="font-weight-bold">Started at:</span>{{ $subs['started_at'] }}</p>
-            <p><span class="font-weight-bold">Expires at:</span>{{ $subs['expires_at'] }}</p>
-            <p class="font-weight-bold">Subscription Status: <span class="badge {{ \Carbon\Carbon::now() != $subs['expires_at'] ? 'badge-success' : 'badge-danger' }}">{{ \Carbon\Carbon::now() != $subs['expires_at'] ? 'Active' : 'Expired' }}</span></p>
+      <p><span class="font-weight-bold">Credit Balance:</span><b>{{ $credits }}</b></p>
+        <hr>
+        @if(isset($sub_items_arr))
+          @foreach($sub_items_arr as $subs)
+            <p><span class="font-weight-bold">Active Package:</span>{{ $subs['id'] }}</p>
+            <p><span class="font-weight-bold">Started at:</span>{{ $subs['current_period_start'] }}</p>
+            <p><span class="font-weight-bold">Expires at:</span>{{ $subs['current_period_end'] }}</p>
           @endforeach
         @else 
           <p>No Subscribed Plan</p>

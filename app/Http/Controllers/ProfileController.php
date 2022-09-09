@@ -9,6 +9,7 @@ use Laravel\Cashier\Cashier;
 use Laravel\Cashier\Invoice;
 use \Stripe\Stripe;
 use \Stripe\Plan;
+use Carbon\Carbon;
 
 use App\Models\User;
 use App\Models\Subscriptions;
@@ -29,37 +30,34 @@ class ProfileController extends Controller
     {
         
         $roles = Role::all();
-        // $company = auth()->user();
-
-        // $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
-        $company = Company::find(1);
-
-
-
-    
-     
-        $subscriptionItem = $company->subscriptions;
-
-        dd($subscriptionItem);
-        $stripePlan = $subscriptionItem->stripe_plan;
-        // $stripePlan = $subscriptionItem->stripe_plan;
-        // $quantity = $subscriptionItem->quantity;
-
-        // $test = $company->asStripeCustomer()->subscriptions;
-
-        if($company->stripe_id)
+        if(auth()->user()->hasRole(['company admin','company user']))
         {
-            $subscription = $stripe->subscriptions->all(['customer' => $user->stripe_id]);
-        
-            dd($subscription);
-            // if(auth()->user()->subscribed('default')){
-               
-            //  }
+            $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
+            $company = Company::find(auth()->user()->company_id);
+            $credits = $company->avail_credits;
+            if($company->stripe_id)
+            {
+                $subscriptionItems = $company->subscriptions;    
+                $subscription = $stripe->subscriptions->all(['customer' => $company->stripe_id]);  
+                $sub_items_arr = [];
+                foreach($subscriptionItems as $key => $value)
+                {
+                    $items = $stripe->subscriptions->retrieve($value->stripe_id); 
+                    
+                    $sub_items_arr[$key] = [
+                        'id' => $items->id,
+                        'credits' => $value->plan->credits,
+                        'amount' => $value->plan->amount,
+                        'current_period_start' =>  Carbon::createFromTimestamp($items->current_period_start)->format('Y-m-d'),
+                        'current_period_end' => Carbon::createFromTimestamp($items->current_period_end)->format('Y-m-d')
+                    ];
+                }
+            }
         }
-       
+    
         // $subscriptions = Subscriptions::with('package')->where('user_id',auth()->user()->id)->where('status',1)->get()->where('expires_at','!=','null');
-        $subscriptions = Company::with('subscription.package')->where('package_id','!=','null')->where('id',auth()->user()->company_id)->get();
-        return view('admin.profile.ViewProfile', compact('roles','subscriptions'));
+        // $subscriptions = Company::with('subscription.package')->where('package_id','!=','null')->where('id',auth()->user()->company_id)->get();
+        return view('admin.profile.ViewProfile', compact('roles','sub_items_arr','credits'));
     }
 
     public function edit()
