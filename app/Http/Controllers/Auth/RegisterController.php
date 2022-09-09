@@ -34,7 +34,7 @@ class RegisterController extends Controller
             'reg_number' => 'required|unique:company,reg_number|max:255',
             'phone_number' => 'required|max:255',
             'username' => 'required|unique:users,username|max:255',
-            'email' => 'required|unique:users,email|email|max:255',
+            'email' => 'required|unique:users,email|unique:company,email|email|max:255',
             'password' => 'required|confirmed',
             'captcha' => 'required',
             'city' => 'required|max:255',
@@ -57,6 +57,7 @@ class RegisterController extends Controller
                 $company = Company::create([
                     'company_name' => Str::ucfirst(Str::lower($request->company)),
                     'reg_number' => $request->reg_number,
+                    'email' => $request->email,
                     'created_by_owner' => 'null',
                     'created_by_admin' => 'null',
                     'status' => 'pending',

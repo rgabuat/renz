@@ -81,8 +81,9 @@ class CompanyController extends Controller
             'company' => 'max:255',
             'firstname' => 'required|unique:users,first_name|max:255',
             'lastname' => 'required|unique:users,last_name|max:255',
+            'required|unique:users,email|unique:company,email|email|max:255',
             'address' => 'required|max:255',
-            'reg_number' => 'max:255',
+            'reg_number' => 'required|max:255',
             'phone_number' => 'required|max:255',
             'username' => 'required|unique:users,username|max:255',
             'email' => 'required|email|unique:users,email|max:255',
@@ -94,6 +95,7 @@ class CompanyController extends Controller
                 $company = Company::create([
                     'company_name' => Str::ucfirst(Str::lower($request->company)),
                     'reg_number' => $request->reg_number,
+                    'email' => $request->email,
                     'created_by_owner' => 'null',
                     'created_by_admin' => 'null',
                     'status' => 'pending',

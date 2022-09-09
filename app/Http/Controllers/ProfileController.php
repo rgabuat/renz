@@ -30,6 +30,8 @@ class ProfileController extends Controller
     {
         
         $roles = Role::all();
+        $sub_items_arr = [];
+        $credits = 0;
         if(auth()->user()->hasRole(['company admin','company user']))
         {
             $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
@@ -39,7 +41,7 @@ class ProfileController extends Controller
             {
                 $subscriptionItems = $company->subscriptions;    
                 $subscription = $stripe->subscriptions->all(['customer' => $company->stripe_id]);  
-                $sub_items_arr = [];
+                
                 foreach($subscriptionItems as $key => $value)
                 {
                     $items = $stripe->subscriptions->retrieve($value->stripe_id); 

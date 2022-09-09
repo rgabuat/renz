@@ -42,15 +42,22 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
+
+        $company = Company::find(auth()->user()->company_id);
+        $now = Carbon::now()->format('m/d/Y');
+
         $this->validate($request, [
             'title' => 'required|max:255|unique:table_article,title',
-            'url' => 'required|max:255|unique:table_article,url',
+            'url' => 'required|max:255',
             'publish_date' => 'required',
             'category' => 'required|max:255',
             'author' => 'required|max:255',
         ]);
 
-        $now = Carbon::now()->format('m/d/Y');
+        if($company->stripe_id == NULL || $company->avail_credits == 0)
+        {
+            return redirect()->back()->with('status','subscribe first to publish an article');
+        }
 
         if($request->has('featured_image'))
         {
@@ -66,7 +73,7 @@ class ArticleController extends Controller
             $featured_image = '';
         }
 
-        $company = Article::create([
+        $articleStore = Article::create([
             'title' => $request->title,
             'url' => $request->url,
             'body' => $request->body,
@@ -78,9 +85,10 @@ class ArticleController extends Controller
             'status' => 'draft',
             'domain_id' => $request->did,
         ]);
-        
-
-        return redirect()->back()->with('status','New Article Created');
+        if($articleStore)
+        {
+            return redirect()->back()->with('status','New Article Created');
+        }
     }
 
     public function show($aid)
