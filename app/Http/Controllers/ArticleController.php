@@ -186,9 +186,13 @@ class ArticleController extends Controller
         ]);
 
         $company = Company::find(auth()->user()->company_id);
-        if($company->stripe_id == NULL || $company->avail_credits == 0)
+        if($company->stripe_id == NULL)
         {
-            return redirect()->back()->with('error','subscribe first to order an article');
+            return redirect()->back()->with('error','subscribe first to publish an article');
+        }
+        elseif($company->avail_credits == 0)
+        {
+            return redirect()->back()->with('error','Insufficient Token');
         }
 
         $offer_price = 0;
