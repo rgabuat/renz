@@ -51,9 +51,9 @@ class SendInvoices extends Command
      */
     public function handle()
     {
-        $users = User::all();
+        $company = Company::all();
 
-        foreach($users as $usr)
+        foreach($company as $usr)
         {
             if($usr->stripe_id != NULL)
             {

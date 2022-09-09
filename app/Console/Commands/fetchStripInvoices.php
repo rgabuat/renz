@@ -53,9 +53,9 @@ class fetchStripInvoices extends Command
     public function handle()
     {
         //fetch data from stripe api
-        $users = User::all();
+        $company = Company::all();
         
-        foreach($users as $user)
+        foreach($company as $user)
         {
             $invoicesApi = $user->invoicesIncludingPending();
             /*Check if user has a subscription */

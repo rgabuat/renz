@@ -25,7 +25,6 @@ class InvoiceController extends Controller
     public function index()
     {
         $company = Company::find(1);
-
         if($company->stripe_id != NULL)
             {
                 //check if has invoice generated this month
@@ -35,9 +34,10 @@ class InvoiceController extends Controller
                     'invoice_date_gen' => Carbon::now()->format('Y-m-d'),
                     'created_by' => $company->id,
                 ]);
-    
+                
                 /*Get Invoice Id*/
                 $invID = $createInv->id;
+
                 // dd($invoicesApi);
                 $subscriptions_invoices = Subscriptions::where('company_id',$company->id)->where('created', '=', Carbon::now()->format('Y-m-d'))->get();
                 if($subscriptions_invoices->isNotEmpty())
@@ -60,7 +60,7 @@ class InvoiceController extends Controller
                 }
 
             
-            $articleOrder = ArticleOrder::where('company_id',$company->id)->where('created_at', '>=', Carbon::now()->startOfMonth()->subMonth()->toDateString())->get();
+            $articleOrder = ArticleOrder::where('company_id',$company->id)->where('status','processing')->where('created_at', '>=', Carbon::now()->startOfMonth()->subMonth()->toDateString())->get();
             if($articleOrder)
             {
                 $inv_ords_items_arr = [];
@@ -87,7 +87,7 @@ class InvoiceController extends Controller
  
         // $subscriptions = SubscriptionsRequests::with('user.company','plan')->whereHas('user',function ($query) { $query->where('company_id',auth()->user()->company_id);})->get();
 
-        $invoices = Invoices::where('created_by',auth()->user()->id)->distinct('created_by')->get();
+        $invoices = Invoices::where('created_by',1)->distinct('created_by')->get();
         return view('invoice.Lists',compact('invoices'));
     }
 

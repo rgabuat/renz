@@ -150,8 +150,8 @@ Route::group(['middleware' => 'auth'],function(){
         Route::get('/create', [PlanController::class,'create'])->name('package/create');
         Route::post('/store', [PlanController::class,'store'])->name('package/store');
         Route::get('/edit/{aid}', [PackageController::class,'edit'])->name('package/edit/{aid}');
-        Route::post('/update/{pid}', [PackageController::class,'update'])->name('package/update/{pid}');
-        Route::post('/delete/{aid}', [PackageController::class,'delete'])->name('package/delete/{aid}');
+        Route::post('/update/{pid}', [PlanController::class,'update'])->name('package/update/{pid}');
+        Route::post('/delete/{pid}', [PlanController::class,'destroy'])->name('package/delete/{pid}');
         Route::get('/checkout/{planid}', [PlanController::class,'checkout'])->name('package/checkout/{planid}');
         Route::post('/process', [PlanController::class,'processPlan'])->name('package/process');
         // Route::get('/lists', [PackageController::class,'index'])->name('package/lists');

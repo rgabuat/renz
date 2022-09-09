@@ -63,6 +63,16 @@ class PlanController extends Controller
 
     public function create()
     {
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+
+        $plan = Plan::delete('plan_MO42uiK6eWXgyM',[
+
+        ]);
+
+        dd($plan);
+        $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
+        $products = $stripe->plans->all(['limit' => 100]);
+        dd($products);
         return view('packages.Create');
     }
 
@@ -120,6 +130,24 @@ class PlanController extends Controller
 
     }
 
+    public function update(Request $request,$pid)
+    {
+        $plan = Plan::update('plan_MO42uiK6eWXgyM',[
+            'amount' => 1,
+            'currency' => 'gbp',
+            'interval' => 1,
+            'interval_count' => 'month',
+            'product' => [
+                'name' => 'month',
+            ],
+            'metadata' => [
+                'description' => 'test',
+                'credits' => '5',
+                'payment_method' => 'invoice',
+            ]
+        ]);
+    }
+
     public function checkout($planId)
     {
         $plan = PlanModel::where('plan_id',$planId)->first();
@@ -172,8 +200,6 @@ class PlanController extends Controller
 
     public function processPlan(Request $request)
     {
-
-       
 
         $comp_id = auth()->user()->company_id;
         $company = Company::find($comp_id);

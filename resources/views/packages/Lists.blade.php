@@ -117,20 +117,11 @@
                                     <div class="col-md-12">
                                         <label for="price">Price<span class="text-danger">*</span> </label>
                                         <div class="form-group ">
-                                            <input type="number" name="price" class="form-control @error('price') is-invalid @enderror" value="{{ $package['price'] }}" >
+                                            <input type="number" name="price" class="form-control @error('price') is-invalid @enderror" value="{{ $package['amount'] }}" >
                                             @error('price')
                                                 <span class="error invalid-feedback"> {{ $message }}</span>
                                             @enderror
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group ">
-                                            <label for="desecription">Description</label>
-                                            <textarea name="description" id=""  cols="" rows="5" class="form-control @error('description') is-invalid @enderror">{{ $package['description'] }}</textarea>
-                                        </div>
-                                        @error('description')
-                                            <span class="error invalid-feedback"> {{ $message }}</span>
-                                        @enderror
                                     </div>
                                     <div class="col-md-12">
                                         <label for="credits">Credits<span class="text-danger">*</span> </label>
@@ -155,22 +146,36 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
+                                        <label for="duration">Interval<span class="text-danger">*</span> </label>
+                                        <div class="form-group ">
+                                            <input type="number" name="interval" value="{{ isset($package['billing_method']) }}"class="form-control @error('interval') is-invalid @enderror">
+                                            @error('duration')
+                                                <span class="error invalid-feedback"> {{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
                                         <label for="duration">Duration<span class="text-danger">*</span> </label>
                                         <div class="form-group ">
                                             <select name="duration" id="payment_method" class="form-control @error('duration') is-invalid @enderror">
                                                 <option value="">Select Duration</option>
-                                                <option {{ $package['duration'] == "1" ? 'selected' :'' }} value="1 ">1 Month</option>
-                                                <option {{ $package['duration'] == "3" ? 'selected' :'' }} value="3 ">3 Months</option>
-                                                <option {{ $package['duration'] == "6" ? 'selected' :'' }} value="6 ">6 Months</option>
-                                                <option {{ $package['duration'] == "12" ? 'selected' :'' }} value="12 ">12 Months</option>
-                                                <option {{ $package['duration'] == "24" ? 'selected' :'' }} value="24 ">24 Months</option>
+                                                <option {{ $package['billing_method'] == "week" ? 'selected' :'' }} value="{{$package['billing_method']}}">Weekly</option>
+                                                <option {{ $package['billing_method'] == "month" ? 'selected' :'' }} value="{{$package['billing_method']}} ">Monthly</option>
+                                                <option {{ $package['billing_method'] == "year" ? 'selected' :'' }} value="{{$package['billing_method']}} ">Yearly</option>
                                             </select>
                                             @error('duration')
                                                 <span class="error invalid-feedback"> {{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-md-12">
+                                        <div class="form-group ">
+                                            <label for="desecription">Description</label>
+                                            <textarea name="description" id=""  cols="" rows="5" class="form-control @error('description') is-invalid @enderror">{{ $package['description'] }}</textarea>
+                                        </div>
+                                        @error('description')
+                                            <span class="error invalid-feedback"> {{ $message }}</span>
+                                        @enderror
                                     </div>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <input type="submit" class="btn btn-primary" value="UPDATE PACKAGE">
