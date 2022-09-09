@@ -17,6 +17,7 @@
                     </div>
                 @endif
                 <input type="hidden" name="did" value="{{ Request::segment(2) }}">
+                <input type="hidden" name="token_cost" value="{{ $params[0]['token_cost'] != '' ? $params[0]['token_cost'] : '' }}">
                 <div class="form-group">
                     <label for="title">Title <span class="text-danger">*</span></label>
                     <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title')  }}"  placeholder="Article Title">

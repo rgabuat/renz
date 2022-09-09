@@ -3,6 +3,7 @@
 namespace App\Models;
 
 Use App\Models\User;
+use App\Models\Domain;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,5 +29,10 @@ class Article extends Model
     public function created_by_company()
     {
         return $this->hasMany(User::class,'id','created_by');
+    }
+
+    public function domain()
+    {
+        return $this->hasOne(Domain::class,'id','domain_id');
     }
 }

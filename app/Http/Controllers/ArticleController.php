@@ -54,9 +54,14 @@ class ArticleController extends Controller
             'author' => 'required|max:255',
         ]);
 
-        if($company->stripe_id == NULL || $company->avail_credits == 0)
+        
+        if($company->stripe_id == NULL)
         {
-            return redirect()->back()->with('status','subscribe first to publish an article');
+            return redirect()->back()->with('error','subscribe first to publish an article');
+        }
+        elseif($company->avail_credits == 0)
+        {
+            return redirect()->back()->with('error','Insufficient Token');
         }
 
         if($request->has('featured_image'))
@@ -65,7 +70,6 @@ class ArticleController extends Controller
             $file = $request->file('featured_image');
             $file_name = $file->getClientOriginalName();
             $path = $request->file('featured_image')->storeAs($destinationPath,$file_name,'public');
-
             $featured_image = $path;
         }
         else 
@@ -87,7 +91,7 @@ class ArticleController extends Controller
         ]);
         if($articleStore)
         {
-            return redirect()->back()->with('status','New Article Created');
+            return redirect()->back()->with('success','New Article Created');
         }
     }
 
@@ -181,6 +185,12 @@ class ArticleController extends Controller
             'publish_date' => 'required|max:255',
         ]);
 
+        $company = Company::find(auth()->user()->company_id);
+        if($company->stripe_id == NULL || $company->avail_credits == 0)
+        {
+            return redirect()->back()->with('error','subscribe first to order an article');
+        }
+
         $offer_price = 0;
 
         if($request->offer == 'standard')
@@ -212,7 +222,11 @@ class ArticleController extends Controller
         ]);
         if($order)
         {
-            return redirect()->back()->with('status','Order Created');
+            return redirect()->back()->with('success','Order Created');
+        }
+        else 
+        {
+            return redirect()->back()->with('error','Something happen');
         }
     }
 
@@ -248,7 +262,7 @@ class ArticleController extends Controller
     {
         if($aid != '')
         {
-            $order = ArticleOrder::where('id',$aid)->first();
+            $order = ArticleOrder::with('domains')->where('id',$aid)->first();
             $company = Company::where('id',$order->company_id)->first();
             $params = [
                 'accepted_at' => Carbon::now(),
@@ -259,11 +273,11 @@ class ArticleController extends Controller
             if($approve)
             {
                 $company_curr_credit = $company->avail_credits;
-                $tokenPrice = 30;
+                $tokenPrice = $order->domains[0]->token_cost;
                 $balance = $company_curr_credit - $tokenPrice;
 
                 $response = Company::where('id',$company->id)->update(['avail_credits' => $balance]);
-                return redirect()->back()->with('status','Order Accepted');
+                return redirect()->back()->with('success','Order Accepted');
             }
         }
     }
@@ -302,9 +316,8 @@ class ArticleController extends Controller
     {
         if($aid != '')
         {
-            $article = Article::with('created_by_company')->where('id',$aid)->first();
+            $article = Article::with('created_by_company','domain')->where('id',$aid)->first();
             $company = Company::find($article->created_by_company[0]->company_id);
-            
             $params = [
                 'publishing_date' => Carbon::now(),
                 'status' => 'published'
@@ -315,13 +328,13 @@ class ArticleController extends Controller
             if($resp)
             {
                 $company_curr_credit = $company->avail_credits;
-                $tokenPrice = 30;
+                $tokenPrice =  $article->domain->token_cost;
                 $balance = $company_curr_credit - $tokenPrice;
 
                 $response = Company::where('id',$company->id)->update(['avail_credits' => $balance]);
                 if($response)
                 {
-                    return redirect()->back()->with('status','Article Published');
+                    return redirect()->back()->with('success','Article Published');
                 }
             }
         }

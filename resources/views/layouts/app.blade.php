@@ -83,6 +83,7 @@ img.border.mb-3 {
     <div class="content">
       <div class="container-fluid">
           <section class="main-content">
+              @include('includes.flash-message')
               @yield('content')
           </section>
       </div>
