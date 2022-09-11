@@ -24,6 +24,7 @@ table {
         test@gmail.com<br/>
     </div>
 
+
     <div style="float:right;">
         Invoice: <b>{{$invoice_details[0]->id}}</b>
         <br/>

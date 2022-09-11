@@ -35,7 +35,7 @@
                 <td>{!! Str::limit($mysubs['plan'][0]['name'],10, ' ...') !!}</td>
                 <td><span>{{ Carbon\Carbon::parse($mysubs['created_at'])->format('Y-m-d') }}</span></td>
                 <td><span>{{ Carbon\Carbon::parse($mysubs['updated_at'])->format('Y-m-d')}}</span></td>
-                <td><span class="badge {{ $mysubs['status'] == 0 ? 'badge-warning' : 'badge-success' }}">{{ $mysubs['status'] == 0 ? 'Pending' : 'Active'}}</span></td>
+                <td><span class="badge p-2 {{ $mysubs['status'] == 0 ? 'badge-warning' : ($mysubs['status'] == 1 ? 'badge-success' : 'badge-danger') }}">{{ $mysubs['status'] == 0 ? 'Pending' : ($mysubs['status'] == 1 ? 'Active' : 'Declined')}}</span></td>
             </tr>
 
 

@@ -107,10 +107,13 @@ class InvoiceController extends Controller
 
     public function generateInvoicePdf($id)
     {
+      
         $subsItms = SubscriptionsInvoices::where('inv_id',$id)->with('subscription')->get();
         $artOrdItms = ArticleOrderInvoices::where('inv_id',$id)->with('articleOrder')->get();
         $user_cmpny_details = Company::where('id',auth()->user()->company_id)->get();
-        $invoice_details = Invoices::where('created_by',auth()->user()->id)->distinct('created_by')->get();
+        $invoice_details = Invoices::where('created_by',1)->distinct('created_by')->get();
+
+        // dd($invoice_details);
         $pdf = PDF::loadView('invoice.pdf-temp',compact('subsItms','artOrdItms','user_cmpny_details','invoice_details'))->setOptions(['defaultFont' => 'sans-serif']);
         return $pdf->download('invoice.pdf');
     }

@@ -36,38 +36,39 @@ class SubscriptionsController extends Controller
     
         if($company->stripe_id)
         {
-            $subscriptionItems = $company->subscriptions;
-            $credits = 0;
-            foreach($subscriptionItems as $subscriptionItem)
-            {
-                $credits += $subscriptionItem->plan->credits;
-            }
+            
+            $resp = $company->newSubscription('default', $planId)
+            // ->anchorBillingCycleOn($anchor->startOfDay())
+            // ->backdateStartDate($start_date)
+            ->createAndSendInvoice();
 
-            $respUpdate = Company::where('id',$company->id)->update(['avail_credits' => $credits]);
-            if($respUpdate)
+         
+            if($resp)
             {
-                $resp = $company->newSubscription('default', $planId)
-                // ->anchorBillingCycleOn($anchor->startOfDay())
-                // ->backdateStartDate($start_date)
-                ->createAndSendInvoice();
-                if($resp)
+                $update = SubscriptionsRequests::where('id',$rid)->update(['status' => 1]);
+                $subscriptionItems = $company->subscriptions()->where('stripe_id',$resp->stripe_id)->first();
+               
+                //get current credit and increment
+                $credits = $company->avail_credits + $subscriptionItems->plan->credits;
+                $respUpdate = Company::where('id',$company->id)->update(['avail_credits' => $credits]);
+
+                if($respUpdate)
                 {
-                    $update = SubscriptionsRequests::where('id',$rid)->update(['status' => 1]);
-                    return redirect()->back()->with('status','Subscription Approved , Invoice Sent');
+                    return redirect()->back()->with('success','Subscription Approved , Invoice Sent');
                 }
                 else 
                 {
-                    return redirect()->back()->with('status','Subscription Err');
+                    return redirect()->back()->with('error','Subscription Err');
                 }
+                
+            }
+            else 
+            {
+                return redirect()->back()->with('error','Subscription Err');
             }
         }
 
         exit;
-        // $has_current = Company::where('id',$cid)->where('package_id','!=','null')->get();
-        // $subsciption = str_replace(' ', '', $package[0]['duration']);
-        // $credits = str_replace(' ', '', $package[0]['credits']);
-        exit;
-
         if(!$has_current->isEmpty())
         {
             $current_sub = Carbon::createFromFormat('Y-m-d H:i:s',$has_current[0]->expires_at)->addMonths($subsciption);
@@ -113,7 +114,7 @@ class SubscriptionsController extends Controller
                     ];
                     $update = Company::where('id',$cid)->update($params);
                 }
-                return redirect()->back()->with('status','Subscription Approved');
+                return redirect()->back()->with('status','Subscription Request Approved');
             }
             else 
             {
@@ -121,6 +122,19 @@ class SubscriptionsController extends Controller
             }
         }
 
+    }
+
+    public function decline($rid)
+    {
+        $updateDecline = SubscriptionsRequests::where('id',$rid)->update(['status' => 2]);
+        if($updateDecline)
+        {
+            return redirect()->back()->with('success','Subscription Request Declined');
+        }
+        else 
+        {
+            return redirect()->back()->with('error','Something went wrong!');
+        }
     }
 
 

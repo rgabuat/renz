@@ -53,7 +53,7 @@ class DataImportController extends Controller
     public function store(Request $request)
     {
         $filename = $request->file;
-        $destinationPath = storage_path() .'/app/public/excels/uploads';
+        $destinationPath = storage_path().'/app/public/excels/uploads';
         $file = $destinationPath.'/'.$filename;
         
         Excel::import(new DomainImport,$file);
@@ -86,6 +86,7 @@ class DataImportController extends Controller
             'ref_domain' => $request->ref_domain,
             'token_cost' => $request->token_cost,
             'remarks' => $request->remarks,
+            'last_updated' => Carbon::now(),
         ]);
 
         if($domain)

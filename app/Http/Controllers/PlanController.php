@@ -63,16 +63,6 @@ class PlanController extends Controller
 
     public function create()
     {
-        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
-
-        $plan = Plan::delete('plan_MO42uiK6eWXgyM',[
-
-        ]);
-
-        dd($plan);
-        $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
-        $products = $stripe->plans->all(['limit' => 100]);
-        dd($products);
         return view('packages.Create');
     }
 
@@ -121,13 +111,21 @@ class PlanController extends Controller
 
         if($package)
         {
-            return redirect()->back()->with('status','New Plan Created');
+            return redirect()->back()->with('success','New Plan Created');
         }
         else 
         {
-            return redirect()->back()->with('status','Something went wrong!');
+            return redirect()->back()->with('error','Something went wrong!');
         }
 
+    }
+
+    public function delete()
+    {
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+
+        $plan = Plan::retrieve(['id' => 'plan_MP0FYFn1cmHAZk']);
+        $plan->delete();
     }
 
     public function update(Request $request,$pid)
@@ -163,10 +161,7 @@ class PlanController extends Controller
         if($plan->payment_method == 'invoice')
         {
             $anchor = Carbon::parse('first day of next month');
-            
-           
             $cus_id = $company->createOrGetStripeCustomer();
-         
             // dd($cus_id->id);
             // $resp = $user->newSubscription('default', $plan->plan_id)
                                         // ->anchorBillingCycleOn($anchor->startOfDay())
@@ -184,7 +179,7 @@ class PlanController extends Controller
                 if($insert_request)
                 {
                     SubscriptionsRequests::create($insert_request);
-                    return redirect()->back()->with('status','Subscription request sent');
+                    return redirect()->back()->with('success','Subscription request sent');
                 }
             }
         }
@@ -220,6 +215,11 @@ class PlanController extends Controller
                             
         if($resp)
         {
+            $subscriptionItems = $company->subscriptions()->where('stripe_id',$resp->stripe_id)->first();
+            //get current credit and increment
+            $credits = $company->avail_credits + $subscriptionItems->plan->credits;
+            $respUpdate = Company::where('id',$company->id)->update(['avail_credits' => $credits]);
+
             return redirect()->back()->with('status','Payment Success');
         }
 

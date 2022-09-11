@@ -6,7 +6,7 @@
 <div class="card">
     <div class="card-body">
         <h2 class="text-primary"><b>Users</b></h2>
-        <table class="table">
+        <table class="table" id="tbl_users">
         <thead>
             <tr>
                 <th>S/N</th>
@@ -34,7 +34,8 @@
                     </button>
                     <div class="dropdown-menu" role="menu" style="">
                         @role('system admin|system editor')
-                        <a class="dropdown-item" href="{{ url('users/edit/'.$user['id'])}}"><span class="fas fa-pen mr-2"></span>Edit User</a>
+                            <a class="dropdown-item" href="{{ url('users/view/'.$user['id'])}}"><span class="fas fa-eye mr-2"></span>View User</a>
+                            <a class="dropdown-item" href="{{ url('users/edit/'.$user['id'])}}"><span class="fas fa-pen mr-2"></span>Edit User</a>
                         @endrole
                         @role('system admin')
                             @if($user['is_activated'])

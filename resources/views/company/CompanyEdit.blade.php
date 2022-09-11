@@ -14,6 +14,8 @@
                         {{ session('status') }}
                     </div>
                 @endif
+
+          @if($company != '') 
           <form action="{{ url('company/update/'.$company->id) }}" method="post">
               @csrf
             <div class="row">
@@ -108,6 +110,9 @@
               </div>
             </div>
           </form>
+          @else 
+            <p class="text-center">No Details Found</p>
+          @endif
         </div>
   </div>
 </div>

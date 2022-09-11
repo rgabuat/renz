@@ -35,7 +35,7 @@
                 <td>{!! Str::limit($request['plan'][0]['name'],10, ' ...') !!}</td>
                 <td><span>{{ Carbon\Carbon::parse($request['created_at'])->format('Y-m-d') }}</span></td>
                 <td><span>{{ Carbon\Carbon::parse($request['updated_at'])->format('Y-m-d') }}</span></td>
-                <td><span class="badge {{ $request['status'] == 0 ? 'badge-warning' : 'badge-success' }}">{{ $request['status'] == 0 ? 'Pending' : 'Active'}}</span></td>
+                <td><span class="badge p-2 {{ $request['status'] == 0 ? 'badge-warning' : ($request['status'] == 1 ? 'badge-success' : 'badge-danger') }}">{{ $request['status'] == 0 ? 'Pending' : ($request['status'] == 1 ? 'Active' : 'Declined')}}</span></td>
                 <td>
                 <div class="btn-group">
                     <button type="button" class="btn btn-warning " data-toggle="dropdown" aria-expanded="false">
@@ -90,7 +90,7 @@
                                 @csrf
                                 <p>Decline Package Subscription<span><b></b></span></p>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <input type="submit" class="btn btn-danger" value="DELETE">
+                                <input type="submit" class="btn btn-danger" value="DECLINE">
                             </form>
                         </div>
                     </div>

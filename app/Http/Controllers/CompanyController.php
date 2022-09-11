@@ -54,9 +54,15 @@ class CompanyController extends Controller
     public function sub_accounts_edit($uid)
     {
         $user = User::where('id',$uid)->first();
-
         $roles = Role::whereNotIn('name',['system admin','system editor','system user'] )->get();
         return view('company.CompanySubAccountsEdit', compact('user','roles'));
+    }
+
+    public function sub_accounts_show($uid)
+    {
+        $user = User::where('id',$uid)->first();
+        $roles = Role::whereNotIn('name',['system admin','system editor','system user'] )->get();
+        return view('company.CompanySubAccountsShow', compact('user','roles'));
     }
 
     public function company_accounts($cname,$id)
@@ -167,18 +173,56 @@ class CompanyController extends Controller
             $company_update = Company::where('id',$uid)->update($company_data);
             if($company_update)
             {
-                return redirect()->back()->with('status','Update Success');
+                return redirect()->back()->with('success','Company successfully updated');
             }
 
         // return redirect()->back()->with('status','Update Success');
     }
 
-    public function company_details()
+    public function update_user(Request $request,$uid)
     {
-        $comp_id = auth()->user()->company_id;
-        $company_details = Company::where('id',$comp_id)->get();
-        $company = $company_details[0];
+            $this->validate($request, [
+                'firstname' => 'required|max:255',
+                'lastname' => 'required|max:255',
+                'address' => 'required|max:255',
+                'phone_number' => 'required|max:255',
+                'username' => 'required|max:255|unique:users,username,'.$uid,
+                'email' => 'required|email|max:255|unique:users,email,'.$uid,
+                'role' => 'required',
+            ]);
+
+            $user_data = [
+                'first_name' => Str::ucfirst(Str::lower($request->firstname)),
+                'last_name' => Str::ucfirst(Str::lower($request->lastname)),
+                'address' => Str::ucfirst(Str::lower($request->address)),
+                'phone_number' => $request->phone_number,
+                'username' => Str::lower($request->username),
+                'email' => Str::lower($request->email),
+                'role' => $request->role,
+            ];
+            
+            $user = User::where('id',$uid)->first();
+            $resp = $user->update($user_data);
+            $user->syncRoles($request->role);
+            if($resp)
+            {
+                return redirect()->back()->with('success','User Successfully Updated');
+            }
+    }
+
+    public function details()
+    {
+        $company = Company::where('id',auth()->user()->company_id)->first();
         return view('company.CompanyEdit', compact('company'));
+    }
+
+    public function company_details($cid)
+    {
+        if($cid != '')
+        {
+            $compDetails = Company::where('id',$cid)->get();
+            return view('company.CompanyShow', compact('compDetails'));
+        }
     }
 
     public function activateUser($uid)
@@ -196,15 +240,6 @@ class CompanyController extends Controller
         if($response)
         {
             return redirect()->back()->with('status','User Deactivated');
-        }
-    }
-
-    public function companyDetails($cid)
-    {
-        if($cid != '')
-        {
-            $compDetails = Company::where('id',$cid)->get();
-            return view('company.CompanyShow', compact('compDetails'));
         }
     }
 }

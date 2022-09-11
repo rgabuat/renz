@@ -89,6 +89,13 @@ class UsersController extends Controller
         return view('admin.users.UserEdit', compact('user','roles'));
     }
 
+    public function show($uid)
+    {
+        $user = User::where('id',$uid)->first();
+        $roles = Role::whereNotIn('name', ['company admin','company user'])->get();
+        return view('admin.users.UserShow', compact('user','roles'));
+    }
+
     public function update(Request $request,$uid)
     {
 
@@ -117,10 +124,8 @@ class UsersController extends Controller
             $user->syncRoles($request->role);
             if($resp)
             {
-                return redirect()->back()->with('status','Update Success');
+                return redirect()->back()->with('success','Update Success');
             }
-
-        // return redirect()->back()->with('status','Update Success');
     }
 
     public function create()

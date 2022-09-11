@@ -72,6 +72,7 @@ Route::group(['middleware' => 'auth'],function(){
                 Route::get('/create', [UsersController::class, 'create'])->name('users/create');
                 Route::post('/store', [UsersController::class, 'store'])->name('users/store');
                 Route::get('/edit/{uid}', [UsersController::class, 'edit'])->name('users/edit/{uid}');
+                Route::get('/view/{uid}', [UsersController::class, 'show'])->name('users/view/{uid}');
                 Route::post('/update/{uid}', [UsersController::class, 'update'])->name('users/update/{uid}');
             });
             Route::group(['middleware' => ['role:system admin']], function () {
@@ -103,14 +104,20 @@ Route::group(['middleware' => 'auth'],function(){
         Route::get('/list', [CompanyController::class,'index'])->name('company/list');
         Route::get('/{cname}/users/{id}', [CompanyController::class,'company_accounts'])->name('company/{cname}/users/{id}');
         Route::get('/edit/user/{id}', [CompanyController::class,'sub_accounts_edit'])->name('company/edit/user/{id}');
+        Route::get('/view/user/{uid}', [CompanyController::class,'sub_accounts_show'])->name('company/biew/user/{uid}');
         Route::get('/sub-accounts', [CompanyController::class,'sub_accounts'])->name('company/sub-accounts');
         Route::get('/create', [CompanyController::class, 'create'])->name('company/create');
         Route::post('/store', [CompanyController::class, 'store'])->name('company/store');
         Route::get('/edit/{uid}', [CompanyController::class, 'edit'])->name('company/edit/{uid}');
         Route::post('/update/{uid}', [CompanyController::class, 'update'])->name('company/update/{uid}');
+        Route::post('/update_user/{id}',[CompanyController::class,'update_user'])->name('company/update_user/{uid}');
         Route::post('/deactivate/{uid}', [CompanyController::class, 'deactivateUser'])->name('company/deactivate/{uid}');
         Route::post('/activate/{uid}', [CompanyController::class, 'activateUser'])->name('company/activate/{uid}');
-        Route::get('/company-details', [CompanyController::class, 'company_details'])->name('company/company-details');
+        Route::get('/details', [CompanyController::class,'details'])->name('company/details');
+        Route::group(['middleware' => ['role:system admin|system editor']], function () { 
+            Route::get('{cid}/company-details', [CompanyController::class, 'company_details'])->name('company/{cid}/company-details');
+        });
+        
         // Route::post('/activate/{uid}', [CompanyController::class, 'activateUser'])->name('company/activate/{uid}');
     });
 
@@ -163,7 +170,7 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/buy/{aid}', [PackageController::class,'buy'])->name('package/buy/{aid}');
         Route::get('/requests', [SubscriptionsController::class,'package_requests'])->name('package/requests');
         Route::post('/approve/{pid}/{uid}', [SubscriptionsController::class,'approve'])->name('package/approve/{pid}/{uid}');
-        Route::post('/decline/{pid}', [SubscriptionsController::class,'approve'])->name('package/decline/{pid}');
+        Route::post('/decline/{pid}', [SubscriptionsController::class,'decline'])->name('package/decline/{pid}');
         Route::post('/cancel/{sid}', [SubscriptionsController::class,'cancel'])->name('package/cancel/{sid}');
         Route::get('/my-subscriptions',[SubscriptionsController::class,'my_subscriptions'])->name('package/my-subscriptions');
     });

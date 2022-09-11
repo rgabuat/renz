@@ -28,7 +28,6 @@ class ProfileController extends Controller
 
     public function index()
     {
-        
         $roles = Role::all();
         $sub_items_arr = [];
         $credits = 0;

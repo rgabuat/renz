@@ -25,7 +25,7 @@ class DomainImport implements ToModel,WithHeadingRow
             'traffic' => $row['traffic'],
             'ref_domain' => $row['ref_domain'],
             'token_cost' => $row['token_cost'],
-            'remarks' => $row['remarks'],
+            'remarks' => $row['last_updated'],
             'last_updated' => $row['last_updated'],
         ]);
     }

@@ -11,7 +11,7 @@
            </div>
            @role('company admin')
             <div class="col-lg-6 text-right">
-                <a href="{{ route('company/company-details') }} " class="btn btn-primary rounded-0">Edit Company</a>
+                <a href="{{ route('company/details') }} " class="btn btn-primary rounded-0">Edit Company</a>
             </div>
            @endrole
         </div>
@@ -28,6 +28,7 @@
                 </tr>
             </thead>
             <tbody>
+            @if($companies->isNotEmpty())
                 @foreach($companies as $company)
                 <tr>
                     <td>{{ $company['id'] }}</td>
@@ -43,7 +44,7 @@
                         <span class="fas fa-align-right"></span>
                         </button>
                         <div class="dropdown-menu" role="menu" style="">
-                        
+                                <a class="dropdown-item" href="{{ url('company/view/user/'.$company['id'])}}"><span class="fas fa-eye mr-2"></span>View User</a>
                             @role('system admin|system editor|company admin')
                                 <a class="dropdown-item" href="{{ url('company/edit/user/'.$company['id'])}}"><span class="fas fa-pen mr-2"></span>Edit User</a>
                             @endrole
@@ -102,6 +103,7 @@
                 </div>
                 @endforeach
             </tbody>
+            @endif
         </table>
     </div>
 </div>

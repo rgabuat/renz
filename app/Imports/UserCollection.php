@@ -12,7 +12,7 @@ class UserCollection implements WithStartRow
      */
     public function startRow(): int
     {
-        return 2;
+        return 1;
     }
     
 }

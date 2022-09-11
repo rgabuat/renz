@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title',"Company Details")
+@section('title','Company Details')
 @section('content')
 
 <div class="py-3">
@@ -11,6 +11,7 @@
           <h2 class="login-box-msg  text-center text-primary px-0"><b>Company Details</b></h2>
             <div class="row">
               <div class="col-12">
+              @if($compDetails->isNotEmpty()) 
                 <div class="form-group">
                     <label for="company_name" class="form-label">Company Name:</label>
                     <input type="text" class="form-control" readonly value="{{ $compDetails[0]['company_name'] }}">
@@ -54,6 +55,9 @@
                   </div>
               </div>
             </div>
+            @else 
+            <p class="text-center">No Details Found</p>
+            @endif
         </div>
   </div>
 </div>

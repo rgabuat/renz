@@ -3,7 +3,7 @@
 @section('title',"Modify My Profile")
 @section('content')
 <div class="py-3">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
@@ -127,12 +127,12 @@
                         <span class="error invalid-feedback"> {{ $message }}</span>
                     @enderror
             </div>
-            <div class="row">
+            <div class="row text-center">
               <div class="col-lg-6">
-                <a href="{{ route('view-profile') }}" class="btn btn-light btn-block mb-3">BACK</a>
+                <a href="{{ route('view-profile') }}" class="btn btn-light  mb-3">BACK</a>
               </div>
               <div class="col-6">
-                <button type="submit" class="btn btn-primary btn-block mb-3">UPDATE PROFILE</button>
+                <button type="submit" class="btn btn-primary  mb-3">UPDATE PROFILE</button>
               </div>
             </div>
           </form>
