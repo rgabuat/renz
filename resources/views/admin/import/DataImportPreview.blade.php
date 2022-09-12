@@ -40,7 +40,14 @@
             <form action="/domain/import" method="post" enctype="multipart/form-data">
               @csrf
               <div class="form-group">
-                  <input hidden type="text" value="{{ $param['location'] }}" name="file">
+                  @foreach($param['users'] as $user)
+                      <input type="hidden" name="std_number[]" value="{{ $user[1] }}" >
+                      <input type="hidden" name="first_name[]" value="{{ $user[2] }}">
+                      <input type="hidden" name="middle_name[]" value="{{ $user[3] }}">
+                      <input type="hidden" name="last_name[]" value="{{ $user[4] }}">
+                      <input type="hidden" name="status[]" value="{{ $user[5] }}">
+                      <input type="hidden" name="course_id[]" value="{{ $user[6] }}">
+                  @endforeach
               </div>
             <div class="row">
               <div class="col-12">

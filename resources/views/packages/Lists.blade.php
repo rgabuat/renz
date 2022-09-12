@@ -29,7 +29,6 @@
             </tr>
         </thead>
         <tbody>
-         
             @foreach($packages as $package)
             <tr>
                 <td>{{ $package['id'] }}</td>
@@ -54,7 +53,7 @@
                             <a class="dropdown-item" href="{{ url('package/checkout/'.$package['plan_id']) }}" ><span class="fas fa-shopping-cart mr-2"></span>Buy Packge</a>
                         @endrole
                         @role('system admin|system editor')
-                            <a class="dropdown-item" href="javacsript:void(0);" data-toggle="modal" data-target="#edit{{ $package['id'] }}"><span class="fas fa-pen mr-2"></span>Edit Packge</a>
+                            <!-- <a class="dropdown-item" href="javacsript:void(0);" data-toggle="modal" data-target="#edit{{ $package['id'] }}"><span class="fas fa-pen mr-2"></span>Edit Packge</a> -->
                             @role('system admin')
                                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#delete{{ $package['id'] }}"><span class="fas fa-trash mr-2"></span>Delete Package</a>
                             @endrole
@@ -198,6 +197,7 @@
                         <div class="modal-body">
                             <form action="{{ url('package/delete/'.$package['id']) }}" method="post">
                                 @csrf
+                                <input type="hidden" name="package_id" value="{{ $package['plan_id'] }}">
                                 <p>Are you sure you want to delete Package: <span><b>{{ $package['name'] }}</b></span></p>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <input type="submit" class="btn btn-danger" value="DELETE">

@@ -120,12 +120,23 @@ class PlanController extends Controller
 
     }
 
-    public function delete()
+    public function destroy(Request $request,$pid)
     {
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+        $plan = Plan::retrieve(['id' => $request->package_id]);
+        $response = $plan->delete();
 
-        $plan = Plan::retrieve(['id' => 'plan_MP0FYFn1cmHAZk']);
-        $plan->delete();
+        if($response)
+        {
+            $valid8 = PlanModel::where('id',$pid)->first();
+            $valid8->delete();
+            return redirect()->back()->with('success','Plan Successfully Deleted');
+        }
+        else 
+        {
+            return redirect()->back()->with('error','Something went wrong!');
+        }
+
     }
 
     public function update(Request $request,$pid)
