@@ -52,14 +52,40 @@ class DataImportController extends Controller
 
     public function store(Request $request)
     {
-        $filename = $request->file;
-        $destinationPath = storage_path().'/app/public/excels/uploads';
-        $file = $destinationPath.'/'.$filename;
-        
-        Excel::import(new DomainImport,$file);
 
-        Storage::delete('/storage/app/public/excels/uploads'.$filename);
-        return redirect('./domain/import')->with('status','Excel File Imported Successfully');
+        for($i=0;$i<count($request->domain);$i++)
+        {
+           
+            $verify_domain = Domain::where('domain',$request->domain[$i])->first();
+        
+            if(!$verify_domain)
+            {
+                $insert = Domain::create([
+                    'domain' => $request->domain[$i],
+                    'country' => $request->country[$i],
+                    'domain_rating' => $request->domain_rating[$i],
+                    'traffic' => $request->traffic[$i],
+                    'ref_domain' => $request->ref_domain[$i],
+                    'token_cost' => $request->token_cost[$i],
+                    'remarks' => $request->remarks[$i],
+                    'last_updated' => $request->last_updated[$i],
+                ]);
+            }
+        }
+
+        return redirect('./domain/import')->with('success','Excel File Imported Successfully');
+        // exit;
+        // $verify_domain = Domain::where('domain',$domain[$i])->get();
+
+
+        // $filename = $request->file;
+        // $destinationPath = storage_path().'/app/public/excels/uploads';
+        // $file = $destinationPath.'/'.$filename;
+        
+        // Excel::import(new DomainImport,$file);
+
+        // Storage::delete('/storage/app/public/excels/uploads'.$filename);
+        // return redirect('./domain/import')->with('success','Excel File Imported Successfully');
     }
 
 

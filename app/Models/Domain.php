@@ -18,6 +18,7 @@ class Domain extends Model
         'ref_domain',
         'token_cost',
         'remarks',
+        'last_updated',
     ];
   
 }

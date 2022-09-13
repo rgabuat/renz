@@ -37,7 +37,8 @@
                         <td>{{ $domain_data['ref_domain']}}</td>
                         <td>{{ $domain_data['token_cost']}}</td>
                         <td class="d-none">{{ $domain_data['remarks']}}</td>
-                        <td>{{ date('m/d/Y', strtotime($domain_data['last_updated']))}}</td>
+                        <td>{{ $domain_data['last_updated'] }}</td>
+                        <!-- <td>{{ date('d/m/YY', strtotime($domain_data['last_updated']))}}</td> -->
                         <td>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-warning " data-toggle="dropdown" aria-expanded="false">
