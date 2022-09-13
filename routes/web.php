@@ -32,13 +32,13 @@ use App\Http\Controllers\InvoiceController;
 
 Route::get('/', function () {
     return view('auth/login');
-})->name('/');
+})->middleware('guest')->name('/');
 
 // Route::get('login', function () {
 //     return view('auth/login');
 // });
 
-Route::get('/login', [LoginController::class,'index'])->name('login');
+Route::get('/login', [LoginController::class,'index'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'store']);
 Route::get('/logout', [LogoutController::class, 'store'])->name('logout');
 

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ config('app.Name','Login System')}} | Login </title>
+  <title>{{ config('app.Name','Link Building System')}} | Login </title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -18,15 +18,20 @@
   <link rel="stylesheet" href="{{ asset('vendors/dist/css/adminlte.min.css') }}">
 
   <style>
-    .login-page
+    .login-page,.page
     {
       background-image: url('{{ asset('vendors/dist/img/login_bg.jpg') }}');
       background-repeat: no-repeat;
       background-position: center;
       background-size:cover;
       background-blend-mode:overlay;
-      height: 100vh;
       background-color:#333;
+      padding:20px;
+    }
+
+    .login-page
+    {
+      height:100vh;
     }
 
   </style>

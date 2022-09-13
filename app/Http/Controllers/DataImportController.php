@@ -117,7 +117,7 @@ class DataImportController extends Controller
 
         if($domain)
         {
-            return redirect()->back()->with('status','Domain Creation Success!');
+            return redirect()->back()->with('success','Domain Successll Created!');
         }
     }
 
@@ -149,7 +149,7 @@ class DataImportController extends Controller
         $response = Domain::where('id',$id)->update($domain_update);
         if($response)
         {
-            return redirect()->back()->with('status','Domain Update Success!');
+            return redirect()->back()->with('success','Domain Successfully Updated!');
         }
     }
 
@@ -159,7 +159,7 @@ class DataImportController extends Controller
 
         if($destroy)
         {
-            return redirect()->back()->with('status','Domain Delete Success!');
+            return redirect()->back()->with('success','Domain Success fully Deleted!');
         }
     }
 

@@ -4,13 +4,13 @@
 <div class="page">
   <div class="container">
     <div class="col-lg-8 m-auto">
-      <div class="login-logo">
-        <a href="{{ route('login') }}"><b>LOGIN SYSTEM</b></a>
-      </div>
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <h2 class="login-box-msg text-left text-primary px-0"><b>Create Account</b></h2>
+        <div class="login-logo">
+          <h1><a href="{{ route('login') }}"><b>Link Building System</b></a></h1>
+        </div>
+          <h3 class="login-box-msg text-center text-primary px-0"><b>Create Account</b></h3>
                 @if (session('error'))
                     <div class="bg-danger text-center text-white py-2 mb-3">
                         {{ session('error') }}

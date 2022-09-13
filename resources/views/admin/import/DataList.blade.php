@@ -73,8 +73,8 @@
                                 <div class="modal-body">
                                     <form action="{{ url('domain/delete/'.$domain_data['id']) }}" method="post">
                                         @csrf
-                                        <h3 class="text-center">Delete Domain</h3>
-                                        <p class="text-center"><input type="submit" class="btn btn-danger" value="Delete Domain"></p>
+                                        <h4 class="text-center">Are you sure you want to delete <br/> <span class="text-danger">{{ $domain_data['domain'] }}</span></h4>
+                                        <p class="text-center"><input type="submit" class="btn btn-danger" value="Delete"></p>
                                     </form>
                                 </div>
                             </div>
