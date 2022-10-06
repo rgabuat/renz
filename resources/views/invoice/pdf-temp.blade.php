@@ -50,12 +50,14 @@ table {
             </tr>
         </thead>
         <tbody>
+
+         
             @foreach($subsItms as $key)
                 <tr>
                     <td>Subscriptions Total</td>
-                    <td class="text-right">${{ $key['subscription'][0]['amount_due'] }}</td>
+                    <td class="text-right">${{ $key['subscription_invoice'][0]['amount_due'] }}</td>
                     @php 
-                         $total_subscription+=$key['subscription'][0]['amount_due'] 
+                         $total_subscription+=$key['subscription_invoice'][0]['amount_due'] 
                     @endphp
                 </tr>
              @endforeach

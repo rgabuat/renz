@@ -46,7 +46,7 @@ class Company extends Model
         return $this->hasMany(User::class,'id','created_by_owner');
     }
 
-    public function subscription()
+    public function company_subscriptions()
     {
         return $this->hasMany(Subscriptions::class,'id','package_id');
     }

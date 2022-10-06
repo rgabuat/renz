@@ -82,7 +82,7 @@ class PlanController extends Controller
         ]);
 
         $plan = Plan::create([
-            'amount' => $request->price,
+            'amount' => $request->price * 100,
             'currency' => 'gbp',
             'interval' => $request->duration,
             'interval_count' => $request->interval_count,

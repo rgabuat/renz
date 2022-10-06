@@ -57,54 +57,89 @@ class SendInvoices extends Command
         {
             if($usr->stripe_id != NULL)
             {
-                //check if has invoice generated this month
-                $hasInvoice = Invoices::all();
-                
-                $createInv = Invoices::create([
-                    'invoice_date_gen' => Carbon::now()->format('Y-m-d'),
-                    'created_by' => $usr->id,
-                ]);
+                $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
+                $company = Company::find(auth()->user()->company_id);
+                $sub_items_arr = [];
     
-                /*Get Invoice Id*/
-                $invID = $createInv->id;
-                // dd($invoicesApi);
-                $subscriptions_invoices = Subscriptions::where('company_id',$usr->company_id)->where('created', '=', Carbon::now()->format('Y-m-d'))->get();
-                if($subscriptions_invoices->isNotEmpty())
+                //get stripe plan current start and end period
+                $current_period_start = $company->subscription('main')->asStripeSubscription()->current_period_start;
+                $current_period_end = $company->subscription('main')->asStripeSubscription()->current_period_end;
+    
+               
+                //format stripe unix time to Y-m-d format
+                $period_start = Carbon::createFromTimestamp($current_period_start)->format('Y-m-d');
+                $period_end = Carbon::createFromTimestamp($current_period_end)->format('Y-m-d');
+    
+                //get Subscription stripe_id
+                $subscription_id = $company->subscription('main')->stripe_id;
+    
+                $articleOrder = ArticleOrder::where('company_id',$company->id)->whereBetween('created_at', [$period_start,$period_end])->get();
+                $subscriptions_invoices = Subscriptions::where('company_id',$company->id)->where('created', '=', Carbon::now()->format('Y-m-d'))->get();
+                $stripeSubscriptionInvoices = $company->invoicesIncludingPending();
+    
+                if($company->stripe_id != NULL)
                 {
-                    $inv_subs_items_arr = [];
-                    foreach($subscriptions_invoices as $key => $val)
+                    // get month now
+                    $month_now = Carbon::now()->format('m');
+                    if(Carbon::now()->format('Y-m-d') == $current_period_end )
                     {
-                        $inv_subs_items_arr = [
-                            'subs_ord_id' => $val['id'],
-                            'inv_id' => $invID,
-                        ];
-
-                        $valid8 = SubscriptionsInvoices::where('subs_ord_id',$val['id'])->first();
-                        if(!$valid8)
+                        //check if has invoice generated this month
+                        $invoices = Invoices::where('created_by',$company->id)->get();
+                        if($invoices->isNotEmpty())
                         {
-                            SubscriptionsInvoices::create($inv_subs_items_arr);
+                            $created_invoice = Carbon::parse($invoices[0]->invoice_date_gen)->format('m');
+                            if($created_invoice != $month_now)
+                            {
+                                return;
+                            }
                         }
+                        else
+                        {
+                            $createInv = Invoices::create([
+                                'invoice_date_gen' => Carbon::now()->format('Y-m-d'),
+                                'created_by' => $company->id,
+                            ]);
+                    
+                            $invID = $createInv->id;
+                        
+                            if($articleOrder->isNotEmpty())
+                            {
+                            
+                                $inv_ords_items_arr = [];
+                                foreach($articleOrder as $key => $val)
+                                {
+                                    $inv_ords_items_arr = [
+                                        'art_ord_id' => $val['id'],
+                                        'inv_id' => $invID,
+                                    ];
+                                    $valid8 = ArticleOrderInvoices::where('art_ord_id',$val['id'])->first();
+                                    if(!$valid8)
+                                    {
+                                        ArticleOrderInvoices::create($inv_ords_items_arr);
+                                    }
+                                }
+                            }
+                            
+                            if($subscriptions_invoices->isNotEmpty())
+                            {
+                                $inv_subs_items_arr = [];
+                                foreach($subscriptions_invoices as $key => $val)
+                                {
+                                    $inv_subs_items_arr = [
+                                        'subs_ord_id' => $val['id'],
+                                        'inv_id' => $invID,
+                                    ];
+                                    $valid8 = SubscriptionsInvoices::where('subs_ord_id',$val['id'])->first();
+                                    if(!$valid8)
+                                    {
+                                        SubscriptionsInvoices::create($inv_subs_items_arr);
+                                    }
+                                }
+                                $sub_inv = $subscriptions_invoices->sum('amount_due');
+                            }
+                        } 
                     }
-                    $sub_inv = $subscriptions_invoices->sum('amount_due');
-                }
-
-            
-
-            $articleOrder = ArticleOrder::where('company_id',$usr->company_id)->where('created_at', '>=', Carbon::now()->startOfMonth()->subMonth()->toDateString())->get();
-            if($articleOrder)
-            {
-                $inv_ords_items_arr = [];
-                foreach($articleOrder as $key => $val)
-                {
-                    $inv_ords_items_arr = [
-                        'art_ord_id' => $val['id'],
-                        'inv_id' => $invID,
-                    ];
-                    $valid8 = ArticleOrderInvoices::where('art_ord_id',$val['id'])->first();
-                    if(!$valid8)
-                    {
-                        ArticleOrderInvoices::create($inv_ords_items_arr);
-                    }
+                  
                 }
             }
 
@@ -112,8 +147,6 @@ class SendInvoices extends Command
                 //     $message->to($usr->email);
                 //     $message->subject('Reset Password');
                 // });
-            }
         }
-
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Laravel\Cashier\Cashier;
 use Laravel\Cashier\Invoice;
@@ -10,7 +11,7 @@ use \Stripe\Stripe;
 use \Stripe\Plan;
 
 use App\Models\Subscriptions;
-use App\Models\Package;
+use App\Models\Plans;
 use App\Models\User;
 use App\Models\Company;
 use App\Models\SubscriptionsRequests; 
@@ -33,16 +34,18 @@ class SubscriptionsController extends Controller
         $planId = $request[0]['plan'][0]['plan_id'];
         $company = Company::where('id',$cid)->first();
 
-    
+        // $inv_id = 'in_'.str_pad(Str::random(24), 8, "0", STR_PAD_LEFT);
+
+       
         if($company->stripe_id)
         {
-            
-            $resp = $company->newSubscription('default', $planId)
+            $resp = $company->newSubscription('main', $planId)
+                                ->createAndSendInvoice([], [
+                                    'days_until_due' => 30
+                                ]);
             // ->anchorBillingCycleOn($anchor->startOfDay())
             // ->backdateStartDate($start_date)
-            ->createAndSendInvoice();
-
-         
+            // ->createAndSendInvoice();
             if($resp)
             {
                 $update = SubscriptionsRequests::where('id',$rid)->update(['status' => 1]);

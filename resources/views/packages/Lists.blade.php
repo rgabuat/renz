@@ -25,6 +25,9 @@
                 <th>Payment method</th>
                 <th>Created At</th>
                 <th>Updated At</th>
+                @role('company admin|company user')
+                <th>Status</th>
+                @endrole
                 <th>Actions</th>
             </tr>
         </thead>
@@ -42,6 +45,13 @@
                 <td>{{ $package['payment_method'] }}</td>
                 <td>{{  Carbon\Carbon::parse($package['created_at'])->format('Y-m-d') }}</td>
                 <td>{{  Carbon\Carbon::parse($package['updated_at'])->format('Y-m-d') }}</td>
+                @role('company admin|company user')
+                <td>
+                    @if(auth()->user()->company[0]->subscribed('main',$package['plan_id']))
+                        <p>Current Subscription</p>
+                    @endif
+                </td>
+                @endrole
                 <td>
                 <div class="btn-group">
                     <button type="button" class="btn btn-warning " data-toggle="dropdown" aria-expanded="false">
@@ -50,7 +60,15 @@
                     <div class="dropdown-menu" role="menu" style="">
                     <a class="dropdown-item" href="javacsript:void(0);" data-toggle="modal" data-target="#view{{ $package['id'] }}"><span class="fas fa-eye mr-2"></span>View Packge</a>
                         @role('company admin|company user')
-                            <a class="dropdown-item" href="{{ url('package/checkout/'.$package['plan_id']) }}" ><span class="fas fa-shopping-cart mr-2"></span>Buy Packge</a>
+                            @if(!auth()->user()->company[0]->subscribed('main',$package['plan_id']))
+                                @if(auth()->user()->company[0]->subscribed('main'))
+                                <a class="dropdown-item" href="{{ url('package/checkout/'.$package['plan_id']) }}" ><span class="fas fa-shopping-cart mr-2"></span>Change Packge</a>
+                                @else
+                                <a class="dropdown-item" href="{{ url('package/checkout/'.$package['plan_id']) }}" ><span class="fas fa-shopping-cart mr-2"></span>Buy Packge</a>
+                                @endif
+                            @else
+                            <a class="dropdown-item" href="{{ url('package/checkout/'.$package['plan_id']) }}" ><span class="fas fa-shopping-cart mr-2"></span>Cancel Subscription</a>
+                            @endif
                         @endrole
                         @role('system admin|system editor')
                             <!-- <a class="dropdown-item" href="javacsript:void(0);" data-toggle="modal" data-target="#edit{{ $package['id'] }}"><span class="fas fa-pen mr-2"></span>Edit Packge</a> -->

@@ -17,7 +17,7 @@ class SubscriptionsInvoices extends Model
         'inv_id',
     ];
     
-    public function subscription()
+    public function subscription_invoice()
     {
         return $this->hasMany(Subscriptions::class,'id','subs_ord_id');
     }

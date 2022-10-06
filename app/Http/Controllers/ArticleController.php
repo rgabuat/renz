@@ -184,8 +184,9 @@ class ArticleController extends Controller
             'anchor_1' => 'required|max:255',
             'publish_date' => 'required|max:255',
         ]);
-
+        
         $company = Company::find(auth()->user()->company_id);
+
         if($company->stripe_id == NULL)
         {
             return redirect()->back()->with('error','subscribe first to publish an article');
@@ -206,7 +207,8 @@ class ArticleController extends Controller
             $offer_price = 30;
         }
 
-        $ord_id = 'ORD_'.str_pad(Str::random(16), 8, "0", STR_PAD_LEFT);
+
+        $ord_id = 'ord_'.str_pad(Str::random(16), 8, "0", STR_PAD_LEFT);
         $order = ArticleOrder::create([
             'ord_id' => $ord_id,
             'price' => $offer_price,
@@ -224,8 +226,10 @@ class ArticleController extends Controller
             'status' => 'pending',
             'domain_id' => $request->did,
         ]);
+
         if($order)
         {
+            
             return redirect()->back()->with('success','Order Created');
         }
         else 
@@ -264,24 +268,49 @@ class ArticleController extends Controller
 
     public function order_approve($aid)
     {
+        $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
+        
         if($aid != '')
         {
             $order = ArticleOrder::with('domains')->where('id',$aid)->first();
-            $company = Company::where('id',$order->company_id)->first();
+            $company = Company::find($order->company_id);
+
+            //get Subscription stripe_id
+             $subscription_id = $company->subscription('main')->stripe_id;
+
             $params = [
                 'accepted_at' => Carbon::now(),
                 'status' => 'processing'
             ];
 
+
+           $latest_invoice = $company->subscription('main')->asStripeSubscription()->latest_invoice;
+
             $approve  = ArticleOrder::where('id',$aid)->update($params);
             if($approve)
             {
-                $company_curr_credit = $company->avail_credits;
-                $tokenPrice = $order->domains[0]->token_cost;
-                $balance = $company_curr_credit - $tokenPrice;
+                $insert_invoice_item = $stripe->invoiceItems->create([
+                    'customer' => $company->stripe_id,
+                    'description' => $order->ord_id,
+                    'subscription' => $subscription_id,
+                    'invoice' => $latest_invoice,
+                    'currency' => 'gbp',
+                    'amount' => (int)$order->offer_price * 100,
+                ]);
+                if($insert_invoice_item)
+                {
+                    
+                    $company_curr_credit = $company->avail_credits;
+                    $tokenPrice = $order->domains[0]->token_cost;
+                    $balance = $company_curr_credit - $tokenPrice;
 
-                $response = Company::where('id',$company->id)->update(['avail_credits' => $balance]);
-                return redirect()->back()->with('success','Order Accepted');
+                    $response = Company::where('id',$company->id)->update(['avail_credits' => $balance]);
+                    return redirect()->back()->with('success','Order Accepted');
+                }
+                else 
+                {
+                    return redirect()->back()->with('error','Invoice item not created');
+                }
             }
         }
     }

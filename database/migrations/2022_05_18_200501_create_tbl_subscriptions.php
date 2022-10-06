@@ -26,6 +26,7 @@ class CreateTblSubscriptions extends Migration
             $table->string('hosted_invoice_url')->nullable();
             $table->string('invoice_pdf')->nullable();
             $table->string('number')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
