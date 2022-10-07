@@ -12,7 +12,7 @@ use Mail;
 use App\Models\ArticleOrder;
 use App\Models\Subscriptions;
 use App\Models\Invoices;
-use App\Models\User;
+use App\Models\Company;
 use App\Models\ArticleOrderInvoices;
 use App\Models\SubscriptionsInvoices;
 
@@ -51,40 +51,40 @@ class SendInvoices extends Command
      */
     public function handle()
     {
+        $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
         $company = Company::all();
 
         foreach($company as $usr)
         {
+            
             if($usr->stripe_id != NULL)
             {
-                $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
-                $company = Company::find(auth()->user()->company_id);
                 $sub_items_arr = [];
-    
+                
                 //get stripe plan current start and end period
-                $current_period_start = $company->subscription('main')->asStripeSubscription()->current_period_start;
-                $current_period_end = $company->subscription('main')->asStripeSubscription()->current_period_end;
-    
+                $current_period_start = $usr->subscription('main')->asStripeSubscription()->current_period_start;
+                $current_period_end = $usr->subscription('main')->asStripeSubscription()->current_period_end;
+                
+                echo $current_period_end;
                
                 //format stripe unix time to Y-m-d format
                 $period_start = Carbon::createFromTimestamp($current_period_start)->format('Y-m-d');
                 $period_end = Carbon::createFromTimestamp($current_period_end)->format('Y-m-d');
     
                 //get Subscription stripe_id
-                $subscription_id = $company->subscription('main')->stripe_id;
+                // $subscription_id = $usr->subscription('main')->stripe_id;
     
-                $articleOrder = ArticleOrder::where('company_id',$company->id)->whereBetween('created_at', [$period_start,$period_end])->get();
-                $subscriptions_invoices = Subscriptions::where('company_id',$company->id)->where('created', '=', Carbon::now()->format('Y-m-d'))->get();
-                $stripeSubscriptionInvoices = $company->invoicesIncludingPending();
-    
-                if($company->stripe_id != NULL)
+                $articleOrder = ArticleOrder::where('company_id',$usr->id)->whereBetween('created_at', [$period_start,$period_end])->get();
+                $subscriptions_invoices = Subscriptions::where('company_id',$usr->id)->where('created', '=', Carbon::now()->format('Y-m-d'))->get();
+            
+                if($usr->stripe_id != NULL)
                 {
                     // get month now
                     $month_now = Carbon::now()->format('m');
-                    if(Carbon::now()->format('Y-m-d') == $current_period_end )
-                    {
+                    // if(Carbon::now()->format('Y-m-d') != $current_period_end )
+                    // {
                         //check if has invoice generated this month
-                        $invoices = Invoices::where('created_by',$company->id)->get();
+                        $invoices = Invoices::where('created_by',$usr->id)->get();
                         if($invoices->isNotEmpty())
                         {
                             $created_invoice = Carbon::parse($invoices[0]->invoice_date_gen)->format('m');
@@ -97,7 +97,7 @@ class SendInvoices extends Command
                         {
                             $createInv = Invoices::create([
                                 'invoice_date_gen' => Carbon::now()->format('Y-m-d'),
-                                'created_by' => $company->id,
+                                'created_by' => $usr->id,
                             ]);
                     
                             $invID = $createInv->id;
@@ -137,7 +137,7 @@ class SendInvoices extends Command
                                 }
                                 $sub_inv = $subscriptions_invoices->sum('amount_due');
                             }
-                        } 
+                        // } 
                     }
                   
                 }

@@ -117,14 +117,29 @@ class SubscriptionsController extends Controller
                     ];
                     $update = Company::where('id',$cid)->update($params);
                 }
-                return redirect()->back()->with('status','Subscription Request Approved');
+                return redirect()->back()->with('success','Subscription Request Approved');
             }
             else 
             {
-                return redirect()->back()->with('status','Something went wrong!');
+                return redirect()->back()->with('error','Something went wrong!');
             }
         }
 
+    }
+
+    public function unsubscribe()
+    {
+        $company = Company::find(auth()->user()->company_id);
+        $resp = $company->subscription('main')->cancelNow();
+
+        if($resp)
+        {
+            return redirect()->back()->with('success','Unsubscribed Success');
+        }
+        else 
+        {
+            return redirect()->back()->with('error','Something went wrong!');
+        }
     }
 
     public function decline($rid)

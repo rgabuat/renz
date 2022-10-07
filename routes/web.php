@@ -173,6 +173,7 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/decline/{pid}', [SubscriptionsController::class,'decline'])->name('package/decline/{pid}');
         Route::post('/cancel/{sid}', [SubscriptionsController::class,'cancel'])->name('package/cancel/{sid}');
         Route::get('/my-subscriptions',[SubscriptionsController::class,'my_subscriptions'])->name('package/my-subscriptions');
+        Route::get('/unsubscribe',[SubscriptionsController::class,'unsubscribe'])->name('package/unsubscribe');
     });
 
     Route::group(['prefix' => 'invoice'],function(){

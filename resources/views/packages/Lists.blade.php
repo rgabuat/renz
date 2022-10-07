@@ -67,7 +67,7 @@
                                 <a class="dropdown-item" href="{{ url('package/checkout/'.$package['plan_id']) }}" ><span class="fas fa-shopping-cart mr-2"></span>Buy Packge</a>
                                 @endif
                             @else
-                            <a class="dropdown-item" href="{{ url('package/checkout/'.$package['plan_id']) }}" ><span class="fas fa-shopping-cart mr-2"></span>Cancel Subscription</a>
+                            <a class="dropdown-item" href="{{ url('package/unsubscribe') }}" ><span class="fas fa-thumbs-down mr-2"></span>Cancel Subscription</a>
                             @endif
                         @endrole
                         @role('system admin|system editor')
