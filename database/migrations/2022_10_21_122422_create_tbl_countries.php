@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStatusToTblSubscriptions extends Migration
+class CreateTblCountries extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddStatusToTblSubscriptions extends Migration
      */
     public function up()
     {
-        Schema::table('tbl_subscriptions', function (Blueprint $table) {
-            $table->integer('status')->default(0);
+        Schema::create('tbl_countries', function (Blueprint $table) {
+            $table->id();
+            $table->string('country_code');
+            $table->string('country_name');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddStatusToTblSubscriptions extends Migration
      */
     public function down()
     {
-        Schema::table('tbl_subscriptions', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('tbl_countries');
     }
 }

@@ -29,23 +29,24 @@
                 </div>
             </div>
               <div class="col-md-12">
-                <label for="country">Country<span class="text-danger">*</span> </label>
-                <div class="input-group mb-3">
-                    <input type="text" name="country" class="form-control @error('country') is-invalid @enderror" value="{{ $domain['country'] }}" >
-                    <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-globe"></span>
-                    </div>
-                    </div>
-                    @error('country')
-                        <span class="error invalid-feedback"> {{ $message }}</span>
-                    @enderror
+                <div class="mb-3">
+                  <label for="country">Country<span class="text-danger">*</span> </label>
+                    <!-- All countries -->
+                    <select id="country" class="form-control @error('country') is-invalid @enderror">
+                        <option>country</option>
+                        @foreach($countries as $country)
+                          <option {{ $domain['country']  == $country->country_name ? 'selected' : ''}} value="{{$country->code}}">{{$country->country_name}}</option>
+                        @endforeach
+                    </select>
+                      @error('country')
+                          <span class="error invalid-feedback"> {{ $message }}</span>
+                      @enderror
                 </div>
               </div>
               <div class="col-md-12">
                 <label for="domain_rating">Domain Rating<span class="text-danger">*</span> </label>
                 <div class="input-group mb-3">
-                    <input type="text" name="domain_rating" class="form-control @error('domain_rating') is-invalid @enderror" value="{{ $domain['domain_rating'] }}" >
+                    <input type="number" name="domain_rating" class="form-control @error('domain_rating') is-invalid @enderror" value="{{ $domain['domain_rating'] }}" >
                     <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-globe"></span>
@@ -73,7 +74,7 @@
               <div class="col-md-12">
                 <label for="ref_domain">Reference Domain </label>
                 <div class="input-group mb-3">
-                    <input type="text" name="ref_domain" class="form-control @error('ref_domain') is-invalid @enderror" value="{{ $domain['ref_domain'] }}" >
+                    <input type="number" name="ref_domain" class="form-control @error('ref_domain') is-invalid @enderror" value="{{ $domain['ref_domain'] }}" >
                     <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-globe"></span>
@@ -87,7 +88,7 @@
               <div class="col-md-12">
                 <label for="token_cost">Token cost<span class="text-danger">*</span> </label>
                 <div class="input-group mb-3">
-                    <input type="text" name="token_cost" class="form-control @error('token_cost') is-invalid @enderror" value="{{ $domain['token_cost'] }}" >
+                    <input type="number" name="token_cost" class="form-control @error('token_cost') is-invalid @enderror" value="{{ $domain['token_cost'] }}" >
                     <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-globe"></span>

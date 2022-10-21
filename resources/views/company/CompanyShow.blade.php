@@ -19,7 +19,7 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                      <label for="company_reg_number" class="form-label">Registered number:</label>
+                      <label for="company_reg_number" class="form-label">Vat Number</label>
                       <input type="text" class="form-control" readonly value="{{ $compDetails[0]['reg_number'] }}">
                   </div>
               </div>

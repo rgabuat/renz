@@ -31,22 +31,21 @@
                 </div>
                 <div class="col-md-6">
                   <label for="country">Country<span class="text-danger">*</span> </label>
-                  <div class="input-group mb-3">
-                      <input type="text" name="country" class="form-control @error('country') is-invalid @enderror" value="{{ old('country') }}" >
-                      <div class="input-group-append">
-                      <div class="input-group-text">
-                          <span class="fas fa-globe"></span>
-                      </div>
-                      </div>
-                      @error('country')
-                          <span class="error invalid-feedback"> {{ $message }}</span>
-                      @enderror
-                  </div>
+                  <!-- All countries -->
+                  <select id="country" class="form-control @error('country') is-invalid @enderror">
+                      <option>country</option>
+                      @foreach($countries as $country)
+                        <option value="{{$country->code}}">{{$country->country_name}}</option>
+                      @endforeach
+                  </select>
+                    @error('country')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="col-md-6">
                   <label for="domain_rating">Domain Rating<span class="text-danger">*</span> </label>
                   <div class="input-group mb-3">
-                      <input type="text" name="domain_rating" class="form-control @error('domain_rating') is-invalid @enderror" value="{{ old('domain_rating') }}" >
+                      <input type="number" name="domain_rating" class="form-control @error('domain_rating') is-invalid @enderror" value="{{ old('domain_rating') }}" >
                       <div class="input-group-append">
                       <div class="input-group-text">
                           <span class="fas fa-globe"></span>
@@ -60,7 +59,7 @@
                 <div class="col-md-6">
                   <label for="traffic">Traffic<span class="text-danger">*</span> </label>
                   <div class="input-group mb-3">
-                      <input type="text" name="traffic" class="form-control @error('traffic') is-invalid @enderror" value="{{ old('traffic') }}" >
+                      <input type="number" name="traffic" class="form-control @error('traffic') is-invalid @enderror" value="{{ old('traffic') }}" >
                       <div class="input-group-append">
                       <div class="input-group-text">
                           <span class="fas fa-globe"></span>
@@ -74,7 +73,7 @@
                 <div class="col-md-6">
                   <label for="ref_domain">Reference Domain </label>
                   <div class="input-group mb-3">
-                      <input type="text" name="ref_domain" class="form-control @error('ref_domain') is-invalid @enderror" value="{{ old('ref_domain') }}" >
+                      <input type="number" name="ref_domain" class="form-control @error('ref_domain') is-invalid @enderror" value="{{ old('ref_domain') }}" >
                       <div class="input-group-append">
                       <div class="input-group-text">
                           <span class="fas fa-globe"></span>
@@ -88,7 +87,7 @@
                 <div class="col-md-6">
                   <label for="token_cost">Token cost<span class="text-danger">*</span> </label>
                   <div class="input-group mb-3">
-                      <input type="text" name="token_cost" class="form-control @error('token_cost') is-invalid @enderror" value="{{ old('token_cost') }}" >
+                      <input type="number" name="token_cost" class="form-control @error('token_cost') is-invalid @enderror" value="{{ old('token_cost') }}" >
                       <div class="input-group-append">
                       <div class="input-group-text">
                           <span class="fas fa-globe"></span>

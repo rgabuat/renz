@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+use App\Models\Countries;
+
 class RegisterController extends Controller
 {
     public function __construct()
@@ -17,7 +19,8 @@ class RegisterController extends Controller
 
     public function index()
     {
-        return view('auth.register');
+        $countries = Countries::all();
+        return view('auth.register',compact('countries'));
     }
 
     public function store(Request $request)

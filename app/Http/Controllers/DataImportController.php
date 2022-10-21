@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Domain;
+use App\Models\Countries;
 use Carbon\Carbon;
 
 class DataImportController extends Controller
@@ -91,7 +92,8 @@ class DataImportController extends Controller
 
     public function create()
     {
-        return view('domain.DomainAdd');
+        $countries = Countries::all();
+        return view('domain.DomainAdd',compact('countries'));
     }
 
     public function input(Request $request)
@@ -124,7 +126,8 @@ class DataImportController extends Controller
     public function edit($id)
     {
         $domain = Domain::find($id);
-        return view('domain.DomainEdit',compact('domain'));
+        $countries = Countries::all();
+        return view('domain.DomainEdit',compact('domain','countries'));
     }
 
     public function update(Request $request,$id)
