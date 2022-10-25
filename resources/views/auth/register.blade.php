@@ -107,17 +107,16 @@
               </div>
               <div class="col-lg-6">
                 <label for="country">Country<span class="text-danger">*</span> </label>
-                <div class="input-group mb-3">
-                  <input type="text" name="country" class="form-control @error('country') is-invalid @enderror" value="{{ old('country') }}" placeholder="Country">
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <span class="fas fa-flag"></span>
-                    </div>
-                  </div>
-                    @error('country')
-                        <span class="error invalid-feedback"> {{ $message }}</span>
-                    @enderror
-                </div>
+                <!-- All countries -->
+                <select id="country" class="form-control @error('country') is-invalid @enderror">
+                    <option>country</option>
+                    @foreach($countries as $country)
+                      <option value="{{$country->code}}">{{$country->country_name}}</option>
+                    @endforeach
+                </select>
+                  @error('country')
+                      <span class="error invalid-feedback"> {{ $message }}</span>
+                  @enderror
               </div>
               <div class="col-lg-6">
                 <label for="zip">Zip code<span class="text-danger">*</span> </label>
@@ -137,7 +136,7 @@
 
             <div class="row">
               <div class="col-lg-6">
-              <label for="reg_number">Registered/VAT Number <span class="text-danger">*</span> </label>
+              <label for="reg_number">VAT Number <span class="text-danger">*</span> </label>
                 <div class="input-group mb-3">
                   <input type="tel" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror" value="{{ old('reg_number') }}" placeholder="Registered/VAT Number">
                   <div class="input-group-append">

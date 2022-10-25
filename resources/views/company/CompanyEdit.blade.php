@@ -34,7 +34,7 @@
               </div>
             </div>
               <div class="col-lg-6">
-              <label for="vat_num">Registered Number <span class="text-danger">*</span></label>
+              <label for="vat_num">Vat Number <span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
                   <input type="text" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror" value="{{ $company->reg_number }}" placeholder="Firstname">
                   <div class="input-group-append">

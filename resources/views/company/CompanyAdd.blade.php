@@ -33,7 +33,7 @@
               </div>
             </div>
             <div class="col-lg-6">
-            <label for="vat_num">Registered/VAT Number <span class="text-danger">*</span></label>
+            <label for="vat_num">VAT Number <span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
                   <input type="tel" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror"  value="{{ old('reg_number') }}" placeholder="Registered/VAT Number">
                   <div class="input-group-append">
