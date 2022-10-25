@@ -16,6 +16,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\SubscriptionsController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\FrontEndController;
 
 
 /*
@@ -31,7 +32,7 @@ use App\Http\Controllers\InvoiceController;
 //test dev
 
 Route::get('/', function () {
-    return view('auth/login');
+    return view('landing/index');
 })->middleware('guest')->name('/');
 
 // Route::get('login', function () {

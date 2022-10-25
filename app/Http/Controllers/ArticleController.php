@@ -276,7 +276,7 @@ class ArticleController extends Controller
             $company = Company::find($order->company_id);
 
             //get Subscription stripe_id
-             $subscription_id = $company->subscription('main')->stripe_id;
+            $subscription_id = $company->subscription('main')->stripe_id;
 
             $params = [
                 'accepted_at' => Carbon::now(),

@@ -36,6 +36,7 @@ class SubscriptionsController extends Controller
 
         // $inv_id = 'in_'.str_pad(Str::random(24), 8, "0", STR_PAD_LEFT);
 
+
        
         if($company->stripe_id)
         {
@@ -50,7 +51,8 @@ class SubscriptionsController extends Controller
             {
                 $update = SubscriptionsRequests::where('id',$rid)->update(['status' => 1]);
                 $subscriptionItems = $company->subscriptions()->where('stripe_id',$resp->stripe_id)->first();
-               
+            
+
                 //get current credit and increment
                 $credits = $company->avail_credits + $subscriptionItems->plan->credits;
                 $respUpdate = Company::where('id',$company->id)->update(['avail_credits' => $credits]);

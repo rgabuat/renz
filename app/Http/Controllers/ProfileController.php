@@ -36,6 +36,7 @@ class ProfileController extends Controller
             $stripe = new \Stripe\StripeClient(\config('services.stripe.secret'));
             $company = Company::find(auth()->user()->company_id);
             $credits = $company->avail_credits;
+            
             if($company->stripe_id)
             {
                 $subscriptionItems = $company->subscriptions;    
@@ -47,8 +48,8 @@ class ProfileController extends Controller
                     
                     $sub_items_arr[$key] = [
                         'id' => $items->id,
-                        'credits' => $value->plan->credits,
-                        'amount' => $value->plan->amount,
+                        'credits' => $items->plan->credits,
+                        'amount' => $items->plan->amount,
                         'current_period_start' =>  Carbon::createFromTimestamp($items->current_period_start)->format('Y-m-d'),
                         'current_period_end' => Carbon::createFromTimestamp($items->current_period_end)->format('Y-m-d')
                     ];

@@ -96,7 +96,7 @@ img.border.mb-3 {
  <!-- 4 right menu  -->
 @include('layouts.rightSidebar')
  <!-- 5 footer -->
-@include('layouts.footer')
+<!-- @include('layouts.footer') -->
 </div>
 <!-- ./wrapper -->
 
