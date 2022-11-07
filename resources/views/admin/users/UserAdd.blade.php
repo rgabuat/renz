@@ -90,7 +90,7 @@
                       @enderror
                   </div>
                 </div>
-                <div class="col-12">
+                <div class="col-lg-6">
                 <label for="email">Email <span class="text-danger">*</span></label>
                   <div class="input-group mb-3">
                     <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Email">
@@ -106,6 +106,17 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
+                    <label for="company" class="form-label">Company</label>
+                    <select name="company" id="" class="form-control">
+                      <option value="">Select Company</option>
+                      @foreach($company as $comp)
+                      <option value="{{$comp['id']}}">{{$comp['company_name']}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
                     <label for="default_pass" class="form-label">Default password:</label>
                     <input type="text" class="form-control" value="default123" readonly>
                   </div>
@@ -116,7 +127,7 @@
                     <select class="custom-select @error('role') is-invalid @enderror" name="role" id="role">
                       <option value="">Select Role</option>
                       @foreach($roles as $role)
-                      <option>{{$role['name']}}</option>
+                      <option value="{{$role['name']}}">{{$role['name']}}</option>
                       @endforeach
                     </select>
                     @error('role')
@@ -126,8 +137,8 @@
                 </div>
               </div>
             <div class="row">
-              <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block mb-3">REGISTER NOW</button>
+              <div class="col-12 text-center">
+                <button type="submit" class="btn btn-primary my-3">REGISTER NOW</button>
               </div>
             </div>
           </form>

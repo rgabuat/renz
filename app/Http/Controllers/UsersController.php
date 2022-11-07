@@ -67,7 +67,7 @@ class UsersController extends Controller
 
 
         $user = User::create([
-            'company_id' => 0,
+            'company_id' => $request->company,
             'first_name' => Str::ucfirst(Str::lower($request->firstname)),
             'last_name' => Str::ucfirst(Str::lower($request->lastname)),
             'address' => Str::ucfirst(Str::lower($request->address)),
@@ -131,7 +131,8 @@ class UsersController extends Controller
     public function create()
     {
         $roles = Role::whereNotIn('name', ['company admin','company user'])->get();
-        return view('admin.users.UserAdd',compact('roles'));
+        $company = Company::all();
+        return view('admin.users.UserAdd',compact('roles','company'));
     }
 
     public function activateUser($uid)
