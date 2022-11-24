@@ -9,25 +9,13 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="#"><span class="text-dark"><strong>DOMÆNERNE</strong></span></a>
+                <a class="nav-link" href="{{ route('services') }}"><span class="text-dark"><strong>DOMÆNERNE</strong></span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"><span class="text-dark"><strong>PRISER</strong></span></a>
+                <a class="nav-link" href="{{ route('priser') }}"><span class="text-dark"><strong>PRISER</strong></span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"><span class="text-dark"><strong>FULLSERVICE PRIS</strong></span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><span class="text-dark"><strong>DEMO</strong></span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><span class="text-dark"><strong>CASES</strong></span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><span class="text-dark"><strong>KONTAKT</strong></span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><span class="text-dark"><strong>BLOG</strong></span></a>
+                <a class="nav-link" href="{{  route('kontakt') }}"><span class="text-dark"><strong>KONTAKT</strong></span></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}"><strong class="border py-2 px-3 text-primary">LOGIN</strong></a>
@@ -37,7 +25,7 @@
           </div>
       </nav>
       <div class="title">
-        <h2 class="text-center text-dark pt-3 pb-5"><b>Priser & Planer</b></h2>
+        <h2 class="text-center text-dark pt-3 pb-5"><b>@yield('title')</b></h2>
       </div>
     </div>
 </header>

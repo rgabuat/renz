@@ -1,6 +1,6 @@
 @extends('layouts.landing.main')
 
-@section('title',"Register")
+@section('title',"Priser & Planer")
 @section('content')
 <div class="container p-4 my-5">
   <p>

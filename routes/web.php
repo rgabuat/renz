@@ -31,13 +31,11 @@ use App\Http\Controllers\FrontEndController;
 */
 //test dev
 
-Route::get('/', function () {
-    return view('landing/index');
-})->middleware('guest')->name('/');
+Route::get('priser', [FrontEndController::class,'priser_page'])->middleware('guest')->name('priser');
+Route::get('kontakt', [FrontEndController::class,'contact_page'])->middleware('guest')->name('kontakt');
+Route::get('services', [FrontEndController::class,'services_page'])->middleware('guest')->name('services');
 
-// Route::get('login', function () {
-//     return view('auth/login');
-// });
+
 
 Route::get('/login', [LoginController::class,'index'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'store']);

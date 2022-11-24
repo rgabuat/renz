@@ -10,9 +10,9 @@
                 </figure>
             </div>
             <div class="col-lg-3 col-md-3 pl-5">
-                <p class=" mb-3">Link Concept ApS<br>Horsensvej 72A<br>7100 Vejle<br>CVR: 42069221</p>
+                <p class=" mb-3">Mercury Ads FZE<br>PO BOX 7073<br>Umm Al Quwain<br>United Arab Emirates</p>
                 <p>
-                    <a href="">
+                    <a href="{{ route('kontakt') }}">
                         <span>Kontakt Os</span>
                     </a>
                 </p>
@@ -24,7 +24,7 @@
         <hr class="mt-5" style="border-top:2px solid #ffff;">
         <div class="row py-4 mt-4">
             <div class="col-md-6">
-                <p>© Link Concept ApS</p>
+                <p>Copyright © 2022 Mercury Ads</p>
             </div>
             <div class="col-md-6">
                 <div class="d-flex justify-content-end">
