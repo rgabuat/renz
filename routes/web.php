@@ -33,6 +33,7 @@ use App\Http\Controllers\FrontEndController;
 
 Route::get('priser', [FrontEndController::class,'priser_page'])->middleware('guest')->name('priser');
 Route::get('kontakt', [FrontEndController::class,'contact_page'])->middleware('guest')->name('kontakt');
+Route::post('kontakt',[FrontEndController::class,'send_contact_us'])->middleware('guest')->name('kontakt');
 Route::get('services', [FrontEndController::class,'services_page'])->middleware('guest')->name('services');
 
 

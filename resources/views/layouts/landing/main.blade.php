@@ -1,9 +1,13 @@
 
 <!DOCTYPE html>
 <html lang="en">
+    
 @include('layouts.landing.head')
 <body class="hold-transition ">
 @include('layouts.landing.header')
+<div class="container">
+@include('includes.flash-message')
+</div>
 @yield('content')
 <!-- REQUIRED SCRIPTS -->
 @include('layouts.landing.footer')

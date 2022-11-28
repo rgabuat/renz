@@ -34,6 +34,7 @@ class Company extends Model
         'state',
         'country',
         'zip',
+        'phone_number',
     ];
 
     public function admin_sub_accounts()

@@ -19,7 +19,7 @@
           <form action="{{ url('company/update/'.$company->id) }}" method="post">
               @csrf
             <div class="row">
-            <div class="col-md-6">
+            <div class="col-12">
               <label for="comp_name">Company Name <span class="text-danger">*</span></label>
               <div class="input-group mb-3">
                 <input type="text" name="company" class="form-control @error('company') is-invalid @enderror" value="{{ $company->company_name }}" placeholder="Company">
@@ -33,13 +33,27 @@
                   @enderror
               </div>
             </div>
-              <div class="col-lg-6">
+            <div class="col-lg-6">
               <label for="vat_num">Vat Number <span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
                   <input type="text" name="reg_number" class="form-control @error('reg_number') is-invalid @enderror" value="{{ $company->reg_number }}" placeholder="Firstname">
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-credit-card"></span>
+                    </div>
+                  </div>
+                    @error('reg_number')
+                        <span class="error invalid-feedback"> {{ $message }}</span>
+                    @enderror
+                </div>
+              </div>
+              <div class="col-lg-6">
+              <label for="phone">Phone<span class="text-danger">*</span></label>
+                <div class="input-group mb-3">
+                  <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ !is_null($company->phone_number) ? $company->phone_number : '' }}" placeholder="Phone">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-phone-alt"></span>
                     </div>
                   </div>
                     @error('reg_number')

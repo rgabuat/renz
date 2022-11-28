@@ -84,10 +84,13 @@ class CompanyController extends Controller
 
       
         $this->validate($request, [
+             'company' => 'required|unique:company,company_name|max:255',
             'firstname' => 'required|unique:users,first_name|max:255',
             'lastname' => 'required|unique:users,last_name|max:255',
             'address' => 'required|max:255',
             'phone_number' => 'required|max:255',
+            'company_phone' => 'required|max:255',
+            'reg_number' =>  'required|max:255',
             'username' => 'required|unique:users,username|max:255',
             'email' => 'required|email|unique:users,email|max:255',
             'role' => 'required',
@@ -106,6 +109,7 @@ class CompanyController extends Controller
                     'state' => Str::ucfirst(Str::lower($request->state)),
                     'country' => Str::ucfirst(Str::lower($request->country)),
                     'zip' => $request->zip,
+                    'phone_number' => $request->company_phone,
                 ]);
                 if($company)
                 {
@@ -159,6 +163,7 @@ class CompanyController extends Controller
                 'state' => 'required|max:255',
                 'country' => 'required|max:255',
                 'zip' => 'required|min:4|max:5',
+                'phone' => 'required|max:255',
             ]);
 
             $company_data = [
@@ -168,6 +173,7 @@ class CompanyController extends Controller
                 'state' => Str::ucfirst(Str::lower($request->state)),
                 'country' => Str::ucfirst(Str::lower($request->country)),
                 'zip' => $request->zip,
+                'phone_number' => $request->phone,
             ];
 
             $company_update = Company::where('id',$uid)->update($company_data);

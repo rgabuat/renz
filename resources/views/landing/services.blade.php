@@ -24,7 +24,6 @@
                 <th>DR</th>
                 <th>Links</th>
                 <th>Ref. Domæner</th>
-                <th>Kategori</th>
             </tr>
             <tbody>
                 <tr>
@@ -33,7 +32,6 @@
                     <td>66</td>
                     <td>54444</td>
                     <td>1685</td>
-                    <td>Generelt</td>
                 </tr>
             </tbody>
         </table>

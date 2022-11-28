@@ -16,27 +16,30 @@
             <p class="py-4">Mercury Ads FZE<br>PO BOX 7073<br>Umm Al Quwain<br>United Arab Emirates<br></p>
         </div>
         <div class="col-lg-5">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" name="name" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="company">Company</label>
-                <input type="text" name="company" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone</label>
-                <input type="text" name="phone" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" name="email" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <textarea name="message" cols="20" rows="10" class="form-control"></textarea>
-            </div>
-            <input type="submit" name="submit" value="Send Request" class="btn btn-block" style="background-color:#003F87;color:#ffff;">
+            <form action="{{ route('kontakt'); }}" method="post">
+                @csrf
+                <div class="form-group">
+                    <label for="name">Name <span class="text-danger">*</span></label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">Company <span class="text-danger">*</span></label>
+                    <input type="text" name="company" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone <span class="text-danger">*</span></label>
+                    <input type="number" name="phone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email <span class="text-danger">*</span></label>
+                    <input type="mail" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Message</label>
+                    <textarea name="message" cols="20" rows="10" class="form-control"></textarea>
+                </div>
+                <input type="submit" name="submit" value="Send Request" class="btn btn-block" style="background-color:#003F87;color:#ffff;">
+            </form>
         </div>
     </div>
 </div>
