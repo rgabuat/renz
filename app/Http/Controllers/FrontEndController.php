@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Mail;
+use App\Models\Domain;
 
 class FrontEndController extends Controller
 {
@@ -11,6 +12,7 @@ class FrontEndController extends Controller
     
     public function priser_page()
     {
+       
         return view('landing/index');
     }
 
@@ -22,7 +24,6 @@ class FrontEndController extends Controller
     public function send_contact_us(Request $request)
     {
 
-
         $data = [
             'name' => $request->name,
             'company' => $request->company,
@@ -30,8 +31,6 @@ class FrontEndController extends Controller
             'email' => $request->email,
             'message_body' => $request->message,
         ];
-
-    
         try{
             Mail::send('email.contactUs',$data,function($message){
                 $message->to('johncarlgabuat@gmail.com');
@@ -47,7 +46,8 @@ class FrontEndController extends Controller
     
     public function services_page()
     {
-        return view('landing/services');
+        $domains = Domain::all();
+        return view('landing/services',compact('domains'));
     }
 
 }

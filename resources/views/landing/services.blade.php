@@ -1,5 +1,17 @@
 @extends('layouts.landing.main')
-
+@section('css')
+   <style>
+    #myList tr{ display:none;
+        }
+        #loadMore {
+            color:green;
+            cursor:pointer;
+        }
+        #loadMore:hover {
+            color:black;
+        }
+   </style>
+@stop
 @section('title',"Domænerne")
 @section('content')
 <div class="container p-4 my-5">
@@ -17,24 +29,36 @@
         <img src="{{ asset('vendors/dist/img/undraw_domain_img.png') }}" class="img-fluid" alt="">
     </div>
     <div class="col-12 mt-5">
-        <table class="table">
+        <table id="domain_table" class="table" >
             <tr>
+                <th>No.</th>
                 <th>Navn</th>
-                <th>IP</th>
+                <!-- <th>IP</th> -->
                 <th>DR</th>
                 <th>Links</th>
                 <th>Ref. Domæner</th>
             </tr>
-            <tbody>
-                <tr>
-                    <td>s***********e.dk</td>
-                    <td>172.67.174.71	</td>
-                    <td>66</td>
-                    <td>54444</td>
-                    <td>1685</td>
+            <tbody id="myList">
+                @foreach($domains as $domain)
+                @php
+                  $str = ($domain->domain);
+                  $str_length = strlen($str);
+                  $masked = substr($str, 0, 1).str_repeat('*', $str_length - 2).substr($str, $str_length - 4, 4);
+                @endphp
+                <tr class="item">
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $masked }}</td>
+                    <td>{{ $domain->domain_rating }}</td>
+                    <td>{{ $domain->traffic }}</td>
+                    <td>{{ $domain->ref_domain }}</td>
+                    <td></td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
+        <div class="col-12 text-center">
+            <button id="loadMore" class="btn btn-primary text-light my-2">Load more</button>
+        </div>
     </div>
     <div class="col-12 " style="padding-top:120px;">
         <h3 class="text-center"><strong>P R I S E R</strong></h3>
@@ -146,3 +170,31 @@
 <!-- /.login-box -->
 </div>
 @endsection
+
+@section('javascript')
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        var rowCount = $('#domain_table >tbody >tr').length;
+        x=11;
+
+        jQuery('#domain_table >tbody >tr:lt('+x+')').show();
+
+        jQuery('#loadMore').click(function (e) {
+        e.preventDefault();
+            x = (x+5 <= rowCount) ? x+5 : rowCount;
+            jQuery('#domain_table >tbody >tr:lt('+x+')').show();
+
+            if( x < rowCount)
+            {
+                $('#domain_table >tbody >tr:lt('+x+')').show();
+            }
+            else
+            {
+                $('#domain_table >tbody >tr:lt('+x+')').show();
+                $('#loadMore').hide();
+            }
+         });
+        });
+    </script>
+@stop
