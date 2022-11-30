@@ -29,6 +29,7 @@
         <img src="{{ asset('vendors/dist/img/undraw_domain_img.png') }}" class="img-fluid" alt="">
     </div>
     <div class="col-12 mt-5">
+    <div class="table-responsive">
         <table id="domain_table" class="table" >
             <tr>
                 <th>No.</th>
@@ -56,6 +57,7 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
         <div class="col-12 text-center">
             <button id="loadMore" class="btn btn-primary text-light my-2">Load more</button>
         </div>

@@ -21,7 +21,6 @@ class CompanyController extends Controller
 
     public function index()
     {
-       
         if(auth()->user()->hasRole(['system admin','system editor','system user']))
         {
             $companies = Company::with('admin_sub_accounts','user_sub_accounts')->get();
@@ -36,8 +35,6 @@ class CompanyController extends Controller
         {
             $companies = Company::where('created_by_owner',auth()->user()->id)->with('user_sub_accounts')->get();
         }
-
-        
         
         return view('company.CompanyList',compact('companies'));
     }
@@ -155,7 +152,7 @@ class CompanyController extends Controller
 
     public function update(Request $request,$uid)
     {   
- 
+       
             $this->validate($request, [
                 'company' => 'required|max:255|unique:company,company_name,'.$uid,
                 'reg_number' => 'required|max:255',
@@ -216,6 +213,12 @@ class CompanyController extends Controller
             }
     }
 
+    public function show_company_details()
+    {
+        $compDetails = Company::where('id',auth()->user()->company_id)->get();
+        return view('company.CompanyShow', compact('compDetails'));
+    }
+
     public function details()
     {
         $company = Company::where('id',auth()->user()->company_id)->first();
@@ -228,7 +231,7 @@ class CompanyController extends Controller
         {
             $compDetails = Company::where('id',$cid)->get();
             return view('company.CompanyShow', compact('compDetails'));
-        }
+        }   
     }
 
     public function activateUser($uid)

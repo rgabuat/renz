@@ -8,14 +8,31 @@
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body ">
-          <h2 class="login-box-msg  text-center text-primary px-0"><b>Company Details</b></h2>
+        <div class="row">
+           <div class="col-lg-6">
+                <h2 class="text-left text-primary"><b>Company Details</b></h2>
+           </div>
+           @role('company admin')
+            <div class="col-lg-6 text-right">
+                <a href="{{ route('company/edit-details') }} " class="btn btn-primary rounded-0">Edit Details</a>
+            </div>
+           @endrole
+        </div>
+          <!-- <h2 class="login-box-msg  text-center text-primary px-0"><b></b></h2> -->
             <div class="row">
-              <div class="col-12">
-              @if($compDetails->isNotEmpty()) 
+              <div class="col-md-6">
+              @if(!is_null($compDetails)) 
                 <div class="form-group">
                     <label for="company_name" class="form-label">Company Name:</label>
                     <input type="text" class="form-control" readonly value="{{ $compDetails[0]['company_name'] }}">
                 </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                      <label for="company_status" class="form-label">Status:</label>
+                      <br>
+                      <span class=" badge p-2 {{ $compDetails[0]['status'] != 'pending' ? 'badge-success' : 'badge-warning' }}">{{ $compDetails[0]['status']  }}</span>
+                  </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
@@ -25,9 +42,8 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                      <label for="company_status" class="form-label">Status:</label>
-                      <br>
-                      <span class=" badge p-2 {{ $compDetails[0]['status'] != 'pending' ? 'badge-success' : 'badge-warning' }}">{{ $compDetails[0]['status']  }}</span>
+                      <label for="company_phone" class="form-label">Phone:</label>
+                      <input type="text" class="form-control" readonly value="{{ $compDetails[0]['phone_number'] }}">
                   </div>
               </div>
               <div class="col-md-6">

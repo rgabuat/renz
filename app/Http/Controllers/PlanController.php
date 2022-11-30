@@ -120,6 +120,15 @@ class PlanController extends Controller
 
     }
 
+    public function show($pid)
+    {
+        if($pid != '')
+        {
+            $package_details = PlanModel::find($pid);
+            return view('packages.Show', compact('package_details'));
+        }
+    }
+
     public function destroy(Request $request,$pid)
     {
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));

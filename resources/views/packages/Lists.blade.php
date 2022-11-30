@@ -58,7 +58,7 @@
                     <span class="fas fa-align-right"></span>
                     </button>
                     <div class="dropdown-menu" role="menu" style="">
-                    <a class="dropdown-item" href="javacsript:void(0);" data-toggle="modal" data-target="#view{{ $package['id'] }}"><span class="fas fa-eye mr-2"></span>View Packge</a>
+                    <a class="dropdown-item" href="{{ url('package/show/'.$package['id']) }}"><span class="fas fa-eye mr-2"></span>View Packge</a>
                         @role('company admin|company user')
                             @if(!auth()->user()->company[0]->subscribed('main',$package['plan_id']))
                                 @if(auth()->user()->company[0]->subscribed('main'))

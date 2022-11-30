@@ -113,9 +113,10 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/update_user/{id}',[CompanyController::class,'update_user'])->name('company/update_user/{uid}');
         Route::post('/deactivate/{uid}', [CompanyController::class, 'deactivateUser'])->name('company/deactivate/{uid}');
         Route::post('/activate/{uid}', [CompanyController::class, 'activateUser'])->name('company/activate/{uid}');
-        Route::get('/details', [CompanyController::class,'details'])->name('company/details');
-        Route::group(['middleware' => ['role:system admin|system editor']], function () { 
-            Route::get('{cid}/company-details', [CompanyController::class, 'company_details'])->name('company/{cid}/company-details');
+        Route::get('/edit-details', [CompanyController::class,'details'])->name('company/edit-details');
+        Route::get('/details', [CompanyController::class,'show_company_details'])->name('company/details');
+            Route::group(['middleware' => ['role:system admin|system editor']], function () { 
+                Route::get('{cid}/company-details', [CompanyController::class, 'company_details'])->name('company/{cid}/company-details');
         });
         
         // Route::post('/activate/{uid}', [CompanyController::class, 'activateUser'])->name('company/activate/{uid}');
@@ -156,6 +157,7 @@ Route::group(['middleware' => 'auth'],function(){
         Route::get('/lists', [PlanController::class,'index'])->name('package/lists');
         Route::get('/create', [PlanController::class,'create'])->name('package/create');
         Route::post('/store', [PlanController::class,'store'])->name('package/store');
+        Route::get('/show/{pid}', [PlanController::class,'show'])->name('package/show/{pid}');
         Route::get('/edit/{aid}', [PackageController::class,'edit'])->name('package/edit/{aid}');
         Route::post('/update/{pid}', [PlanController::class,'update'])->name('package/update/{pid}');
         Route::post('/delete/{pid}', [PlanController::class,'destroy'])->name('package/delete/{pid}');

@@ -148,6 +148,14 @@
                     </p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="{{ route('company/details') }}" class="nav-link {{ Request::is('company/details') ? 'active' : '' }}">
+                    <i class="pl-3 nav-icon fas fa-eye"></i>
+                    <p class="pl-3">
+                      View Company
+                    </p>
+                  </a>
+                </li>
                 @endrole
                   @role('company admin|system admin|system editor')
                   <li class="nav-item">

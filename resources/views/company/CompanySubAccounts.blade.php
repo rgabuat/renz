@@ -9,11 +9,6 @@
            <div class="col-lg-6">
                 <h2 class="text-left text-primary"><b>@role('system admin|systen editor|system user') {{ Request::segment(2) }} @endrole Sub Users</b></h2>
            </div>
-           @role('company admin')
-            <div class="col-lg-6 text-right">
-                <a href="{{ route('company/details') }} " class="btn btn-primary rounded-0">Edit Company</a>
-            </div>
-           @endrole
         </div>
         <table class="table" id="sub_accounts_tbl">
             <thead>
